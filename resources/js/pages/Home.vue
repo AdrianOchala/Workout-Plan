@@ -1,10 +1,13 @@
 <template>
     <div>
-        Jesteś w home
+        Jesteś w HOME
     </div>
 </template>
 <script>
 export default {
-    name:'Home'
+    name:'Home',
+    data: () => ({
+
+    }),
 }
 </script>

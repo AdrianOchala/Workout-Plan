@@ -22,8 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('sex');
             $table->string('password');
             $table->string('phone')->nullable();
-            $table->integer('age');
-            $table->integer('height');
+            $table->integer('age')->nullable();
+            $table->integer('height')->nullable();
             $table->boolean('showUserName')->default(true);
         });
     }

@@ -1,9 +1,10 @@
 <template>
-    <div>
+    <v-app>
         <Navigation></Navigation>
-        <router-view></router-view>
-        <Home></Home>
-    </div>
+        <v-main>
+            <router-view></router-view>
+        </v-main>
+    </v-app>
 
 </template>
 <script>
