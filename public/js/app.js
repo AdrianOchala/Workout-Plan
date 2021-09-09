@@ -2494,6 +2494,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   name: "MainComponent",
@@ -40645,17 +40677,89 @@ var render = function() {
     "v-app",
     [
       _c(
-        "v-main",
+        "v-navigation-drawer",
+        {
+          attrs: { dark: "", app: "", clipped: "" },
+          model: {
+            value: _vm.drawer,
+            callback: function($$v) {
+              _vm.drawer = $$v
+            },
+            expression: "drawer"
+          }
+        },
         [
           _c(
-            "v-content",
-            { staticStyle: { padding: "20px 20px 10px 20px" } },
-            [_c("router-view")],
+            "v-list",
+            { staticClass: "text-decoration-none" },
+            [
+              _c(
+                "v-list-item",
+                { attrs: { to: { path: "/" } } },
+                [
+                  _c(
+                    "v-list-item-content",
+                    [_c("v-list-item-title", [_vm._v("Strona główna")])],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("v-divider"),
+              _vm._v(" "),
+              _c(
+                "v-list-item",
+                { attrs: { href: "/logout" } },
+                [
+                  _c(
+                    "v-list-item-content",
+                    [_c("v-list-item-title", [_vm._v("Wyloguj")])],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
             1
           )
         ],
         1
       ),
+      _vm._v(" "),
+      _c(
+        "v-app-bar",
+        { attrs: { app: "", dark: "", "clipped-left": "" } },
+        [
+          _c("v-app-bar-nav-icon", {
+            on: {
+              click: function($event) {
+                $event.stopPropagation()
+                _vm.drawer = !_vm.drawer
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("v-toolbar-title", [_vm._v("Menu")]),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c("h2", [_vm._v("Workout Plan")]),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v("\n        Witaj " + _vm._s(this.user.name) + " !\n    ")
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("v-main", [
+        _c(
+          "div",
+          { staticStyle: { padding: "20px 20px 10px 20px" } },
+          [_c("router-view")],
+          1
+        )
+      ]),
       _vm._v(" "),
       _c(
         "v-footer",
