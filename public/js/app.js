@@ -2133,9 +2133,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2225,47 +2224,119 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      accountType: 'User',
+      mark: 4,
       //Dane rejestracyjne dla użytkownika
       user: {
         activeStep: 1,
         name: '',
         surname: '',
+        nick: '',
         email: '',
-        phone: '',
         password: '',
-        repeatPassword: ''
+        repeatPassword: '',
+        phone: '',
+        age: '',
+        height: '',
+        sex: '',
+        showUserName: false
       }
     };
   },
   validations: {
     user: {
       name: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"],
-        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["minLength"])(3)
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(3)
       },
       surname: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"],
-        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["minLength"])(3)
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(3)
+      },
+      nick: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(3)
       },
       email: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"],
-        email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["email"]
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
+        email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["email"]
       },
       phone: {
-        numeric: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["numeric"]
+        numeric: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["numeric"]
       },
       password: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"],
-        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["minLength"])(7)
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(7)
       },
       repeatPassword: {
-        sameAs: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["sameAs"])("password")
+        sameAs: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["sameAs"])("password")
       }
     }
   },
@@ -2280,7 +2351,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _this.callApi('post', '/registerUser', _this.user);
+                return _this.callApi('post', '/register', _this.user);
 
               case 2:
                 res = _context.sent;
@@ -2294,8 +2365,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   _this.$store.commit('setShowRegisterComponent', false);
                 } else {
-                  if (res.data.errors.email) {
-                    _this.$toast.error(res.data.errors.email[0]);
+                  if (res.data) {
+                    console.log(res.data); // this.$toast.error(res.data.errors.email[0]);
                   }
 
                   _this.$toast.error('Proszę poprawić błędy');
@@ -2323,6 +2394,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (!this.$v.user.surname.$dirty) return errors;
       !this.$v.user.surname.minLength && errors.push('Podaj przynajmniej 3 znaki.');
       !this.$v.user.surname.required && errors.push('Nazwisko jest wymagane.');
+      return errors;
+    },
+    userNickErrors: function userNickErrors() {
+      var errors = [];
+      if (!this.$v.user.nick.$dirty) return errors;
+      !this.$v.user.nick.minLength && errors.push('Podaj przynajmniej 3 znaki.');
+      !this.$v.user.nick.required && errors.push('Nick jest wymagany.');
       return errors;
     },
     userEmailErrors: function userEmailErrors() {
@@ -6954,6 +7032,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 })));
 //# sourceMappingURL=bootstrap.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Auth/RegisterComponent.vue?vue&type=style&index=0&lang=scss&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Auth/RegisterComponent.vue?vue&type=style&index=0&lang=scss& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".v-label {\n  margin-bottom: 0rem;\n}", ""]);
+
+// exports
 
 
 /***/ }),
@@ -38942,6 +39039,36 @@ try {
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Auth/RegisterComponent.vue?vue&type=style&index=0&lang=scss&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Auth/RegisterComponent.vue?vue&type=style&index=0&lang=scss& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./RegisterComponent.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Auth/RegisterComponent.vue?vue&type=style&index=0&lang=scss&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/lib/addStyles.js":
 /*!****************************************************!*\
   !*** ./node_modules/style-loader/lib/addStyles.js ***!
@@ -39656,275 +39783,410 @@ var render = function() {
         "v-container",
         { attrs: { fluid: "" } },
         [
-          _vm.accountType === "User"
-            ? _c(
-                "v-stepper",
-                { attrs: { value: _vm.user.activeStep } },
+          _c(
+            "v-stepper",
+            { attrs: { value: _vm.user.activeStep } },
+            [
+              _c(
+                "v-stepper-header",
+                [
+                  _c("v-stepper-step", { attrs: { step: "1" } }, [
+                    _vm._v("Dane użytkownika")
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-stepper-items",
                 [
                   _c(
-                    "v-stepper-header",
-                    [
-                      _c("v-stepper-step", { attrs: { step: "1" } }, [
-                        _vm._v("Dane użytkownika")
-                      ])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-stepper-items",
+                    "v-stepper-content",
+                    { attrs: { step: "1" } },
                     [
                       _c(
-                        "v-stepper-content",
-                        { attrs: { step: "1" } },
+                        "v-card",
                         [
+                          _c("v-card-title", [
+                            _c("span", { staticClass: "headline" }, [
+                              _vm._v("Profil użytkownika")
+                            ])
+                          ]),
+                          _vm._v(" "),
                           _c(
-                            "v-card",
+                            "v-card-text",
                             [
-                              _c("v-card-title", [
-                                _c("span", { staticClass: "headline" }, [
-                                  _vm._v("Profil użytkownika")
-                                ])
-                              ]),
-                              _vm._v(" "),
                               _c(
-                                "v-card-text",
+                                "v-container",
                                 [
                                   _c(
-                                    "v-container",
+                                    "v-row",
                                     [
                                       _c(
-                                        "v-row",
+                                        "v-col",
+                                        {
+                                          attrs: {
+                                            cols: "12",
+                                            sm: "6",
+                                            md: "6"
+                                          }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              label: "Imię*",
+                                              "error-messages":
+                                                _vm.userNameErrors
+                                            },
+                                            on: {
+                                              input: function($event) {
+                                                return _vm.$v.user.name.$touch()
+                                              },
+                                              blur: function($event) {
+                                                return _vm.$v.user.name.$touch()
+                                              }
+                                            },
+                                            model: {
+                                              value: _vm.user.name,
+                                              callback: function($$v) {
+                                                _vm.$set(_vm.user, "name", $$v)
+                                              },
+                                              expression: "user.name"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          attrs: {
+                                            cols: "12",
+                                            sm: "6",
+                                            md: "6"
+                                          }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              label: "Nazwisko*",
+                                              "error-messages":
+                                                _vm.userSurnameErrors
+                                            },
+                                            on: {
+                                              input: function($event) {
+                                                return _vm.$v.user.surname.$touch()
+                                              },
+                                              blur: function($event) {
+                                                return _vm.$v.user.surname.$touch()
+                                              }
+                                            },
+                                            model: {
+                                              value: _vm.user.surname,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.user,
+                                                  "surname",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "user.surname"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          attrs: {
+                                            cols: "12",
+                                            sm: "6",
+                                            md: "6"
+                                          }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              label: "Nick*",
+                                              "error-messages":
+                                                _vm.userNickErrors
+                                            },
+                                            on: {
+                                              input: function($event) {
+                                                return _vm.$v.user.nick.$touch()
+                                              },
+                                              blur: function($event) {
+                                                return _vm.$v.user.nick.$touch()
+                                              }
+                                            },
+                                            model: {
+                                              value: _vm.user.nick,
+                                              callback: function($$v) {
+                                                _vm.$set(_vm.user, "nick", $$v)
+                                              },
+                                              expression: "user.nick"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          attrs: {
+                                            cols: "12",
+                                            sm: "6",
+                                            md: "6"
+                                          }
+                                        },
+                                        [
+                                          _c("v-checkbox", {
+                                            attrs: {
+                                              label:
+                                                "Proszę zaznaczyć, aby pokazać imię i nazwisko publicznie."
+                                            },
+                                            model: {
+                                              value: _vm.user.showUserName,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.user,
+                                                  "showUserName",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "user.showUserName"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        { attrs: { cols: "12" } },
                                         [
                                           _c(
-                                            "v-col",
+                                            "v-card",
+                                            [
+                                              _c(
+                                                "v-list",
+                                                { attrs: { "two-line": "" } },
+                                                [
+                                                  _c(
+                                                    "v-list-item-group",
+                                                    [
+                                                      [
+                                                        _c(
+                                                          "v-list-item",
+                                                          [
+                                                            [
+                                                              _c(
+                                                                "v-list-item-content",
+                                                                [
+                                                                  _vm.user
+                                                                    .showUserName
+                                                                    ? _c(
+                                                                        "v-list-item-title",
+                                                                        [
+                                                                          _vm._v(
+                                                                            _vm._s(
+                                                                              _vm
+                                                                                .user
+                                                                                .name
+                                                                            ) +
+                                                                              " " +
+                                                                              _vm._s(
+                                                                                _vm
+                                                                                  .user
+                                                                                  .surname
+                                                                              )
+                                                                          )
+                                                                        ]
+                                                                      )
+                                                                    : _vm._e(),
+                                                                  _vm._v(" "),
+                                                                  _vm.user
+                                                                    .showUserName &&
+                                                                  _vm.user
+                                                                    .name ===
+                                                                    "" &&
+                                                                  _vm.user
+                                                                    .surname ===
+                                                                    ""
+                                                                    ? _c(
+                                                                        "v-list-item-title",
+                                                                        [
+                                                                          _vm._v(
+                                                                            "Imię Nazwisko"
+                                                                          )
+                                                                        ]
+                                                                      )
+                                                                    : _vm._e(),
+                                                                  _vm._v(" "),
+                                                                  !_vm.user
+                                                                    .showUserName
+                                                                    ? _c(
+                                                                        "v-list-item-title",
+                                                                        [
+                                                                          _vm._v(
+                                                                            _vm._s(
+                                                                              _vm
+                                                                                .user
+                                                                                .nick
+                                                                            )
+                                                                          )
+                                                                        ]
+                                                                      )
+                                                                    : _vm._e(),
+                                                                  _vm._v(" "),
+                                                                  !_vm.user
+                                                                    .showUserName &&
+                                                                  _vm.user
+                                                                    .nick === ""
+                                                                    ? _c(
+                                                                        "v-list-item-title",
+                                                                        [
+                                                                          _vm._v(
+                                                                            "Nick"
+                                                                          )
+                                                                        ]
+                                                                      )
+                                                                    : _vm._e(),
+                                                                  _vm._v(" "),
+                                                                  _c(
+                                                                    "v-list-item-subtitle",
+                                                                    [
+                                                                      _vm._v(
+                                                                        "Przykładowy komentarz ..."
+                                                                      )
+                                                                    ]
+                                                                  )
+                                                                ],
+                                                                1
+                                                              ),
+                                                              _vm._v(" "),
+                                                              _c(
+                                                                "v-list-item-action",
+                                                                [
+                                                                  _c(
+                                                                    "v-list-item-action-text",
+                                                                    [
+                                                                      _vm._v(
+                                                                        "02-06-2021"
+                                                                      )
+                                                                    ]
+                                                                  ),
+                                                                  _vm._v(" "),
+                                                                  _c(
+                                                                    "v-rating",
+                                                                    {
+                                                                      attrs: {
+                                                                        color:
+                                                                          "yellow darken-3",
+                                                                        "background-color":
+                                                                          "grey darken-1",
+                                                                        "empty-icon":
+                                                                          "$ratingFull",
+                                                                        "half-increments":
+                                                                          "",
+                                                                        hover:
+                                                                          "",
+                                                                        medium:
+                                                                          "",
+                                                                        readonly:
+                                                                          ""
+                                                                      },
+                                                                      model: {
+                                                                        value:
+                                                                          _vm.mark,
+                                                                        callback: function(
+                                                                          $$v
+                                                                        ) {
+                                                                          _vm.mark = $$v
+                                                                        },
+                                                                        expression:
+                                                                          "mark"
+                                                                      }
+                                                                    }
+                                                                  ),
+                                                                  _vm._v(" "),
+                                                                  _c(
+                                                                    "v-btn",
+                                                                    {
+                                                                      attrs: {
+                                                                        outlined:
+                                                                          "",
+                                                                        color:
+                                                                          "red",
+                                                                        small:
+                                                                          ""
+                                                                      }
+                                                                    },
+                                                                    [
+                                                                      _vm._v(
+                                                                        "Zgłoś"
+                                                                      )
+                                                                    ]
+                                                                  )
+                                                                ],
+                                                                1
+                                                              )
+                                                            ]
+                                                          ],
+                                                          2
+                                                        )
+                                                      ]
+                                                    ],
+                                                    2
+                                                  )
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          attrs: {
+                                            cols: "12",
+                                            sm: "4",
+                                            md: "4"
+                                          }
+                                        },
+                                        [
+                                          _c(
+                                            "v-radio-group",
                                             {
-                                              attrs: {
-                                                cols: "12",
-                                                sm: "6",
-                                                md: "6"
+                                              attrs: { row: "" },
+                                              model: {
+                                                value: _vm.user.sex,
+                                                callback: function($$v) {
+                                                  _vm.$set(_vm.user, "sex", $$v)
+                                                },
+                                                expression: "user.sex"
                                               }
                                             },
                                             [
-                                              _c("v-text-field", {
+                                              _c("v-radio", {
                                                 attrs: {
-                                                  label: "Imię*",
-                                                  "error-messages":
-                                                    _vm.userNameErrors
-                                                },
-                                                on: {
-                                                  input: function($event) {
-                                                    return _vm.$v.user.name.$touch()
-                                                  },
-                                                  blur: function($event) {
-                                                    return _vm.$v.user.name.$touch()
-                                                  }
-                                                },
-                                                model: {
-                                                  value: _vm.user.name,
-                                                  callback: function($$v) {
-                                                    _vm.$set(
-                                                      _vm.user,
-                                                      "name",
-                                                      $$v
-                                                    )
-                                                  },
-                                                  expression: "user.name"
+                                                  label: "Mężczyzna",
+                                                  value: "male"
                                                 }
-                                              })
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "v-col",
-                                            {
-                                              attrs: {
-                                                cols: "12",
-                                                sm: "6",
-                                                md: "6"
-                                              }
-                                            },
-                                            [
-                                              _c("v-text-field", {
+                                              }),
+                                              _vm._v(" "),
+                                              _c("v-radio", {
                                                 attrs: {
-                                                  label: "Nazwisko*",
-                                                  "error-messages":
-                                                    _vm.userSurnameErrors
-                                                },
-                                                on: {
-                                                  input: function($event) {
-                                                    return _vm.$v.user.surname.$touch()
-                                                  },
-                                                  blur: function($event) {
-                                                    return _vm.$v.user.surname.$touch()
-                                                  }
-                                                },
-                                                model: {
-                                                  value: _vm.user.surname,
-                                                  callback: function($$v) {
-                                                    _vm.$set(
-                                                      _vm.user,
-                                                      "surname",
-                                                      $$v
-                                                    )
-                                                  },
-                                                  expression: "user.surname"
-                                                }
-                                              })
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "v-col",
-                                            {
-                                              attrs: {
-                                                cols: "12",
-                                                sm: "6",
-                                                md: "6"
-                                              }
-                                            },
-                                            [
-                                              _c("v-text-field", {
-                                                attrs: {
-                                                  label: "Email*",
-                                                  required: "",
-                                                  "error-messages":
-                                                    _vm.userEmailErrors
-                                                },
-                                                on: {
-                                                  input: function($event) {
-                                                    return _vm.$v.user.email.$touch()
-                                                  },
-                                                  blur: function($event) {
-                                                    return _vm.$v.user.email.$touch()
-                                                  }
-                                                },
-                                                model: {
-                                                  value: _vm.user.email,
-                                                  callback: function($$v) {
-                                                    _vm.$set(
-                                                      _vm.user,
-                                                      "email",
-                                                      $$v
-                                                    )
-                                                  },
-                                                  expression: "user.email"
-                                                }
-                                              })
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "v-col",
-                                            {
-                                              attrs: {
-                                                cols: "12",
-                                                sm: "6",
-                                                md: "6"
-                                              }
-                                            },
-                                            [
-                                              _c("v-text-field", {
-                                                attrs: {
-                                                  label: "Telefon",
-                                                  "error-messages":
-                                                    _vm.userPhoneErrors
-                                                },
-                                                on: {
-                                                  input: function($event) {
-                                                    return _vm.$v.user.phone.$touch()
-                                                  },
-                                                  blur: function($event) {
-                                                    return _vm.$v.user.phone.$touch()
-                                                  }
-                                                },
-                                                model: {
-                                                  value: _vm.user.phone,
-                                                  callback: function($$v) {
-                                                    _vm.$set(
-                                                      _vm.user,
-                                                      "phone",
-                                                      $$v
-                                                    )
-                                                  },
-                                                  expression: "user.phone"
-                                                }
-                                              })
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "v-col",
-                                            { attrs: { cols: "12" } },
-                                            [
-                                              _c("v-text-field", {
-                                                attrs: {
-                                                  label: "Hasło*",
-                                                  type: "password",
-                                                  required: "",
-                                                  "error-messages":
-                                                    _vm.userPasswordErrors
-                                                },
-                                                on: {
-                                                  input: function($event) {
-                                                    return _vm.$v.user.password.$touch()
-                                                  },
-                                                  blur: function($event) {
-                                                    return _vm.$v.user.password.$touch()
-                                                  }
-                                                },
-                                                model: {
-                                                  value: _vm.user.password,
-                                                  callback: function($$v) {
-                                                    _vm.$set(
-                                                      _vm.user,
-                                                      "password",
-                                                      $$v
-                                                    )
-                                                  },
-                                                  expression: "user.password"
-                                                }
-                                              })
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "v-col",
-                                            { attrs: { cols: "12" } },
-                                            [
-                                              _c("v-text-field", {
-                                                attrs: {
-                                                  label: "Powtórz hasło*",
-                                                  type: "password",
-                                                  required: "",
-                                                  "error-messages":
-                                                    _vm.userRepeatPasswordErrors
-                                                },
-                                                on: {
-                                                  input: function($event) {
-                                                    return _vm.$v.user.repeatPassword.$touch()
-                                                  },
-                                                  blur: function($event) {
-                                                    return _vm.$v.user.repeatPassword.$touch()
-                                                  }
-                                                },
-                                                model: {
-                                                  value:
-                                                    _vm.user.repeatPassword,
-                                                  callback: function($$v) {
-                                                    _vm.$set(
-                                                      _vm.user,
-                                                      "repeatPassword",
-                                                      $$v
-                                                    )
-                                                  },
-                                                  expression:
-                                                    "user.repeatPassword"
+                                                  label: "Kobieta",
+                                                  value: "female"
                                                 }
                                               })
                                             ],
@@ -39932,47 +40194,247 @@ var render = function() {
                                           )
                                         ],
                                         1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          attrs: {
+                                            cols: "12",
+                                            sm: "4",
+                                            md: "4"
+                                          }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: { label: "Wiek" },
+                                            model: {
+                                              value: _vm.user.age,
+                                              callback: function($$v) {
+                                                _vm.$set(_vm.user, "age", $$v)
+                                              },
+                                              expression: "user.age"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          attrs: {
+                                            cols: "12",
+                                            sm: "4",
+                                            md: "4"
+                                          }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              label: "Wzrost",
+                                              suffix: "cm"
+                                            },
+                                            model: {
+                                              value: _vm.user.height,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.user,
+                                                  "height",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "user.height"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          attrs: {
+                                            cols: "12",
+                                            sm: "6",
+                                            md: "6"
+                                          }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              label: "Email*",
+                                              required: "",
+                                              "error-messages":
+                                                _vm.userEmailErrors
+                                            },
+                                            on: {
+                                              input: function($event) {
+                                                return _vm.$v.user.email.$touch()
+                                              },
+                                              blur: function($event) {
+                                                return _vm.$v.user.email.$touch()
+                                              }
+                                            },
+                                            model: {
+                                              value: _vm.user.email,
+                                              callback: function($$v) {
+                                                _vm.$set(_vm.user, "email", $$v)
+                                              },
+                                              expression: "user.email"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          attrs: {
+                                            cols: "12",
+                                            sm: "6",
+                                            md: "6"
+                                          }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              label: "Telefon",
+                                              "error-messages":
+                                                _vm.userPhoneErrors
+                                            },
+                                            on: {
+                                              input: function($event) {
+                                                return _vm.$v.user.phone.$touch()
+                                              },
+                                              blur: function($event) {
+                                                return _vm.$v.user.phone.$touch()
+                                              }
+                                            },
+                                            model: {
+                                              value: _vm.user.phone,
+                                              callback: function($$v) {
+                                                _vm.$set(_vm.user, "phone", $$v)
+                                              },
+                                              expression: "user.phone"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        { attrs: { cols: "12" } },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              label: "Hasło*",
+                                              type: "password",
+                                              required: "",
+                                              "error-messages":
+                                                _vm.userPasswordErrors
+                                            },
+                                            on: {
+                                              input: function($event) {
+                                                return _vm.$v.user.password.$touch()
+                                              },
+                                              blur: function($event) {
+                                                return _vm.$v.user.password.$touch()
+                                              }
+                                            },
+                                            model: {
+                                              value: _vm.user.password,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.user,
+                                                  "password",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "user.password"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        { attrs: { cols: "12" } },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              label: "Powtórz hasło*",
+                                              type: "password",
+                                              required: "",
+                                              "error-messages":
+                                                _vm.userRepeatPasswordErrors
+                                            },
+                                            on: {
+                                              input: function($event) {
+                                                return _vm.$v.user.repeatPassword.$touch()
+                                              },
+                                              blur: function($event) {
+                                                return _vm.$v.user.repeatPassword.$touch()
+                                              }
+                                            },
+                                            model: {
+                                              value: _vm.user.repeatPassword,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.user,
+                                                  "repeatPassword",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "user.repeatPassword"
+                                            }
+                                          })
+                                        ],
+                                        1
                                       )
                                     ],
                                     1
-                                  ),
-                                  _vm._v(" "),
-                                  _c("small", [_vm._v("*Wymagane")])
+                                  )
                                 ],
                                 1
                               ),
                               _vm._v(" "),
+                              _c("small", [_vm._v("*Wymagane")])
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-card-actions",
+                            [
+                              _c("v-spacer"),
+                              _vm._v(" "),
                               _c(
-                                "v-card-actions",
-                                [
-                                  _c("v-spacer"),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-btn",
-                                    {
-                                      attrs: { text: "" },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.accountType = ""
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("Zamknij")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-btn",
-                                    {
-                                      attrs: {
-                                        text: "",
-                                        disabled: _vm.$v.user.$invalid
-                                      },
-                                      on: { click: _vm.registerUser }
-                                    },
-                                    [_vm._v("Zarejestruj")]
-                                  )
-                                ],
-                                1
+                                "v-btn",
+                                {
+                                  attrs: { text: "" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.accountType = ""
+                                    }
+                                  }
+                                },
+                                [_vm._v("Zamknij")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    text: "",
+                                    disabled: _vm.$v.user.$invalid
+                                  },
+                                  on: { click: _vm.registerUser }
+                                },
+                                [_vm._v("Zarejestruj")]
                               )
                             ],
                             1
@@ -39986,7 +40448,9 @@ var render = function() {
                 ],
                 1
               )
-            : _vm._e()
+            ],
+            1
+          )
         ],
         1
       )
@@ -104311,7 +104775,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _RegisterComponent_vue_vue_type_template_id_38d4e37e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RegisterComponent.vue?vue&type=template&id=38d4e37e& */ "./resources/js/components/Auth/RegisterComponent.vue?vue&type=template&id=38d4e37e&");
 /* harmony import */ var _RegisterComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RegisterComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/Auth/RegisterComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _RegisterComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RegisterComponent.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/components/Auth/RegisterComponent.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -104319,7 +104785,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _RegisterComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _RegisterComponent_vue_vue_type_template_id_38d4e37e___WEBPACK_IMPORTED_MODULE_0__["render"],
   _RegisterComponent_vue_vue_type_template_id_38d4e37e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -104348,6 +104814,22 @@ component.options.__file = "resources/js/components/Auth/RegisterComponent.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./RegisterComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Auth/RegisterComponent.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Auth/RegisterComponent.vue?vue&type=style&index=0&lang=scss&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/Auth/RegisterComponent.vue?vue&type=style&index=0&lang=scss& ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./RegisterComponent.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Auth/RegisterComponent.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_RegisterComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -104836,8 +105318,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuetify__WEBPACK_IMPORTED_MODULE_
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Projekty\Studia\Workout-Plan\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Projekty\Studia\Workout-Plan\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Projekty\Workout-Plan\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Projekty\Workout-Plan\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

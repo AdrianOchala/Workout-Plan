@@ -17,6 +17,7 @@ Route::get('/','AuthController@index');
 Route::get('/unauthorised','AuthController@unauthorised');
 Route::post('/login','AuthController@login');
 Route::get('/logout','AuthController@logout');
+Route::post('/register','AuthController@register');
 
 
 Route::any('{slug}','AuthController@index')->where('slug', '([A-z\d-\/_.]+)?');

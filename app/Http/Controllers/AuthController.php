@@ -45,23 +45,25 @@ class AuthController extends Controller
         return view('welcome');
     }
 
-    public function registerUser(Request $request){
-        $this->validate($request,[
-            'name'=> 'required',
-            'email' => 'required | email | unique:users',
-            'password' => 'required',
-        ]);
-        return User::create([
-                    'name'=>$request->name,
-                    'surname'=>$request->surname,
-                    'nick'=>$request->nick,
-                    'email'=>$request->email,
-                    'sex'=>$request->userSex,
-                    'password'=>bcrypt($request->password),
-                    'phone'=>$request->phone,
-                ]);
+    public function register(Request $request){
+            $this->validate($request,[
+                'email' => 'required | email | unique:users',
+                'password' => 'required',
+            ]);
+            return User::create([
+                        'name'=>$request->name,
+                        'surname'=>$request->surname,
+                        'nick'=>$request->nick,
+                        'email'=>$request->email,
+                        'password'=>bcrypt($request->password),
+                        'phone'=>$request->phone,
+                        'age'=>$request->age,
+                        'height'=>$request->height,
+                        'sex'=>$request->sex,
+                        'showUserName'=>$request->showUserName
+                    ]);
 
-    }
+        }
     public function unauthorised(){
         return view('pagenotfound');
     }
