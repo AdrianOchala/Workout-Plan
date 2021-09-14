@@ -19,8 +19,11 @@ Route::post('/login','AuthController@login');
 Route::get('/logout','AuthController@logout');
 Route::post('/register','AuthController@register');
 
+Route::any('{something}', function () {
+    return view('welcome');
+})->where('something', '.*');
 
-Route::any('{slug}','AuthController@index')->where('slug', '([A-z\d-\/_.]+)?');
+
 
 
 

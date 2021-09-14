@@ -207,11 +207,12 @@ export default {
                 this.$store.commit('setShowLoginComponent', true);
                 this.$store.commit('setShowRegisterComponent', false);
             }else{
-                if(res.data){
-                    console.log(res.data);
-                    // this.$toast.error(res.data.errors.email[0]);
+                if(res.data.errors.email){
+                    this.$toast.error(res.data.errors.email[0]);
+                }else{
+                    this.$toast.error('Proszę poprawić błędy');
                 }
-                this.$toast.error('Proszę poprawić błędy');
+
             }
         },
     },

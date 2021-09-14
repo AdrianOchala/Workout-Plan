@@ -12,6 +12,11 @@
                         <v-list-item-title>Strona główna</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
+                <v-list-item :to="{path: '/Articles'}">
+                    <v-list-item-content>
+                        <v-list-item-title>Artykuły</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
                 <v-divider></v-divider>
                 <v-list-item href="/logout">
                     <v-list-item-content>

@@ -1,13 +1,13 @@
 <template>
     <div class="container-fluid">
         Jesteś zalogowany a to jest twoja strona główna :)
-        <v-row >
+<!--        Ostatnio dodane artykuły   -->
+        <v-row>
             <v-col cols="12" lg="12">
                 <v-divider></v-divider>
                 <div class="d-flex justify-content-center">
                     <h2>Ostatnio dodane artykuły</h2>
                 </div>
-
                 <v-row>
                     <v-col lg="3" md="6" sm="12" xs="12" v-for="card in cards" :key="card.name">
                         <ArticleCard></ArticleCard>
@@ -15,6 +15,8 @@
                 </v-row>
             </v-col>
         </v-row>
+        <!--    Koniec    Ostatnio dodane artykuły   -->
+
     </div>
 </template>
 
