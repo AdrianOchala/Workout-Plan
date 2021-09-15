@@ -3,15 +3,17 @@
         {{ this.article.title }}
         <div class="ck-content" v-if="article != null" v-html="article.content"></div>
 
-
+        <Comments :target-id="article.id" target="comments" />
 
 
     </div>
 </template>
 
 <script>
+import Comments from "../Modals/CommentsComponent";
 export default {
     name: "SingleArticle",
+    components:{Comments},
     data(){
         return{
             article:null,

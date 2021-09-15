@@ -24,6 +24,10 @@ Route::post('addArticle','ArticleController@addArticle');
 Route::get('getArticles','ArticleController@getArticles');
 Route::get('getArticle/{id}','ArticleController@getArticle');
 
+Route::get('getArticleComments/{id}','CommentsController@getArticleComments');
+Route::post('addComment','CommentsController@addComment');
+Route::post('reportComment','CommentsController@reportComment');
+Route::post('reportOpinion','CommentsController@reportOpinion');
 
 Route::get('getUserWorkouts','WorkoutController@getUserWorkouts');
 

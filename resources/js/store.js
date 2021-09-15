@@ -7,6 +7,13 @@ export default new Vuex.Store({
         user:false,
         showLoginComponent:false,
         showRegisterComponent:false,
+
+       reportComponent:{
+           showReportComponent:false,
+           reportUrl:'',
+           targetIndex:0,
+           reportObject:'',
+       }
    },
     getters:{
         getUser(state){
@@ -18,6 +25,9 @@ export default new Vuex.Store({
         getShowRegisterComponent(state){
            return state.showRegisterComponent;
         },
+        getReportComponent(state){
+            return state.reportComponent;
+        },
     },
     mutations:{
        updateUser(state, data){
@@ -28,6 +38,9 @@ export default new Vuex.Store({
         },
         setShowRegisterComponent(state,data){
           state.showRegisterComponent = data;
+        },
+        setReportComponent(state,data){
+            state.reportComponent = data;
         },
     }
 });

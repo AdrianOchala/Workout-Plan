@@ -9,7 +9,7 @@
               </v-card-title>
                 <v-card-actions class="justify-center">
                     <v-btn text color="primary" @click="closeModal">Anuluj</v-btn>
-                    <v-btn text color="primary" @click="deleteRole">Usuń</v-btn>
+                    <v-btn text color="primary" @click="deleteTarget">Usuń</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -27,7 +27,7 @@
             closeModal(){
                 this.$store.commit('setShowModal',false);
             },
-            async deleteRole(){
+            async deleteTarget(){
                 const res = await this.callApi('post', this.getDeleteModalData.deleteUrl, this.getDeleteModalData.data);
                 if(res.status ===200){
                     this.$toast.success('Pomyślnie usunięto z systemu :)');
