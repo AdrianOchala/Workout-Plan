@@ -6,7 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
+        public $timestamps=false;
         protected $fillable = [
-                    'author_id','title','category_id','content','date','workout_id','views',
+                    'author_id','title','content','description','date','workout_id','views',
                 ];
+
+        public function author(){
+                return $this->belongsTo('App\User','author_id');
+        }
+        public function categories(){
+            return $this->belongsToMany('App\Category','article_category');
+        }
+
 }

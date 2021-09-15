@@ -19,6 +19,14 @@ Route::post('/login','AuthController@login');
 Route::get('/logout','AuthController@logout');
 Route::post('/register','AuthController@register');
 
+Route::get('getArticleCategories','ArticleController@getArticleCategories');
+Route::post('addArticle','ArticleController@addArticle');
+Route::get('getArticles','ArticleController@getArticles');
+Route::get('getArticle/{id}','ArticleController@getArticle');
+
+
+Route::get('getUserWorkouts','WorkoutController@getUserWorkouts');
+
 Route::any('{something}', function () {
     return view('welcome');
 })->where('something', '.*');

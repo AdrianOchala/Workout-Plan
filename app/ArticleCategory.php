@@ -3,10 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class ArticleCategory extends Model
+class ArticleCategory extends Pivot
 {
-protected $fillable = [
-                'name',
-            ];
+        public $incrementing = true;
+            public $timestamps = false;
 }

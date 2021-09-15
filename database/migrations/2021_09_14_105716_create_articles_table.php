@@ -18,13 +18,12 @@ class CreateArticlesTable extends Migration
             $table->unsignedBigInteger('author_id');
             $table->foreign('author_id')->references('id')->on('users');
             $table->string('title');
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('article_categories');
             $table->string('content');
+            $table->string('description')->nullable();
             $table->date('date');
             $table->unsignedBigInteger('workout_id')->nullable();
             $table->foreign('workout_id')->references('id')->on('workouts');
-            $table->bigInteger('views');
+            $table->bigInteger('views')->default(0);
         });
     }
 

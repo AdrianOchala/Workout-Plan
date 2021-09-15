@@ -1,6 +1,50 @@
 <template>
     <div class="container-fluid">
-        <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
+        <v-row>
+            <v-col cols="12" style="border-bottom: 1px solid grey">
+                <h3>Tworzenie nowego artykułu</h3>
+            </v-col>
+            <v-col cols="12" lg="7" sm="12">
+                <v-text-field v-model="article.title" label="Podaj tytuł artykułu*"
+
+                ></v-text-field>
+            </v-col>
+            <v-col cols="12" lg="7" sm="12">
+                <v-select v-model="article.category"
+                          :items="articleCategories"
+                          item-text="name"
+                          item-value="id"
+                          label="Wybierz kategorię dla artykułu*"
+                          multiple
+                ></v-select>
+            </v-col>
+            <v-col cols="12" lg="7" sm="12">
+                <v-select v-if="userWorkouts != null"
+                          v-model="article.workout"
+                          :items="userWorkouts"
+                          item-text="title"
+                          item-value="id"
+                          label="Jeśli artykuł dotyczy jednego z twoich planów, proszę wybierz go*"
+                          multiple
+                ></v-select>
+            </v-col>
+            <v-col cols="12" lg="7" sm="12">
+                <v-textarea
+                    clearable
+                    counter
+                    clear-icon="mdi-close-circle"
+                    label="Krótki opis wyświetlany w miniaturze..."
+                    v-model="article.description"
+                    hint="Max 250 znaków"
+                    :rules="rules"
+                    filled
+                    auto-grow
+                    rows="2"
+                ></v-textarea>
+            </v-col>
+        </v-row>
+        <ckeditor :editor="editor" v-model="article.content" :config="editorConfig"></ckeditor>
+        <v-btn text @click="addArticle" >Dodaj artykuł</v-btn>
     </div>
 </template>
 
@@ -14,8 +58,16 @@ export default {
     },
     data(){
         return{
+            article:{
+                title:'',
+                category:'',
+                workout:null,
+                content:'<p>Tu wpisz treść artykułu.</p>',
+                description:null,
+            },
+            articleCategories:null,
+            userWorkouts:null,
             editor: Editor,
-            editorData:'<p>Tu wpisz treść artykułu.</p>',
             editorConfig: {
                 // The configuration of the editor.
                 toolbar: {
@@ -75,18 +127,42 @@ export default {
 
                     // Headers sent along with the XMLHttpRequest to the upload server.
                 }
-            }
+            },
+            rules: [v => v.length <= 250 || 'Max 250 znaków'],
 
         }},
 
     methods: {
-
+        async addArticle(){
+            const res = await this.callApi('post','addArticle',this.article);
+            if(res.status === 200){
+                this.$toast.success('Pomyślnie dodano artykuł',{timeout:3000});
+                setTimeout(()=>{ this.$router.push({name:'Articles'}) }, 3000);
+            }else{
+                this.$toast.error('Coś poszło nie tak :(');
+            }
+        }
     },
     computed: {
 
     },
-    created(){
-
+    async created(){
+        const [categories,workouts] = await Promise.all([
+            this.callApi('get','/getArticleCategories'),
+            this.callApi('get', 'getUserWorkouts'),
+        ]);
+        if(categories.status === 200){
+            this.articleCategories = categories.data;
+        }else{
+            this.$toast.error('Nie udało się pobrać kategorii artykułu. Proszę odświeżyć stronę!',{timeout:5000});
+        }
+        if(workouts.status === 200){
+            if(workouts.data[0]){
+                this.userWorkouts = workouts.data;
+            }
+        }else{
+            this.$toast.error('Nie udało się pobrać planów treningowych użytkownika. Proszę odświeżyć stronę!',{timeout:5000});
+        }
     },
 }
 </script>

@@ -9,8 +9,8 @@
                     <h2>Ostatnio dodane artykuły</h2>
                 </div>
                 <v-row>
-                    <v-col lg="3" md="6" sm="12" xs="12" v-for="card in cards" :key="card.name">
-                        <ArticleCard></ArticleCard>
+                    <v-col lg="3" md="6" sm="12" xs="12" v-for="article in articles" :key="article.id">
+                        <ArticleCard :article="article"></ArticleCard>
                     </v-col>
                 </v-row>
             </v-col>
@@ -27,9 +27,20 @@ export default {
     name: "UserHomePage",
     data(){
         return{
+            articles:null,
             cards:[{name:'jeden'},{name:'dwa'},{name:'trzy'},{name:'cztery'}],
         }
-    }
+    },
+    async created() {
+        const response = await this.callApi('get','getArticles');
+        if(response.status === 200){
+            console.log(response.data);
+            this.articles = response.data;
+            console.log(this.articles);
+        }else{
+            this.$toast.error('Problem z pobraniem artykułów!');
+        }
+    },
 }
 </script>
 

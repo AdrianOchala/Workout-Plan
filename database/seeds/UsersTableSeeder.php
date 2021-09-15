@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
                               'age'=>20,
                               'height'=>190,
                               'sex'=>'male']);
-                 User::create(['name'=>'Admin',
+        User::create(['name'=>'Admin',
                                       'surname'=>'admin',
                                       'nick'=>'admin',
                                       'email'=>'admin@gmail.com',

@@ -1,37 +1,36 @@
 <template>
     <v-card class="mt-2 mb-12">
         <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-        <v-card-title>Cafe Badilico</v-card-title>
+        <v-card-title>{{ article.title }}</v-card-title>
         <v-card-text>
-            <v-row align="center" class="mx-0">
-                <v-rating
-                    :value="4.5"
-                    color="amber"
-                    dense
-                    half-increments
-                    readonly
-                    size="14"
-                ></v-rating>
-                <div class="grey--text ms-4">
-                    4.5 (413)
+
+                <div class="grey--text">
+                    {{ article.date }}
                 </div>
-            </v-row>
-            <div class="my-4 text-subtitle-1">
-                $ • Italian, Cafe
+
+            <div class="my-4 text-subtitle-1" v-if="article.author.showUserName">
+                {{article.author.name}} {{article.author.surname}}
             </div>
-            <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
+            <div class="my-4 text-subtitle-1" v-else>
+                {{article.author.nick}}
+            </div>
+            <div>{{ article.description }}</div>
         </v-card-text>
         <v-divider class="mx-4"></v-divider>
-        <v-card-title>Tonight's availability</v-card-title>
-
         <v-card-text>
             <v-chip-group active-class="deep-purple accent-4 white--text" column>
-                <v-chip>5:30PM</v-chip>
+                <v-chip v-for="(cat,index) in article.categories" :key="index"
+                        class="ma-2"
+                        color="green"
+                        text-color="white"
+                >
+                    {{cat.name}}
+                </v-chip>
 
             </v-chip-group>
         </v-card-text>
         <v-card-actions>
-            <v-btn color="deep-purple lighten-2" text class="mx-auto">
+            <v-btn color="deep-purple lighten-2" text class="mx-auto" @click="$router.push(`/SingleArticle/${article.id}`)">
                 Przejdź
             </v-btn>
         </v-card-actions>
@@ -39,7 +38,13 @@
 </template>
 <script>
 export default {
-    name: "ArticleCard"
+    props: ['article'],
+    name: "ArticleCard",
+    data(){
+        return{
+
+        }
+    },
 }
 </script>
 
