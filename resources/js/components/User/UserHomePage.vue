@@ -28,15 +28,12 @@ export default {
     data(){
         return{
             articles:null,
-            cards:[{name:'jeden'},{name:'dwa'},{name:'trzy'},{name:'cztery'}],
         }
     },
     async created() {
-        const response = await this.callApi('get','getArticles');
+        const response = await this.callApi('get','getLatestArticles');
         if(response.status === 200){
-            console.log(response.data);
             this.articles = response.data;
-            console.log(this.articles);
         }else{
             this.$toast.error('Problem z pobraniem artykułów!');
         }

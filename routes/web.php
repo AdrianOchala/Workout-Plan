@@ -21,8 +21,9 @@ Route::post('/register','AuthController@register');
 
 Route::get('getArticleCategories','ArticleController@getArticleCategories');
 Route::post('addArticle','ArticleController@addArticle');
-Route::get('getArticles','ArticleController@getArticles');
+Route::get('getLatestArticles','ArticleController@getLatestArticles');
 Route::get('getArticle/{id}','ArticleController@getArticle');
+Route::get('getArticlesForPagination','ArticleController@getArticlesForPagination');
 
 //Route::get('getArticleComments/{id}','CommentsController@getArticleComments');
 Route::post('addComment','CommentsController@addComment');

@@ -40,11 +40,15 @@ class ArticleController extends Controller
             return 'not done';
         }
     }
-    public function getArticles(){
-       return Article::with(['author','categories'])->get();
+    public function getLatestArticles(){
+       return Article::with(['author','categories'])->take(4)->get();
     }
     public function getArticle($id){
         return Article::with(['author','categories'])->where('id',$id)->get();
+    }
+    public function getArticlesForPagination(Request $request){
+        return Article::with(['author','categories'])->paginate($request->total);
+
     }
 
 
