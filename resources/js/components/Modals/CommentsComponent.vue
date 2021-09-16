@@ -46,11 +46,11 @@
                                                     readonly
                                                 ></v-rating>
                                                 <div v-if="target === 'comments'">
-                                                    <v-btn v-if="getUser.id === c.author.id" outlined small @click="deleteComment(c.id)">Usuń komentarz</v-btn>
+                                                    <v-btn v-if="getUser.id === c.author.id" outlined small @click="deleteComment(c, index)">Usuń komentarz</v-btn>
                                                     <v-btn v-else outlined color="red" small @click="reportComment(c.id)">Zgłoś</v-btn>
                                                 </div>
                                                 <div v-if="target === 'opinions'">
-                                                    <v-btn v-if="getUser.id === c.author.id" outlined small @click="deleteOpinion(c.id)">Usuń opinię</v-btn>
+                                                    <v-btn v-if="getUser.id === c.author.id" outlined small @click="deleteOpinion(c, index)">Usuń opinię</v-btn>
                                                     <v-btn v-else outlined color="red" small @click="reportOpinion(c.id)">Zgłoś</v-btn>
                                                 </div>
                                             </v-list-item-action>
@@ -114,9 +114,12 @@
         </v-col>
 
         <v-dialog v-model="getReportComponent.showReportComponent" persistent width="700px">
-            <report-component>
-
-            </report-component>
+            <report-component></report-component>
+        </v-dialog>
+        <v-dialog v-model="getDeleteModalData.showDeleteModal" persistent width="700px">
+            <delete-modal>
+                <h4 slot="header">Czy na pewno chcesz usunąć swój komentarz?</h4>
+            </delete-modal>
         </v-dialog>
 
     </div>
@@ -126,15 +129,15 @@
 import {mapGetters} from 'vuex';
 import {required, minLength,maxLength,between,numeric} from 'vuelidate/lib/validators';
 import reportComponent from '../Modals/ReportComponent';
+import deleteModal from '../Modals/DeleteModalComponent';
 export default {
     props:['targetId','target'],
-    components:{reportComponent},
+    components:{reportComponent, deleteModal},
     name: "CommentsComponent",
     data(){
         return{
             commentsOrRating:0,
             comments:null, //Komentarze do warsztatu
-            commentsDate:'', //Daty przekształcone na odpowiednią wartość
             comment:{
                 targetId: this.targetId,
                 authorId:this.$store.state.user.id,
@@ -185,33 +188,50 @@ export default {
             };
             this.$store.commit('setReportComponent',reportInfo);
         },
-        deleteComment(id){
-
+        deleteComment(comment,index){
+            const deleteModalData = {
+                showDeleteModal: true,
+                deleteUrl: "/deleteComment",
+                data: comment,
+                deletingIndex: index,
+                isDeleted: false,
+            };
+            this.deletingCar = true;
+            this.$store.commit('setDeletingModalData', deleteModalData);
         },
-        deleteOpinion(id){
-
+        deleteOpinion(opinion,index){
+            const deleteModalData = {
+                showDeleteModal: true,
+                deleteUrl: "/deleteComment",
+                data: opinion,
+                deletingIndex: index,
+                isDeleted: false,
+            };
+            this.deletingCar = true;
+            this.$store.commit('setDeletingModalData', deleteModalData);
+        },
+        async getCommentsForPagination(page = 1){
+            const response = await this.callApi('get',`/getArticleComments/${this.targetId}?page=${page}&total=${this.total}`);
+            if(response.status ===200){
+                console.log(response)
+                this.comments = response.data[0].data;
+                this.commentsOrRating = response.data[1];
+                this.paginationInfo.current_page = response.data[0].current_page;
+                this.paginationInfo.total = response.data[0].last_page;
+            }
         },
     },
     async created() {
         if(this.target === 'comments'){
-            const res = await this.callApi('get',`/getArticleComments/${this.targetId}`);
-            if(res.status === 200){
-                this.comments = res.data;
-                this.commentsOrRating = res.data.length;
-            }else{
-                this.$toast.error('Nie udało się pobrać komentarzy!');
-            }
+            this.getCommentsForPagination();
         }else if(this.target === 'opinions'){
             console.log("pobieram opinie")
         }else{
             this.$toast.error('Nie udało się pobrać opinii!');
         }
-
-
-
     },
     computed:{
-        ...mapGetters(['getReportComponent','getUser']),
+        ...mapGetters(['getDeleteModalData','getReportComponent','getUser']),
         addCommentErrors(){
             const errors = [];
             if (!this.$v.comment.comment.$dirty) return errors;
@@ -225,6 +245,16 @@ export default {
             !this.$v.comment.rating.required && errors.push('To pole jest wymagane.');
             return errors;
         },
+    },
+    watch:{
+        getDeleteModalData(obj){
+            if(obj.isDeleted){
+                this.comments.splice(obj.deletingIndex, 1);
+                // this.$router.go();
+            }else {
+
+            }
+        }
     },
 }
 </script>

@@ -1,6 +1,4 @@
 <template>
-    <v-app>
-        <v-dialog :value="getDeleteModalData.showDeleteModal" persistent max-width="500px">
             <v-card>
               <v-card-title class="justify-center text-danger">
                   <slot name="header">
@@ -12,8 +10,6 @@
                     <v-btn text color="primary" @click="deleteTarget">Usuń</v-btn>
                 </v-card-actions>
             </v-card>
-        </v-dialog>
-    </v-app>
 </template>
 <script>
     import {mapGetters} from 'vuex'
@@ -30,11 +26,16 @@
             async deleteTarget(){
                 const res = await this.callApi('post', this.getDeleteModalData.deleteUrl, this.getDeleteModalData.data);
                 if(res.status ===200){
-                    this.$toast.success('Pomyślnie usunięto z systemu :)');
-                    this.$store.commit('setDeletingModalDataAfterDelete',{
-                        index: this.getDeleteModalData.deletingIndex,
+                    this.$toast.success('Pomyślnie usunięto z systemu :)',{timeout:2000});
+                    const deleteModalData = {
+                        showDeleteModal: false,
+                        deleteUrl: "",
+                        data: null,
+                        deletingIndex: this.getDeleteModalData.deletingIndex,
                         isDeleted: true,
-                    });
+                    };
+                    setTimeout(()=>{this.$store.commit('setDeletingModalData', deleteModalData);},2100)
+
                 }else{
                     this.$toast.warning('Oops! Coś poszło nie tak :(')
                 }

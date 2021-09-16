@@ -13,7 +13,14 @@ export default new Vuex.Store({
            reportUrl:'',
            targetIndex:0,
            reportObject:'',
-       }
+       },
+       deleteModalData:{
+           showDeleteModal: false,
+           deleteUrl: "",
+           data: null,
+           deletingIndex:1,
+           isDeleted:false,
+       },
    },
     getters:{
         getUser(state){
@@ -28,6 +35,9 @@ export default new Vuex.Store({
         getReportComponent(state){
             return state.reportComponent;
         },
+        getDeleteModalData(state){
+            return state.deleteModalData;
+        },
     },
     mutations:{
        updateUser(state, data){
@@ -41,6 +51,9 @@ export default new Vuex.Store({
         },
         setReportComponent(state,data){
             state.reportComponent = data;
+        },
+        setDeletingModalData(state, data){
+            state.deleteModalData = data
         },
     }
 });
