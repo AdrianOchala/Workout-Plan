@@ -20,7 +20,7 @@ class CreateCommentsTable extends Migration
             $table->unsignedBigInteger('article_id');
             $table->foreign('article_id')->references('id')->on('articles');
             $table->string('content');
-            $table->date('date');
+            $table->dateTime('date');
         });
     }
 

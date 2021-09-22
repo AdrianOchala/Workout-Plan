@@ -20,7 +20,7 @@ class CreateArticlesTable extends Migration
             $table->string('title');
             $table->string('content');
             $table->string('description')->nullable();
-            $table->date('date');
+            $table->dateTime('date');
             $table->unsignedBigInteger('workout_id')->nullable();
             $table->foreign('workout_id')->references('id')->on('workouts');
             $table->bigInteger('views')->default(0);

@@ -50,12 +50,11 @@
                     <v-divider></v-divider>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn outlined @click="showInfo">Dodaj plan treningowy</v-btn>
+                        <v-btn outlined @click="addWorkout">Dodaj plan treningowy</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-col>
         </v-row>
-        <v-btn @click="showInfo">Pokaż dane</v-btn>
     </div>
 </template>
 
@@ -71,15 +70,20 @@ export default {
                 type:'',
                 plan:[
                     {exercise:'',series:null,reps:[]},
-
                 ],
             }
-
         }
     },
     methods:{
-        showInfo(){
-            console.log(this.workout);
+        async addWorkout(){
+            const plan = JSON.stringify(this.workout.plan);
+            const res = await this.callApi('post','/addWorkout', {plan:plan, title: this.workout.title, type:this.workout.type});
+            if(res.status === 201){
+                this.$toast.success('Pomyślnie utworzono plan treningowy',{timeout:3000});
+                setTimeout(()=>{ this.$router.push({name:'Workouts'}) }, 3000);
+            }else{
+                this.$toast.error('Coś poszło nie tak :(');
+            }
         },
         addExercise(){
             this.workout.plan.push({exercise:'',series:null,reps:[]});
@@ -87,6 +91,23 @@ export default {
         deleteExercise(){
             this.workout.plan.pop();
         }
+    },
+    async created() {
+        const [workoutType,exercises] = await Promise.all([
+            this.callApi('get','/getWorkoutTypes'),
+            this.callApi('get', '/getExercises'),
+        ]);
+        if(workoutType.status === 200){
+            this.workoutTypes = workoutType.data;
+        }else{
+            this.$toast.error('Nie udało się pobrać typów treningu. Proszę odświeżyć stronę!',{timeout:5000});
+        }
+        if(exercises.status === 200){
+            this.exercises = exercises.data;
+        }else{
+            this.$toast.error('Nie udało się pobrać ćwiczeń. Proszę odświeżyć stronę!',{timeout:5000});
+        }
+
     }
 }
 </script>

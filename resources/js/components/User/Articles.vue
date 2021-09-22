@@ -1,24 +1,30 @@
 <template>
     <div class="container-fluid">
-        <v-btn @click="$router.push(`/AddArticle`)">Dodaj artykuł</v-btn>
-
-        <v-row>
-            <v-col cols="12" lg="12">
-                <v-divider></v-divider>
+        <v-card>
+            <v-card-title style="background: rgba(0, 0, 0, 0.7); color: white; ">
+                <h3>Artykuły</h3>
+                <v-spacer></v-spacer>
+                <v-btn @click="$router.push(`/AddArticle`)">Dodaj artykuł</v-btn>
+            </v-card-title>
+            <v-card-text>
                 <v-row>
-                    <v-col lg="3" md="6" sm="12" xs="12" v-for="article in articles" :key="article.id">
-                        <ArticleCard :article="article"></ArticleCard>
+                    <v-col cols="12" lg="12">
+                        <v-divider></v-divider>
+                        <v-row>
+                            <v-col lg="3" md="6" sm="12" xs="12" v-for="article in articles" :key="article.id">
+                                <ArticleCard :article="article"></ArticleCard>
+                            </v-col>
+                        </v-row>
+                        <v-divider></v-divider>
+                        <v-pagination v-if="paginationInfo"
+                                      :value="paginationInfo.current_page"
+                                      :length="paginationInfo.total"
+                                      @input="getArticlesForPagination"
+                        ></v-pagination>
                     </v-col>
                 </v-row>
-                <v-divider></v-divider>
-                <v-pagination v-if="paginationInfo"
-                              :value="paginationInfo.current_page"
-                              :length="paginationInfo.total"
-                              @input="getArticlesForPagination"
-                ></v-pagination>
-            </v-col>
-        </v-row>
-
+            </v-card-text>
+        </v-card>
     </div>
 </template>
 

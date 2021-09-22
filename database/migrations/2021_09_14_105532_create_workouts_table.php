@@ -19,8 +19,8 @@ class CreateWorkoutsTable extends Migration
             $table->foreign('author_id')->references('id')->on('users');
             $table->string('title')->unique();
             $table->string('plan');
-            $table->integer('likes');
-            $table->integer('follows');
+            $table->integer('likes')->default(0);
+            $table->integer('follows')->default(0);
             $table->boolean('public');
             $table->unsignedBigInteger('type_id');
             $table->foreign('type_id')->references('id')->on('workout_types');

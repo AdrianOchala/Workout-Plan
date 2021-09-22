@@ -1,50 +1,55 @@
 <template>
     <div class="container-fluid">
-        <v-row>
-            <v-col cols="12" style="border-bottom: 1px solid grey">
+        <v-card>
+            <v-card-title style="background: rgba(0, 0, 0, 0.7); color: white; ">
                 <h3>Tworzenie nowego artykułu</h3>
-            </v-col>
-            <v-col cols="12" lg="7" sm="12">
-                <v-text-field v-model="article.title" label="Podaj tytuł artykułu*"
+            </v-card-title>
+            <v-card-text>
+                <v-row>
+                    <v-col cols="12" lg="7" sm="12">
+                        <v-text-field v-model="article.title" label="Podaj tytuł artykułu*"
 
-                ></v-text-field>
-            </v-col>
-            <v-col cols="12" lg="7" sm="12">
-                <v-select v-model="article.category"
-                          :items="articleCategories"
-                          item-text="name"
-                          item-value="id"
-                          label="Wybierz kategorię dla artykułu*"
-                          multiple
-                ></v-select>
-            </v-col>
-            <v-col cols="12" lg="7" sm="12">
-                <v-select v-if="userWorkouts != null"
-                          v-model="article.workout"
-                          :items="userWorkouts"
-                          item-text="title"
-                          item-value="id"
-                          label="Jeśli artykuł dotyczy jednego z twoich planów, proszę wybierz go*"
-                          multiple
-                ></v-select>
-            </v-col>
-            <v-col cols="12" lg="7" sm="12">
-                <v-textarea
-                    clearable
-                    counter
-                    clear-icon="mdi-close-circle"
-                    label="Krótki opis wyświetlany w miniaturze..."
-                    v-model="article.description"
-                    hint="Max 250 znaków"
-                    :rules="rules"
-                    filled
-                    auto-grow
-                    rows="2"
-                ></v-textarea>
-            </v-col>
-        </v-row>
-        <ckeditor :editor="editor" v-model="article.content" :config="editorConfig"></ckeditor>
-        <v-btn text @click="addArticle" >Dodaj artykuł</v-btn>
+                        ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" lg="7" sm="12">
+                        <v-select v-model="article.category"
+                                  :items="articleCategories"
+                                  item-text="name"
+                                  item-value="id"
+                                  label="Wybierz kategorię dla artykułu*"
+                                  multiple
+                        ></v-select>
+                    </v-col>
+                    <v-col cols="12" lg="7" sm="12">
+                        <v-select v-if="userWorkouts != null"
+                                  v-model="article.workout"
+                                  :items="userWorkouts"
+                                  item-text="title"
+                                  item-value="id"
+                                  label="Jeśli artykuł dotyczy jednego z twoich planów, proszę wybierz go*"
+                        ></v-select>
+                    </v-col>
+                    <v-col cols="12" lg="7" sm="12">
+                        <v-textarea
+                            clearable
+                            counter
+                            clear-icon="mdi-close-circle"
+                            label="Krótki opis wyświetlany w miniaturze..."
+                            v-model="article.description"
+                            hint="Max 250 znaków"
+                            :rules="rules"
+                            filled
+                            auto-grow
+                            rows="2"
+                        ></v-textarea>
+                    </v-col>
+                </v-row>
+                <ckeditor :editor="editor" v-model="article.content" :config="editorConfig"></ckeditor>
+                <v-row justify="space-around">
+                        <v-btn outlined @click="addArticle" class="mt-4">Dodaj artykuł</v-btn>
+                </v-row>
+            </v-card-text>
+        </v-card>
     </div>
 </template>
 
@@ -135,7 +140,7 @@ export default {
     methods: {
         async addArticle(){
             const res = await this.callApi('post','addArticle',this.article);
-            if(res.status === 200){
+            if(res.status === 201){
                 this.$toast.success('Pomyślnie dodano artykuł',{timeout:3000});
                 setTimeout(()=>{ this.$router.push({name:'Articles'}) }, 3000);
             }else{

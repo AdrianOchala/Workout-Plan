@@ -15,7 +15,8 @@ class ArticleController extends Controller
     }
     public function addArticle(Request $request){
         $user_id = Auth::user()->id;
-        $today = date("Y-m-d");
+        date_default_timezone_set('Europe/Warsaw');
+        $today = date("Y-m-d H:i:s");
 
         DB::beginTransaction();
         try{
@@ -41,13 +42,13 @@ class ArticleController extends Controller
         }
     }
     public function getLatestArticles(){
-       return Article::with(['author','categories'])->take(4)->get();
+       return Article::with(['author','categories'])->orderBy('date','desc')->take(4)->get();
     }
     public function getArticle($id){
         return Article::with(['author','categories'])->where('id',$id)->get();
     }
     public function getArticlesForPagination(Request $request){
-        return Article::with(['author','categories'])->paginate($request->total);
+        return Article::with(['author','categories'])->orderBy('date','desc')->paginate($request->total);
 
     }
 

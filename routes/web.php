@@ -34,6 +34,10 @@ Route::post('deleteOpinion','CommentsController@deleteOpinion');
 Route::get('getArticleComments/{id}','CommentsController@getArticleComments');
 
 Route::get('getUserWorkouts','WorkoutController@getUserWorkouts');
+Route::get('getWorkoutTypes','WorkoutController@getWorkoutTypes');
+Route::post('addWorkout','WorkoutController@addWorkout');
+
+Route::get('getExercises','ExerciseController@getExercises');
 
 Route::any('{something}', function () {
     return view('welcome');

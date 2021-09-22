@@ -16,7 +16,8 @@ class CommentsController extends Controller
 //        return Comment::with(['author'])->where('article_id',$id)->get();
 //    }
     public function addComment(Request $request){
-    $today = date("Y-m-d");
+    date_default_timezone_set('Europe/Warsaw');
+    $today = date("Y-m-d H:i:s");
         return Comment::create([
                 'author_id'=> $request->authorId,
                 'article_id'=>$request->targetId,
