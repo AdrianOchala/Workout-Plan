@@ -46,6 +46,8 @@ export default {
                 // this.commentsOrRating = response.data[1];
                 this.paginationInfo.current_page = response.data.current_page;
                 this.paginationInfo.total = response.data.last_page;
+                const stringArt = JSON.stringify(this.articles[11])
+                console.log(stringArt)
             }
         },
     },

@@ -30,6 +30,26 @@ class UsersTableSeeder extends Seeder
                                       'height'=>175,
                                       'sex'=>'male',
                                       'role'=>'Admin']);
+        User::create(['name'=>'Adrian',
+                                      'surname'=>'Ochała',
+                                      'nick'=>'Heaglock',
+                                      'email'=>'adrian@gmail.com',
+                                      'password'=>bcrypt('haslo123'),
+                                      'phone'=>'123456789',
+                                      'age'=>24,
+                                      'height'=>175,
+                                      'sex'=>'male',
+                                      ]);
+    User::create(['name'=>'Agata',
+                                          'surname'=>'Marysiak',
+                                          'nick'=>'Agat',
+                                          'email'=>'agata@gmail.com',
+                                          'password'=>bcrypt('haslo123'),
+                                          'phone'=>'123456789',
+                                          'age'=>24,
+                                          'height'=>165,
+                                          'sex'=>'female',
+                                          ]);
 
     }
 }
