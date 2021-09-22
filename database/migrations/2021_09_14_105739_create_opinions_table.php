@@ -17,11 +17,11 @@ class CreateOpinionsTable extends Migration
              $table->id();
              $table->unsignedBigInteger('author_id');
              $table->foreign('author_id')->references('id')->on('users');
-             $table->unsignedBigInteger('article_id');
-             $table->foreign('article_id')->references('id')->on('articles');
+             $table->unsignedBigInteger('workout_id');
+             $table->foreign('workout_id')->references('id')->on('workouts');
              $table->string('content');
              $table->bigInteger('mark')->nullable();
-             $table->date('date');
+             $table->dateTime('date');
 
         });
     }
