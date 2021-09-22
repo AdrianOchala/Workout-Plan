@@ -11,7 +11,7 @@ class WorkoutController extends Controller
 {
     public function getUserWorkouts(){
     $userId = Auth::user()->id;
-        return Workout::where('author_id',$userId)->get();
+        return Workout::with(['author'])->where('author_id',$userId)->get();
     }
     public function getWorkoutTypes(){
         return WorkoutType::get();
@@ -22,8 +22,13 @@ class WorkoutController extends Controller
             'author_id'=>$userId,
             'title'=>$request->title,
             'plan'=>$request->plan,
+            'description'=>$request->description,
             'public'=>true,
             'type_id'=>$request->type
         ]);
+    }
+
+    public function getPublicWorkouts(){
+        return Workout::where('public',true)->get();
     }
 }

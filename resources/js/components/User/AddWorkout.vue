@@ -19,6 +19,20 @@
                                       item-value="id"
                             ></v-select>
                         </v-col>
+                        <v-col cols="12" lg="7" sm="12">
+                            <v-textarea
+                                clearable
+                                counter
+                                clear-icon="mdi-close-circle"
+                                label="Krótki opis wyświetlany w miniaturze..."
+                                v-model="workout.description"
+                                hint="Max 250 znaków"
+                                :rules="rules"
+                                filled
+                                auto-grow
+                                rows="2"
+                            ></v-textarea>
+                        </v-col>
                         <v-col cols="12">
                             <v-row v-for="(ex, index) in workout.plan" :key="index" style="border-top: 0.4rem solid rgba(0, 0, 0, 0.7)">
                                 <v-col cols="12" lg="6" sm="12" >
@@ -68,16 +82,18 @@ export default {
             workout:{
                 title:'',
                 type:'',
+                description:'',
                 plan:[
                     {exercise:'',series:null,reps:[]},
                 ],
-            }
+            },
+            rules: [v => v.length <= 250 || 'Max 250 znaków'],
         }
     },
     methods:{
         async addWorkout(){
             const plan = JSON.stringify(this.workout.plan);
-            const res = await this.callApi('post','/addWorkout', {plan:plan, title: this.workout.title, type:this.workout.type});
+            const res = await this.callApi('post','/addWorkout', {plan:plan, title: this.workout.title, type:this.workout.type, description:this.workout.description});
             if(res.status === 201){
                 this.$toast.success('Pomyślnie utworzono plan treningowy',{timeout:3000});
                 setTimeout(()=>{ this.$router.push({name:'Workouts'}) }, 3000);

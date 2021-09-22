@@ -36,6 +36,9 @@ Route::get('getArticleComments/{id}','CommentsController@getArticleComments');
 Route::get('getUserWorkouts','WorkoutController@getUserWorkouts');
 Route::get('getWorkoutTypes','WorkoutController@getWorkoutTypes');
 Route::post('addWorkout','WorkoutController@addWorkout');
+//Route::get('getUserWorkouts','WorkoutController@getUserWorkouts');
+Route::get('getPublicWorkouts','WorkoutController@getPublicWorkouts');
+
 
 Route::get('getExercises','ExerciseController@getExercises');
 
