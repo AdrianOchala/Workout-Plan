@@ -55,6 +55,9 @@ export default new Vuex.Store({
         setDeletingModalData(state, data){
             state.deleteModalData = data
         },
+        setShowDeleteModal(state,data){
+            state.deleteModalData.showDeleteModal = data;
+        },
     }
 });
 //Edycja stora poprzez mutacje !

@@ -5,7 +5,8 @@
                 <v-list-item>
                     <v-list-item-avatar color="grey"><v-icon>mdi-star-half-full</v-icon></v-list-item-avatar>
                     <v-list-item-content>
-                        <v-list-item-title class="headline">Komentarze</v-list-item-title>
+                        <v-list-item-title class="headline" v-if="target === 'comments'">Komentarze</v-list-item-title>
+                        <v-list-item-title class="headline" v-if="target === 'opinions'">Opinie</v-list-item-title>
                         <v-rating v-if="target === 'opinions'"
                             :value="commentsOrRating"
                             color="yellow darken-3"
@@ -20,7 +21,8 @@
                 <v-divider></v-divider>
                 <!--                    Ciało komentarzy-->
                 <v-list-item-content>
-                    <h3 class="justify-center d-flex" v-if="!comments">Brak komentarzy</h3>
+                    <h3 class="justify-center d-flex" v-if="commentsOrRating === 0 & target === 'comments'">Brak komentarzy</h3>
+                    <h3 class="justify-center d-flex" v-if="commentsOrRating === 0 & target === 'opinions'">Brak opinii</h3>
                     <v-card v-else>
                         <v-list two-line>
                             <v-list-item-group>
@@ -60,11 +62,21 @@
                                     </v-divider>
                                 </template>
                                 <v-divider></v-divider>
-                                <v-pagination v-if="paginationInfo"
-                                              :value="paginationInfo.current_page"
-                                              :length="paginationInfo.total"
-                                              @input="getCommentsForPagination"
-                                ></v-pagination>
+                                <div v-if="target === 'comments'">
+                                    <v-pagination v-if="paginationInfo"
+                                                  :value="paginationInfo.current_page"
+                                                  :length="paginationInfo.total"
+                                                  @input="getCommentsForPagination"
+                                    ></v-pagination>
+                                </div>
+                                <div v-if="target === 'opinions'">
+                                    <v-pagination v-if="paginationInfo"
+                                                  :value="paginationInfo.current_page"
+                                                  :length="paginationInfo.total"
+                                                  @input="getOpinionsForPagination"
+                                    ></v-pagination>
+                                </div>
+
                             </v-list-item-group>
                         </v-list>
                     </v-card>
@@ -74,9 +86,10 @@
                 <!--                Dodaj swój komentarz-->
                 <template>
                     <div class="text-center">
-                        <h3>Dodaj swój komentarz</h3>
+                        <h3 v-if="target === 'comments'">Dodaj swój komentarz</h3>
+                        <h3 v-if="target === 'opinions'">Dodaj swoją opinię</h3>
                         <v-rating v-if="target === 'opinions'"
-                            v-model="comment.rating"
+                            v-model="comment.mark"
                             color="yellow darken-3"
                             background-color="grey darken-1"
                             empty-icon="$ratingFull"
@@ -84,12 +97,12 @@
                             hover
                             medium
                             :error-messages="addRatingErrors"
-                            @input="$v.comment.rating.$touch()"
-                            @blur="$v.comment.rating.$touch()"
+                            @input="$v.comment.mark.$touch()"
+                            @blur="$v.comment.mark.$touch()"
                         ></v-rating>
                     </div>
                     <v-container fluid class="pt-1">
-                        <v-textarea
+                        <v-textarea v-if="target === 'comments'"
                             clearable
                             counter
                             clear-icon="mdi-close-circle"
@@ -105,9 +118,26 @@
                             @input="$v.comment.comment.$touch()"
                             @blur="$v.comment.comment.$touch()"
                         ></v-textarea>
+                        <v-textarea v-if="target === 'opinions'"
+                                    clearable
+                                    counter
+                                    clear-icon="mdi-close-circle"
+                                    label="Opinia"
+                                    v-model="comment.comment"
+                                    hint="Max 250 znaków"
+                                    :rules="rules"
+                                    filled
+                                    auto-grow
+                                    background-color="#CFD8DC"
+                                    rows="1"
+                                    :error-messages="addCommentErrors"
+                                    @input="$v.comment.comment.$touch()"
+                                    @blur="$v.comment.comment.$touch()"
+                        ></v-textarea>
                     </v-container>
                     <div class="container-fluid commentButton">
-                        <v-btn class="mb-3" @click="addComment" :disabled="$v.comment.$invalid">Dodaj!</v-btn>
+                        <v-btn v-if="target === 'comments'" class="mb-3" @click="addComment" :disabled="$v.comment.$invalid">Dodaj!</v-btn>
+                        <v-btn v-if="target === 'opinions'" class="mb-3" @click="addOpinion" :disabled="$v.comment.$invalid">Dodaj!</v-btn>
                     </div>
                 </template>
             </v-card>
@@ -118,7 +148,8 @@
         </v-dialog>
         <v-dialog v-model="getDeleteModalData.showDeleteModal" persistent width="700px">
             <delete-modal>
-                <h4 slot="header">Czy na pewno chcesz usunąć swój komentarz?</h4>
+                <h4 slot="header" v-if="target==='comments'">Czy na pewno chcesz usunąć swój komentarz?</h4>
+                <h4 slot="header" v-if="target==='opinions'">Czy na pewno chcesz usunąć swoją opinię?</h4>
             </delete-modal>
         </v-dialog>
 
@@ -142,7 +173,7 @@ export default {
                 targetId: this.targetId,
                 authorId:this.$store.state.user.id,
                 comment:'',
-                rating:null,
+                mark:null,
             },
             rules: [v => v.length <= 250 || 'Max 250 characters'],
             total:4,
@@ -158,6 +189,9 @@ export default {
                 required,
                 maxLength:maxLength(250)
             },
+            mark:{
+                required
+            }
         }
     },
     methods:{
@@ -168,6 +202,16 @@ export default {
                 this.$router.go();
             }else{
                 this.$toast.error('Nie udało się dodać komentarza, proszę spróbować później.')
+            }
+        },
+        async addOpinion(){
+            console.log(this.comment)
+            const res = await this.callApi('post','/addOpinion',this.comment);
+            if(res.status === 201){
+                this.$toast.success('Pomyślnie dodano opinię');
+                this.$router.go();
+            }else{
+                this.$toast.error('Nie udało się dodać opinii, proszę spróbować później.')
             }
         },
         reportComment(id){
@@ -196,38 +240,59 @@ export default {
                 deletingIndex: index,
                 isDeleted: false,
             };
-            this.deletingCar = true;
             this.$store.commit('setDeletingModalData', deleteModalData);
         },
         deleteOpinion(opinion,index){
             const deleteModalData = {
                 showDeleteModal: true,
-                deleteUrl: "/deleteComment",
+                deleteUrl: "/deleteOpinion",
                 data: opinion,
                 deletingIndex: index,
                 isDeleted: false,
             };
-            this.deletingCar = true;
             this.$store.commit('setDeletingModalData', deleteModalData);
         },
         async getCommentsForPagination(page = 1){
             const response = await this.callApi('get',`/getArticleComments/${this.targetId}?page=${page}&total=${this.total}`);
             if(response.status ===200){
-                console.log(response)
                 this.comments = response.data[0].data;
                 this.commentsOrRating = response.data[1];
                 this.paginationInfo.current_page = response.data[0].current_page;
                 this.paginationInfo.total = response.data[0].last_page;
+                console.log('jestem')
+                console.log(this.comments)
+            }
+        },
+        async getOpinionsForPagination(page = 1){
+            const response = await this.callApi('get',`/getWorkoutOpinions/${this.targetId}?page=${page}&total=${this.total}`);
+            if(response.status ===200){
+                this.comments = response.data.data;
+                // this.commentsOrRating = response.data[1];
+                this.paginationInfo.current_page = response.data.current_page;
+                this.paginationInfo.total = response.data.last_page;
+
+                this.getWorkoutRating();
+
+            }
+        },
+        async getWorkoutRating(){
+            const response = await this.callApi('get',`/getWorkoutRatings/${this.targetId}`);
+            if(response.status === 200){
+                this.commentsOrRating = response.data[0];
+            }else{
+                this.$toast.error('Nie udało się pobrać średniej ocen dla planu treningowego!')
             }
         },
     },
-    async created() {
+    created() {
         if(this.target === 'comments'){
             this.getCommentsForPagination();
+            this.comment.mark = 0;
         }else if(this.target === 'opinions'){
+            this.getOpinionsForPagination();
             console.log("pobieram opinie")
         }else{
-            this.$toast.error('Nie udało się pobrać opinii!');
+            this.$toast.error('Nie udało się pobrać komentarzy/opinii!');
         }
     },
     computed:{
@@ -241,8 +306,8 @@ export default {
         },
         addRatingErrors(){
             const errors = [];
-            if (!this.$v.comment.rating.$dirty) return errors;
-            !this.$v.comment.rating.required && errors.push('To pole jest wymagane.');
+            if (!this.$v.comment.mark.$dirty) return errors;
+            !this.$v.comment.mark.required && errors.push('To pole jest wymagane.');
             return errors;
         },
     },
@@ -250,7 +315,11 @@ export default {
         getDeleteModalData(obj){
             if(obj.isDeleted){
                 this.comments.splice(obj.deletingIndex, 1);
-                // this.$router.go();
+                if(this.target === 'comments'){
+                    this.getCommentsForPagination();
+                }else if(this.target === 'opinions'){
+                    this.getOpinionsForPagination()
+                }
             }else {
 
             }

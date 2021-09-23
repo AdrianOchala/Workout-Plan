@@ -33,6 +33,19 @@
                                 rows="2"
                             ></v-textarea>
                         </v-col>
+                        <v-col cols="12" lg="5" sm="12">
+                            Czy chcesz, aby ten plan był publiczny?
+                            <v-radio-group v-model="workout.public" row>
+                                <v-radio
+                                    label="Tak"
+                                    :value=true
+                                ></v-radio>
+                                <v-radio
+                                    label="Nie"
+                                    :value=false
+                                ></v-radio>
+                            </v-radio-group>
+                        </v-col>
                         <v-col cols="12">
                             <v-row v-for="(ex, index) in workout.plan" :key="index" style="border-top: 0.4rem solid rgba(0, 0, 0, 0.7)">
                                 <v-col cols="12" lg="6" sm="12" >
@@ -83,6 +96,7 @@ export default {
                 title:'',
                 type:'',
                 description:'',
+                public:false,
                 plan:[
                     {exercise:'',series:null,reps:[]},
                 ],
@@ -93,7 +107,11 @@ export default {
     methods:{
         async addWorkout(){
             const plan = JSON.stringify(this.workout.plan);
-            const res = await this.callApi('post','/addWorkout', {plan:plan, title: this.workout.title, type:this.workout.type, description:this.workout.description});
+            const res = await this.callApi('post','/addWorkout', {plan:plan,
+                                            title: this.workout.title,
+                                            type:this.workout.type,
+                                            description:this.workout.description,
+                                            public:this.workout.public});
             if(res.status === 201){
                 this.$toast.success('Pomyślnie utworzono plan treningowy',{timeout:3000});
                 setTimeout(()=>{ this.$router.push({name:'Workouts'}) }, 3000);

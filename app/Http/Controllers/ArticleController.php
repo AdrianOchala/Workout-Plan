@@ -26,6 +26,7 @@ class ArticleController extends Controller
                             'content'=>$request->content,
                             'description'=>$request->description,
                             'date'=>$today,
+                            'workout_id'=>$request->workout,
                     ]);
             $article = Article::where('author_id',$user_id)->where('title',$request->title)->first();
             $categories = $request->category;
@@ -35,10 +36,14 @@ class ArticleController extends Controller
             }
             ArticleCategory::insert($articleCategories);
             DB::commit();
-            return 'done';
+            return response()->json([
+                                   'msg' => 'Udało się dodać artykuł!',
+                               ],200);
         }catch(\Throwable $th){
             DB::rollback();
-            return 'not done';
+            return response()->json([
+                                   'msg' => 'Nie udało się dodać artykułu, spróbuj później.',
+                               ],401);
         }
     }
     public function getLatestArticles(){

@@ -27,11 +27,14 @@ Route::get('getArticlesForPagination','ArticleController@getArticlesForPaginatio
 
 //Route::get('getArticleComments/{id}','CommentsController@getArticleComments');
 Route::post('addComment','CommentsController@addComment');
+Route::post('addOpinion','CommentsController@addOpinion');
 Route::post('reportComment','CommentsController@reportComment');
 Route::post('reportOpinion','CommentsController@reportOpinion');
 Route::post('deleteComment','CommentsController@deleteComment');
 Route::post('deleteOpinion','CommentsController@deleteOpinion');
 Route::get('getArticleComments/{id}','CommentsController@getArticleComments');
+Route::get('getWorkoutOpinions/{id}','CommentsController@getWorkoutOpinions');
+Route::get('getWorkoutRatings/{id}','CommentsController@getWorkoutRatings');
 
 Route::get('getUserWorkouts','WorkoutController@getUserWorkouts'); //Pobiera wszystkie plany użytkownika
 Route::get('getWorkoutTypes','WorkoutController@getWorkoutTypes'); // Pobiera typy planów

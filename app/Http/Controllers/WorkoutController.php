@@ -23,7 +23,7 @@ class WorkoutController extends Controller
             'title'=>$request->title,
             'plan'=>$request->plan,
             'description'=>$request->description,
-            'public'=>true,
+            'public'=>$request->public,
             'type_id'=>$request->type
         ]);
     }

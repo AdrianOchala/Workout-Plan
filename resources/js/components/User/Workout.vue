@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">
+    <div class="container-fluid" v-if="workout != null">
         <v-card v-if="workout != null">
             <v-card-title style="background: rgba(0, 0, 0, 0.7); color: white; ">
                 {{ workout.title }} (Ocena)
@@ -76,16 +76,17 @@
                         </v-expansion-panel>
                     </template>
                 </v-expansion-panels>
-
-
             </v-card-text>
         </v-card>
+        <Comments v-if="workout != null & workout.public" :target-id="workout.id" target="opinions" />
     </div>
 </template>
 
 <script>
+import Comments from "../Modals/CommentsComponent";
 export default {
     name: "Workout",
+    components:{Comments},
     data(){
         return{
             workout:null,

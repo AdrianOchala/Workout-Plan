@@ -21,7 +21,7 @@
         },
         methods:{
             closeModal(){
-                this.$store.commit('setShowModal',false);
+                this.$store.commit('setShowDeleteModal',false);
             },
             async deleteTarget(){
                 const res = await this.callApi('post', this.getDeleteModalData.deleteUrl, this.getDeleteModalData.data);
@@ -34,7 +34,7 @@
                         deletingIndex: this.getDeleteModalData.deletingIndex,
                         isDeleted: true,
                     };
-                    setTimeout(()=>{this.$store.commit('setDeletingModalData', deleteModalData);},2100)
+                    this.$store.commit('setDeletingModalData', deleteModalData);
 
                 }else{
                     this.$toast.warning('Oops! Coś poszło nie tak :(')

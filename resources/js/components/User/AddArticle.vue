@@ -140,7 +140,7 @@ export default {
     methods: {
         async addArticle(){
             const res = await this.callApi('post','addArticle',this.article);
-            if(res.status === 201){
+            if(res.status === 200){
                 this.$toast.success('Pomyślnie dodano artykuł',{timeout:3000});
                 setTimeout(()=>{ this.$router.push({name:'Articles'}) }, 3000);
             }else{

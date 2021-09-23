@@ -25,6 +25,17 @@ class CommentsController extends Controller
                 'date'=> $today,
         ]);
     }
+    public function addOpinion(Request $request){
+        date_default_timezone_set('Europe/Warsaw');
+        $today = date("Y-m-d H:i:s");
+            return Opinion::create([
+                    'author_id'=> $request->authorId,
+                    'workout_id'=>$request->targetId,
+                    'content'=> $request->comment,
+                    'mark'=>$request->mark,
+                    'date'=> $today,
+            ]);
+        }
     public function reportComment(Request $request){
     $user_id = Auth::user()->id;
         return ReportComment::create([
@@ -48,10 +59,26 @@ class CommentsController extends Controller
         return Opinion::where('id',$request->id)->delete();
     }
     public function getArticleComments(Request $request, $id){
-        $comments = Comment::with(['author'])->where('article_id',$id)->paginate($request->total);
-        $count = DB::table('comments')->count();
+        $comments = Comment::with(['author'])->where('article_id',$id)->orderBy('date','desc')->paginate($request->total);
+        $count = count($comments);
         return [$comments, $count];
 
     }
+    public function getWorkoutOpinions(Request $request, $id){
+        return Opinion::with(['author'])->where('workout_id',$id)->paginate($request->total);
+    }
+    public function getWorkoutRatings($id){
+        $opinions = Opinion::where('workout_id',$id)->get();
+        $workoutRating = 0;
+        $opinionsLength = count($opinions);
+        if($opinionsLength > 0){
+                    for ($i = 0;$i<$opinionsLength;$i++){
+                        $workoutRating = $workoutRating + $opinions[$i]->mark;
+                    }
+                    $workoutRating = round($workoutRating/$opinionsLength,2);
+        }
+        return [$workoutRating];
+    }
+
 
 }
