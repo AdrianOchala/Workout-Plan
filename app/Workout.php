@@ -14,4 +14,7 @@ class Workout extends Model
             public function author(){
                  return $this->belongsTo('App\User','author_id');
             }
+            public function type(){
+                return $this->belongsTo('App\WorkoutType','type_id');
+            }
 }

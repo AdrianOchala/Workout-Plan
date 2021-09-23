@@ -33,11 +33,11 @@ Route::post('deleteComment','CommentsController@deleteComment');
 Route::post('deleteOpinion','CommentsController@deleteOpinion');
 Route::get('getArticleComments/{id}','CommentsController@getArticleComments');
 
-Route::get('getUserWorkouts','WorkoutController@getUserWorkouts');
-Route::get('getWorkoutTypes','WorkoutController@getWorkoutTypes');
-Route::post('addWorkout','WorkoutController@addWorkout');
-//Route::get('getUserWorkouts','WorkoutController@getUserWorkouts');
-Route::get('getPublicWorkouts','WorkoutController@getPublicWorkouts');
+Route::get('getUserWorkouts','WorkoutController@getUserWorkouts'); //Pobiera wszystkie plany użytkownika
+Route::get('getWorkoutTypes','WorkoutController@getWorkoutTypes'); // Pobiera typy planów
+Route::post('addWorkout','WorkoutController@addWorkout'); //Dodaje plan treningowy
+Route::get('getPublicWorkouts','WorkoutController@getPublicWorkouts'); // Pobiera wszystkie plany publiczne
+Route::get('getWorkout/{id}','WorkoutController@getWorkout'); // Pobiera jeden plan o danym id
 
 
 Route::get('getExercises','ExerciseController@getExercises');

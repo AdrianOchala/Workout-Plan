@@ -1,24 +1,18 @@
 <template>
-    <v-card
-        class="mx-auto"
-        max-width="344"
-        min-height="300"
-    >
+    <v-card class="mx-auto" max-width="344">
         <v-card-text>
             <p class="text-h4 text--primary">
                 {{ workout.title }}
             </p>
-            <p v-if="workout.author.showUserName">{{ workout.author.name }} {{workout.author.surname}}</p>
-            <p v-else>{{ workout.author.nick }}</p>
+            <p v-if="workout.author.showUserName">Autor: {{ workout.author.name }} {{workout.author.surname}}</p>
+            <p v-else>Autor: {{ workout.author.nick }}</p>
             <div class="text--primary">
+                <p class="text-h5">Opis:</p>
                 {{ workout.description}}
             </div>
         </v-card-text>
         <v-card-actions>
-            <v-btn
-                text
-                color="deep-purple accent-4"
-            >
+            <v-btn text color="deep-purple accent-4" @click="$router.push(`/Workout/${workout.id}`)">
                 Przejdź
             </v-btn>
         </v-card-actions>
@@ -32,6 +26,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>

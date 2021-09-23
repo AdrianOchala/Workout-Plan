@@ -31,4 +31,7 @@ class WorkoutController extends Controller
     public function getPublicWorkouts(){
         return Workout::where('public',true)->get();
     }
+    public function getWorkout($id){
+        return Workout::with(['author','type'])->where('id',$id)->get();
+    }
 }
