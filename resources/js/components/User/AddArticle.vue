@@ -151,7 +151,7 @@ export default {
     async created(){
         const [categories,workouts] = await Promise.all([
             this.callApi('get','/getArticleCategories'),
-            this.callApi('get', 'getUserWorkouts'),
+            this.callApi('get', '/getUserWorkouts'),
         ]);
         if(categories.status === 200){
             this.articleCategories = categories.data;
@@ -159,6 +159,7 @@ export default {
             this.$toast.error('Nie udało się pobrać kategorii artykułu. Proszę odświeżyć stronę!',{timeout:5000});
         }
         if(workouts.status === 200){
+            console.log(workouts)
             if(workouts.data[0]){
                 this.userWorkouts = workouts.data;
             }

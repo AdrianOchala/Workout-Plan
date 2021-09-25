@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\DB;
 
 class WorkoutController extends Controller
 {
+    public function getUserWorkouts(){
+        $userId = Auth::user()->id;
+        return Workout::with(['author','type'])->where('author_id',$userId)->orderBy('id','desc')->get();
+    }
     public function getUserWorkoutsForPagination(Request $request){
         $userId = Auth::user()->id;
         return Workout::with(['author','type'])->where('author_id',$userId)->orderBy('id','desc')->paginate($request->total);

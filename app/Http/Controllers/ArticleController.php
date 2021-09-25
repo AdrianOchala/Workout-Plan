@@ -56,6 +56,11 @@ class ArticleController extends Controller
         return Article::with(['author','categories'])->orderBy('date','desc')->paginate($request->total);
 
     }
+    public function getUserArticlesForPagination(Request $request){
+        $user_id = Auth::user()->id;
+        return Article::with(['author','categories'])->where('author_id',$user_id)->orderBy('date','desc')->paginate($request->total);
+
+    }
 
 
 

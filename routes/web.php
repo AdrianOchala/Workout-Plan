@@ -24,6 +24,7 @@ Route::post('addArticle','ArticleController@addArticle');
 Route::get('getLatestArticles','ArticleController@getLatestArticles');
 Route::get('getArticle/{id}','ArticleController@getArticle');
 Route::get('getArticlesForPagination','ArticleController@getArticlesForPagination');
+Route::get('getUserArticlesForPagination','ArticleController@getUserArticlesForPagination');
 
 //Route::get('getArticleComments/{id}','CommentsController@getArticleComments');
 Route::post('addComment','CommentsController@addComment');
@@ -37,6 +38,7 @@ Route::get('getWorkoutOpinions/{id}','CommentsController@getWorkoutOpinions'); /
 //Do zmiany: V
 Route::get('getWorkoutRating/{id}','CommentsController@getWorkoutRating'); //Wyliczanie oceny planu do zmiany
 
+Route::get('getUserWorkouts','WorkoutController@getUserWorkouts'); // pobiera plany usera
 Route::get('getUserWorkoutsForPagination','WorkoutController@getUserWorkoutsForPagination'); //Pobiera plany użytkownika do paginacji
 Route::get('getUserFollowedWorkoutsForPagination','WorkoutController@getUserFollowedWorkoutsForPagination'); //Pobiera obserowane plany usera do paginacji
 Route::get('getPublicWorkoutsForPagination','WorkoutController@getPublicWorkoutsForPagination'); // Pobiera wszystkie plany publiczne

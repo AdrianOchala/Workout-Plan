@@ -18,7 +18,8 @@ export default new VueRouter({
         //User & Owner Path's
         {path:'/',component:UserHomePage,name:'/'}, //Strona główna użytkowników
         {path:'/Articles',component:Articles,name:'Articles'}, //Strona z artykułami
-        {path:'/AddArticle',component:AddArticle,name:'AddArticle'}, //Dodawanie i edycja artykułu
+        {path:'/AddArticle',component:AddArticle,name:'AddArticle'}, //Dodawanie  artykułu
+        {path:'/EditArticle/:id',component:AddArticle,name:'EditArticle'}, // edycja artykułu
         {path:'/SingleArticle/:id',component:Article,name:'Article'},
 
         {path:'/Workouts',component:Workouts,name:'Workouts'},
