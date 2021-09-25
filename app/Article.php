@@ -17,5 +17,8 @@ class Article extends Model
         public function categories(){
             return $this->belongsToMany('App\Category','article_category');
         }
+        public function workout(){
+            return $this->belongsTo('App\Workout','workout_id');
+        }
 
 }

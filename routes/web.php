@@ -32,14 +32,18 @@ Route::post('reportComment','CommentsController@reportComment');
 Route::post('reportOpinion','CommentsController@reportOpinion');
 Route::post('deleteComment','CommentsController@deleteComment');
 Route::post('deleteOpinion','CommentsController@deleteOpinion');
-Route::get('getArticleComments/{id}','CommentsController@getArticleComments');
-Route::get('getWorkoutOpinions/{id}','CommentsController@getWorkoutOpinions');
-Route::get('getWorkoutRatings/{id}','CommentsController@getWorkoutRatings');
+Route::get('getArticleComments/{id}','CommentsController@getArticleComments'); //Paginacja
+Route::get('getWorkoutOpinions/{id}','CommentsController@getWorkoutOpinions'); //Paginacja
+//Do zmiany: V
+Route::get('getWorkoutRatings/{id}','CommentsController@getWorkoutRatings'); //Wyliczanie oceny planu do zmiany
 
-Route::get('getUserWorkouts','WorkoutController@getUserWorkouts'); //Pobiera wszystkie plany użytkownika
+Route::get('getUserWorkoutsForPagination','WorkoutController@getUserWorkoutsForPagination'); //Pobiera plany użytkownika do paginacji
+Route::get('getUserFollowedWorkoutsForPagination','WorkoutController@getUserFollowedWorkoutsForPagination'); //Pobiera obserowane plany usera do paginacji
+Route::get('getPublicWorkoutsForPagination','WorkoutController@getPublicWorkoutsForPagination'); // Pobiera wszystkie plany publiczne
+
+
 Route::get('getWorkoutTypes','WorkoutController@getWorkoutTypes'); // Pobiera typy planów
 Route::post('addWorkout','WorkoutController@addWorkout'); //Dodaje plan treningowy
-Route::get('getPublicWorkouts','WorkoutController@getPublicWorkouts'); // Pobiera wszystkie plany publiczne
 Route::get('getWorkout/{id}','WorkoutController@getWorkout'); // Pobiera jeden plan o danym id
 
 

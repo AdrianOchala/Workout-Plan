@@ -65,7 +65,7 @@ class CommentsController extends Controller
 
     }
     public function getWorkoutOpinions(Request $request, $id){
-        return Opinion::with(['author'])->where('workout_id',$id)->paginate($request->total);
+        return Opinion::with(['author'])->where('workout_id',$id)->orderBy('date','desc')->paginate($request->total);
     }
     public function getWorkoutRatings($id){
         $opinions = Opinion::where('workout_id',$id)->get();

@@ -50,7 +50,7 @@ class ArticleController extends Controller
        return Article::with(['author','categories'])->orderBy('date','desc')->take(4)->get();
     }
     public function getArticle($id){
-        return Article::with(['author','categories'])->where('id',$id)->get();
+        return Article::with(['author','categories','workout'])->where('id',$id)->get();
     }
     public function getArticlesForPagination(Request $request){
         return Article::with(['author','categories'])->orderBy('date','desc')->paginate($request->total);

@@ -84,7 +84,7 @@
                 <v-divider></v-divider>
                 <!--                koniec komentarzy-->
                 <!--                Dodaj swój komentarz-->
-                <template>
+                <template v-if="author !== comment.authorId">
                     <div class="text-center">
                         <h3 v-if="target === 'comments'">Dodaj swój komentarz</h3>
                         <h3 v-if="target === 'opinions'">Dodaj swoją opinię</h3>
@@ -162,7 +162,7 @@ import {required, minLength,maxLength,between,numeric} from 'vuelidate/lib/valid
 import reportComponent from '../Modals/ReportComponent';
 import deleteModal from '../Modals/DeleteModalComponent';
 export default {
-    props:['targetId','target'],
+    props:['targetId','target','author'],
     components:{reportComponent, deleteModal},
     name: "CommentsComponent",
     data(){

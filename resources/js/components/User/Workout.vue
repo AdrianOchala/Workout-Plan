@@ -78,7 +78,7 @@
                 </v-expansion-panels>
             </v-card-text>
         </v-card>
-        <Comments v-if="workout != null & workout.public" :target-id="workout.id" target="opinions" />
+        <Comments v-if="workout != null & workout.public" :target-id="workout.id" target="opinions" :author="workout.author.id" />
     </div>
 </template>
 
