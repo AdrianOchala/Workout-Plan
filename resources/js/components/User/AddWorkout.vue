@@ -52,7 +52,7 @@
                                     <v-select v-model="ex.exercise"
                                               :items="exercises"
                                               item-text="name"
-                                              item-value="name"
+                                              return-object
                                               label="Wybierz lub dodaj nowe ćwiczenie"
                                     ></v-select>
                                 </v-col>

@@ -19,7 +19,7 @@ class CreateWorkoutsTable extends Migration
             $table->foreign('author_id')->references('id')->on('users');
             $table->string('title')->unique();
             $table->text('description')->nullable();
-            $table->string('plan');
+            $table->mediumText('plan');
             $table->integer('likes')->default(0);
             $table->integer('follows')->default(0);
             $table->float('rating',3,2)->default(0);

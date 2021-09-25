@@ -8,7 +8,7 @@
                          color="yellow darken-3"
                          background-color="grey darken-1"
                          empty-icon="$ratingFull"
-                         medium
+                         small
                          half-increments
             ></v-rating></p>
             <p v-if="workout.author.showUserName">Autor: {{ workout.author.name }} {{workout.author.surname}}</p>

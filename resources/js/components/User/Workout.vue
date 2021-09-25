@@ -43,7 +43,16 @@
                                         sm="2"
                                         md="2"
                                     >
-                                        <strong > Poziom trudności:</strong>
+                                        <strong > Poziom trudności:
+                                            <v-rating :value="ex.exercise.difficulty"
+                                                      color="yellow darken-3"
+                                                      background-color="grey darken-1"
+                                                      empty-icon="$ratingFull"
+                                                      small
+                                                      half-increments
+                                                      length="3"
+                                            ></v-rating>
+                                        </strong>
                                     </v-col>
 
                                     <v-col
@@ -51,7 +60,7 @@
                                         lg="4"
                                         sm="4"
                                     >
-                                        <strong v-html="ex.exercise"></strong>
+                                        <strong v-html="ex.exercise.name"></strong>
                                     </v-col>
                                     <v-col
                                         class="text-no-wrap text-truncate"
@@ -73,7 +82,7 @@
                             <v-expansion-panel-content>
                                 <v-divider></v-divider>
                                 <v-card-text>
-                                    Opis ćwiczenia
+                                    {{ex.exercise.description}}
 
                                 </v-card-text>
                                 <v-card-actions>
@@ -153,8 +162,9 @@ export default {
             this.workout.plan = JSON.parse(response.data[0].[0].plan);
             this.userLike = response.data[1];
             this.userFollow = response.data[2];
-            console.log(this.userLike)
-            console.log(this.userFollow)
+
+            console.log("moj plan:")
+            console.log(this.workout)
 
         }else{
             this.$toast.error('Problem z pobraniem planu treningowego!');

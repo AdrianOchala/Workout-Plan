@@ -18,7 +18,7 @@ class CreateArticlesTable extends Migration
             $table->unsignedBigInteger('author_id');
             $table->foreign('author_id')->references('id')->on('users');
             $table->string('title');
-            $table->string('content');
+            $table->mediumText('content');
             $table->string('description')->nullable();
             $table->dateTime('date');
             $table->unsignedBigInteger('workout_id')->nullable();
