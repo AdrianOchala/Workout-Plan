@@ -8,7 +8,7 @@ class Workout extends Model
 {
     public $timestamps = false;
     protected $fillable = [
-                'author_id', 'title', 'plan','description', 'likes', 'follows', 'public', 'type_id',
+                'author_id', 'title', 'plan','description', 'likes', 'follows','rating', 'public', 'type_id',
             ];
 
             public function author(){

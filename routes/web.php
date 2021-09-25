@@ -35,7 +35,7 @@ Route::post('deleteOpinion','CommentsController@deleteOpinion');
 Route::get('getArticleComments/{id}','CommentsController@getArticleComments'); //Paginacja
 Route::get('getWorkoutOpinions/{id}','CommentsController@getWorkoutOpinions'); //Paginacja
 //Do zmiany: V
-Route::get('getWorkoutRatings/{id}','CommentsController@getWorkoutRatings'); //Wyliczanie oceny planu do zmiany
+Route::get('getWorkoutRating/{id}','CommentsController@getWorkoutRating'); //Wyliczanie oceny planu do zmiany
 
 Route::get('getUserWorkoutsForPagination','WorkoutController@getUserWorkoutsForPagination'); //Pobiera plany użytkownika do paginacji
 Route::get('getUserFollowedWorkoutsForPagination','WorkoutController@getUserFollowedWorkoutsForPagination'); //Pobiera obserowane plany usera do paginacji
@@ -49,7 +49,7 @@ Route::get('getWorkout/{id}','WorkoutController@getWorkout'); // Pobiera jeden p
 Route::get('likeWorkout/{id}','WorkoutController@likeWorkout'); // Lajkuje plan
 Route::get('unlikeWorkout/{id}','WorkoutController@unlikeWorkout'); // unLajkuje plan
 Route::get('followWorkout/{id}','WorkoutController@followWorkout'); // Followuje plan
-Route::get('unfollowWorkout/{id}','WorkoutController@unfollowWorkout'); // Followuje plan
+Route::get('unfollowWorkout/{id}','WorkoutController@unfollowWorkout'); // Unfollowuje plan
 
 
 Route::get('getExercises','ExerciseController@getExercises');

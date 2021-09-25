@@ -269,9 +269,9 @@ export default {
             }
         },
         async getWorkoutRating(){
-            const response = await this.callApi('get',`/getWorkoutRatings/${this.targetId}`);
+            const response = await this.callApi('get',`/getWorkoutRating/${this.targetId}`);
             if(response.status === 200){
-                this.commentsOrRating = response.data[0];
+                this.commentsOrRating = response.data;
             }else{
                 this.$toast.error('Nie udało się pobrać średniej ocen dla planu treningowego!')
             }

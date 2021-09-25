@@ -4,6 +4,13 @@
             <p class="text-h4 text--primary">
                 {{ workout.title }}
             </p>
+            <p><v-rating :value="workout.rating"
+                         color="yellow darken-3"
+                         background-color="grey darken-1"
+                         empty-icon="$ratingFull"
+                         medium
+                         half-increments
+            ></v-rating></p>
             <p v-if="workout.author.showUserName">Autor: {{ workout.author.name }} {{workout.author.surname}}</p>
             <p v-else>Autor: {{ workout.author.nick }}</p>
             <div class="text--primary">
