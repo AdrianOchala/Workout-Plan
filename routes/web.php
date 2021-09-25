@@ -41,7 +41,7 @@ Route::get('getUserWorkoutsForPagination','WorkoutController@getUserWorkoutsForP
 Route::get('getUserFollowedWorkoutsForPagination','WorkoutController@getUserFollowedWorkoutsForPagination'); //Pobiera obserowane plany usera do paginacji
 Route::get('getPublicWorkoutsForPagination','WorkoutController@getPublicWorkoutsForPagination'); // Pobiera wszystkie plany publiczne
 
-
+Route::get('getBestWorkouts','WorkoutController@getBestWorkouts'); // 4 najlepsze na stronę główną
 Route::get('getWorkoutTypes','WorkoutController@getWorkoutTypes'); // Pobiera typy planów
 Route::post('addWorkout','WorkoutController@addWorkout'); //Dodaje plan treningowy
 Route::get('getWorkout/{id}','WorkoutController@getWorkout'); // Pobiera jeden plan o danym id

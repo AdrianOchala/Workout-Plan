@@ -14,7 +14,7 @@ class WorkoutController extends Controller
 {
     public function getUserWorkoutsForPagination(Request $request){
         $userId = Auth::user()->id;
-        return Workout::with(['author'])->where('author_id',$userId)->orderBy('id','desc')->paginate($request->total);
+        return Workout::with(['author','type'])->where('author_id',$userId)->orderBy('id','desc')->paginate($request->total);
     }
     public function getUserFollowedWorkoutsForPagination(Request $request){
         $userId = Auth::user()->id;
@@ -121,5 +121,8 @@ class WorkoutController extends Controller
                        'msg' => 'Wprowadzone dane nie są poprawne',
                 ],401);
             }
+    }
+    public function getBestWorkouts(){
+        return Workout::with(['author','type'])->orderBy('rating','desc')->take(4)->get();
     }
 }

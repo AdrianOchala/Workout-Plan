@@ -16,26 +16,48 @@
             </v-col>
         </v-row>
         <!--    Koniec    Ostatnio dodane artykuły   -->
-
+        <v-row>
+            <v-col cols="12" lg="12">
+                <v-divider></v-divider>
+                <div class="d-flex justify-content-center">
+                    <h2>Najwyżej ocenione plany treningowe</h2>
+                </div>
+                <v-row>
+                    <v-col lg="3" md="6" sm="12" xs="12" v-for="workout in workouts" :key="workout.id">
+                        <WorkoutCard :workout="workout"></WorkoutCard>
+                    </v-col>
+                </v-row>
+            </v-col>
+        </v-row>
     </div>
 </template>
 
 <script>
 import ArticleCard from "../Modals/ArticleCard";
+import WorkoutCard from "../Modals/WorkoutCard";
 export default {
-    components:{ArticleCard},
+    components:{WorkoutCard, ArticleCard},
     name: "UserHomePage",
     data(){
         return{
             articles:null,
+            workouts:null,
         }
     },
     async created() {
-        const response = await this.callApi('get','getLatestArticles');
-        if(response.status === 200){
-            this.articles = response.data;
+        const [articles,workouts] = await Promise.all([
+            this.callApi('get','getLatestArticles'),
+            this.callApi('get','getBestWorkouts'),
+        ]);
+        if(articles.status === 200){
+            this.articles = articles.data;
         }else{
             this.$toast.error('Problem z pobraniem artykułów!');
+        }
+        if(workouts.status === 200){
+            this.workouts = workouts.data;
+        }else{
+            this.$toast.error('Problem z pobraniem planów treningowych!');
         }
     },
 }
