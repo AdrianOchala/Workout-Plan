@@ -4,7 +4,14 @@
             <v-card-title style="background: rgba(0, 0, 0, 0.7); color: white; ">
                 {{ workout.title }} (Ocena)
                 <v-spacer></v-spacer>
-                <v-btn >Edytuj plan treningowy</v-btn>
+
+                <v-btn v-if="workout.author.id === getUser.id">Edytuj plan treningowy</v-btn>
+                <div v-else>
+                    <v-btn v-if="!userLike" @click="likeWorkout">{{workout.likes}}&nbsp;<v-icon>mdi-thumb-up-outline</v-icon></v-btn>
+                    <v-btn v-else @click="unlikeWorkout">{{workout.likes}}&nbsp;<v-icon>mdi-thumb-down-outline</v-icon></v-btn>
+                    <v-btn v-if="!userFollow" @click="followWorkout">{{workout.follows}}&nbsp;<v-icon>mdi-heart-plus-outline</v-icon></v-btn>
+                    <v-btn v-else  @click="unfollowWorkout">{{workout.follows}}&nbsp;<v-icon>mdi-cards-heart</v-icon></v-btn>
+                </div>
             </v-card-title>
             <v-card-text>
                 <v-row>
@@ -84,23 +91,77 @@
 
 <script>
 import Comments from "../Modals/CommentsComponent";
+import {mapGetters} from "vuex";
 export default {
     name: "Workout",
     components:{Comments},
     data(){
         return{
             workout:null,
+            userLike:false,
+            userFollow:false,
         }
+    },
+    methods:{
+        async likeWorkout(){
+            const res = await this.callApi('get',`/likeWorkout/${this.workout.id}`);
+            if(res.status === 201){
+                this.workout.likes++;
+                this.userLike = true;
+                this.$toast.success('Zalajkowałeś/łaś ten plan treningowy!');
+            }else{
+                this.$toast.error('Nie udało Ci się zalajkować tego planu...');
+            }
+        },
+        async unlikeWorkout(){
+            const res = await this.callApi('get',`/unlikeWorkout/${this.workout.id}`);
+            if(res.status === 201){
+                this.workout.likes--;
+                this.userLike = false;
+                this.$toast.success('Odlubiłeś/łaś ten plan treningowy!');
+            }else{
+                this.$toast.error('Nie udało Ci się odlajkować tego planu...');
+            }
+        },
+        async followWorkout(){
+            const res = await this.callApi('get',`/followWorkout/${this.workout.id}`);
+            if(res.status === 201){
+                this.workout.follows++;
+                this.userFollow = true;
+                this.$toast.success('Obserwujesz ten plan treningowy!');
+            }else{
+                this.$toast.error('Nie udało Ci się dodać do obserwowanych tego planu...');
+            }
+        },
+        async unfollowWorkout(){
+            const res = await this.callApi('get',`/unfollowWorkout/${this.workout.id}`);
+            if(res.status === 201){
+                this.workout.follows--;
+                this.userFollow = false;
+                this.$toast.success('Nie obserwujesz już tego planu treningowego!');
+            }else{
+                this.$toast.error('Nie udało Ci się przestać obserwować ten plan...');
+            }
+        },
     },
     async created() {
         const id = parseInt(this.$route.params.id);
         const response = await this.callApi('get',`/getWorkout/${id}`);
         if(response.status === 200){
-            this.workout = response.data[0];
-            this.workout.plan = JSON.parse(response.data[0].plan);
+            console.log(response.data[0].[0])
+            this.workout = response.data[0].[0];
+            this.workout.plan = JSON.parse(response.data[0].[0].plan);
+            this.userLike = response.data[1];
+            this.userFollow = response.data[2];
+            console.log(this.userLike)
+            console.log(this.userFollow)
+
         }else{
             this.$toast.error('Problem z pobraniem planu treningowego!');
         }
+    },
+    computed:{
+        ...mapGetters(['getUser']),
     },
 }
 </script>

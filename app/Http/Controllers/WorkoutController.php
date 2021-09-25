@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Workout;
-use App\UserWorkout;
+use App\UserLike;
+use App\UserFollow;
 use App\WorkoutType;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class WorkoutController extends Controller
 {
@@ -16,7 +18,7 @@ class WorkoutController extends Controller
     }
     public function getUserFollowedWorkoutsForPagination(Request $request){
         $userId = Auth::user()->id;
-        $workouts = UserWorkout::where('user_id',$userId)->value('workout_id');
+        $workouts = UserFollow::where('user_id',$userId)->value('workout_id');
 
         return Workout::with(['author'])->where('id',$workouts)->orderBy('id','desc')->paginate($request->total);
     }
@@ -39,6 +41,85 @@ class WorkoutController extends Controller
         return Workout::with(['author'])->where('public',true)->orderBy('id','desc')->paginate($request->total);
     }
     public function getWorkout($id){
-        return Workout::with(['author','type'])->where('id',$id)->get();
+        $userId = Auth::user()->id;
+        $workout = Workout::with(['author','type'])->where('id',$id)->get();
+        $isLiked = UserLike::where('user_id',$userId)->where('workout_id',$id)->exists();
+        $isFollowed = UserFollow::where('user_id',$userId)->where('workout_id',$id)->exists();
+
+        return [$workout, $isLiked, $isFollowed];
+    }
+    public function likeWorkout($id){
+        $userId = Auth::user()->id;
+        DB::beginTransaction();
+            try {
+                UserLike::create([
+                     'user_id'=>$userId,
+                     'workout_id'=>$id
+                ]);
+                Workout::where('id',$id)->increment('likes');
+                DB::commit();
+                return response()->json([
+                       'msg' => 'Poprawnie zalajkowano plan',
+                ],201);
+            }catch (\Throwable $th){
+                DB::rollback();
+                return response()->json([
+                       'msg' => 'Wprowadzone dane nie są poprawne',
+                ],401);
+            }
+    }
+    public function unlikeWorkout($id){
+        $userId = Auth::user()->id;
+        DB::beginTransaction();
+            try {
+                UserLike::where('user_id',$userId)->where('workout_id',$id)->delete();
+                Workout::where('id',$id)->decrement('likes');
+                DB::commit();
+                return response()->json([
+                       'msg' => 'Poprawnie odlajkowano plan',
+                ],201);
+            }catch (\Throwable $th){
+                DB::rollback();
+                return response()->json([
+                       'msg' => 'Wprowadzone dane nie są poprawne',
+                ],401);
+            }
+    }
+    public function followWorkout($id){
+        $userId = Auth::user()->id;
+        DB::beginTransaction();
+            try {
+                UserFollow::create([
+                     'user_id'=>$userId,
+                     'workout_id'=>$id
+                ]);
+                Workout::where('id',$id)->increment('follows');
+                DB::commit();
+                return response()->json([
+                       'msg' => 'Poprawnie zaobserowano plan',
+                ],201);
+            }catch (\Throwable $th){
+                DB::rollback();
+                return response()->json([
+                       'msg' => 'Wprowadzone dane nie są poprawne',
+                ],401);
+            }
+    }
+    public function unfollowWorkout($id){
+        $userId = Auth::user()->id;
+        DB::beginTransaction();
+            try {
+                UserFollow::where('user_id',$userId)->where('workout_id',$id)->delete();
+                Workout::where('id',$id)->decrement('follows');
+                DB::commit();
+                return response()->json([
+                       'msg' => 'Poprawnie przestałeś obserwować ten plan',
+                ],201);
+            }catch (\Throwable $th){
+                DB::rollback();
+                return response()->json([
+                       'msg' => 'Wprowadzone dane nie są poprawne',
+                ],401);
+            }
     }
 }

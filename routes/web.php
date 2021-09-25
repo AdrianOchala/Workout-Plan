@@ -46,6 +46,11 @@ Route::get('getWorkoutTypes','WorkoutController@getWorkoutTypes'); // Pobiera ty
 Route::post('addWorkout','WorkoutController@addWorkout'); //Dodaje plan treningowy
 Route::get('getWorkout/{id}','WorkoutController@getWorkout'); // Pobiera jeden plan o danym id
 
+Route::get('likeWorkout/{id}','WorkoutController@likeWorkout'); // Lajkuje plan
+Route::get('unlikeWorkout/{id}','WorkoutController@unlikeWorkout'); // unLajkuje plan
+Route::get('followWorkout/{id}','WorkoutController@followWorkout'); // Followuje plan
+Route::get('unfollowWorkout/{id}','WorkoutController@unfollowWorkout'); // Followuje plan
+
 
 Route::get('getExercises','ExerciseController@getExercises');
 
