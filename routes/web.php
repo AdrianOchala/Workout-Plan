@@ -44,6 +44,7 @@ Route::get('getPublicWorkoutsForPagination','WorkoutController@getPublicWorkouts
 Route::get('getBestWorkouts','WorkoutController@getBestWorkouts'); // 4 najlepsze na stronę główną
 Route::get('getWorkoutTypes','WorkoutController@getWorkoutTypes'); // Pobiera typy planów
 Route::post('addWorkout','WorkoutController@addWorkout'); //Dodaje plan treningowy
+Route::post('editWorkout','WorkoutController@editWorkout'); //Edytuje plan treningowy
 Route::get('getWorkout/{id}','WorkoutController@getWorkout'); // Pobiera jeden plan o danym id
 
 Route::get('likeWorkout/{id}','WorkoutController@likeWorkout'); // Lajkuje plan
@@ -53,6 +54,7 @@ Route::get('unfollowWorkout/{id}','WorkoutController@unfollowWorkout'); // Unfol
 
 
 Route::get('getExercises','ExerciseController@getExercises');
+Route::post('addNewExercise','ExerciseController@addNewExercise');
 
 Route::any('{something}', function () {
     return view('welcome');

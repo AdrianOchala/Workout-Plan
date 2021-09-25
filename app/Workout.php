@@ -10,6 +10,9 @@ class Workout extends Model
     protected $fillable = [
                 'author_id', 'title', 'plan','description', 'likes', 'follows','rating', 'public', 'type_id',
             ];
+            protected $casts = [
+              'public' => 'boolean',
+            ];
 
             public function author(){
                  return $this->belongsTo('App\User','author_id');

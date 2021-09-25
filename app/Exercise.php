@@ -8,6 +8,6 @@ class Exercise extends Model
 {
         public $timestamps = false;
        protected $fillable = [
-                   'name','level','description','author_id',
+                   'name','difficulty','description','author_id',
                ];
 }

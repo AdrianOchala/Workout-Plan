@@ -36,6 +36,15 @@ class WorkoutController extends Controller
             'type_id'=>$request->type
         ]);
     }
+    public function editWorkout(Request $request){
+            return Workout::where('id',$request->workout_id)->update([
+                'title'=>$request->title,
+                'plan'=>$request->plan,
+                'description'=>$request->description,
+                'public'=>$request->public,
+                'type_id'=>$request->type
+            ]);
+        }
 
     public function getPublicWorkoutsForPagination(Request $request){
         return Workout::with(['author'])->where('public',true)->orderBy('id','desc')->paginate($request->total);
@@ -125,4 +134,5 @@ class WorkoutController extends Controller
     public function getBestWorkouts(){
         return Workout::with(['author','type'])->orderBy('rating','desc')->take(4)->get();
     }
+
 }

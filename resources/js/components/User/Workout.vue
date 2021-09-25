@@ -5,7 +5,7 @@
                 {{ workout.title }} (Ocena)
                 <v-spacer></v-spacer>
 
-                <v-btn v-if="workout.author.id === getUser.id">Edytuj plan treningowy</v-btn>
+                <v-btn v-if="workout.author.id === getUser.id" @click="$router.push(`/EditWorkout/${workout.id}`)">Edytuj plan treningowy</v-btn>
                 <div v-else>
                     <v-btn v-if="!userLike" @click="likeWorkout">{{workout.likes}}&nbsp;<v-icon>mdi-thumb-up-outline</v-icon></v-btn>
                     <v-btn v-else @click="unlikeWorkout">{{workout.likes}}&nbsp;<v-icon>mdi-thumb-down-outline</v-icon></v-btn>

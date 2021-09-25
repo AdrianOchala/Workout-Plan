@@ -23,6 +23,7 @@ export default new VueRouter({
 
         {path:'/Workouts',component:Workouts,name:'Workouts'},
         {path:'/AddWorkout',component:AddWorkout,name:'AddWorkout'},
+        {path:'/EditWorkout/:id',component:AddWorkout,name:'EditWorkout'},
         {path:'/Workout/:id',component:Workout,name:'Workout'},
         // {path:'/RepairDetails/:id',component:RepairDetails,name:RepairDetails},//Wyszukiwanie warsztatów ( User , Owner)
 
