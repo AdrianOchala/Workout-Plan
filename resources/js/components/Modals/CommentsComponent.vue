@@ -152,7 +152,6 @@
                 <h4 slot="header" v-if="target==='opinions'">Czy na pewno chcesz usunąć swoją opinię?</h4>
             </delete-modal>
         </v-dialog>
-
     </div>
 </template>
 
@@ -205,7 +204,6 @@ export default {
             }
         },
         async addOpinion(){
-            console.log(this.comment)
             const res = await this.callApi('post','/addOpinion',this.comment);
             if(res.status === 201){
                 this.$toast.success('Pomyślnie dodano opinię');
@@ -259,20 +257,15 @@ export default {
                 this.commentsOrRating = response.data[1];
                 this.paginationInfo.current_page = response.data[0].current_page;
                 this.paginationInfo.total = response.data[0].last_page;
-                console.log('jestem')
-                console.log(this.comments)
             }
         },
         async getOpinionsForPagination(page = 1){
             const response = await this.callApi('get',`/getWorkoutOpinions/${this.targetId}?page=${page}&total=${this.total}`);
             if(response.status ===200){
                 this.comments = response.data.data;
-                // this.commentsOrRating = response.data[1];
                 this.paginationInfo.current_page = response.data.current_page;
                 this.paginationInfo.total = response.data.last_page;
-
                 this.getWorkoutRating();
-
             }
         },
         async getWorkoutRating(){
@@ -290,7 +283,6 @@ export default {
             this.comment.mark = 0;
         }else if(this.target === 'opinions'){
             this.getOpinionsForPagination();
-            console.log("pobieram opinie")
         }else{
             this.$toast.error('Nie udało się pobrać komentarzy/opinii!');
         }
@@ -320,8 +312,6 @@ export default {
                 }else if(this.target === 'opinions'){
                     this.getOpinionsForPagination()
                 }
-            }else {
-
             }
         }
     },

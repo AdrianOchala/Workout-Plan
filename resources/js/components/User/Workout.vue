@@ -98,7 +98,6 @@ export default {
         if(response.status === 200){
             this.workout = response.data[0];
             this.workout.plan = JSON.parse(response.data[0].plan);
-            console.log(this.workout)
         }else{
             this.$toast.error('Problem z pobraniem planu treningowego!');
         }

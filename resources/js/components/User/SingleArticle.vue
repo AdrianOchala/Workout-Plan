@@ -11,14 +11,8 @@
                 <v-divider></v-divider>
             </v-col>
         </v-row>
-
-
-
         <div class="ck-content" v-if="article != null" v-html="article.content"></div>
-
         <Comments :target-id="article.id" target="comments" :author="article.author.id" />
-
-
     </div>
 </template>
 
@@ -37,8 +31,6 @@ export default {
         const response = await this.callApi('get',`/getArticle/${id}`);
         if(response.status === 200){
             this.article = response.data[0];
-            console.log('Pojedynczy artykul:')
-            console.log(this.article)
         }else{
             this.$toast.error('Problem z pobraniem artykułów!');
         }

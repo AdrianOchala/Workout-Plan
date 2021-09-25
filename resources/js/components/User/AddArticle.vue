@@ -148,9 +148,6 @@ export default {
             }
         }
     },
-    computed: {
-
-    },
     async created(){
         const [categories,workouts] = await Promise.all([
             this.callApi('get','/getArticleCategories'),

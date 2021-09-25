@@ -47,13 +47,9 @@ export default {
         async getArticlesForPagination(page = 1){
             const response = await this.callApi('get',`/getArticlesForPagination/?page=${page}&total=${this.total}`);
             if(response.status ===200){
-                console.log(response)
                 this.articles = response.data.data;
-                // this.commentsOrRating = response.data[1];
                 this.paginationInfo.current_page = response.data.current_page;
                 this.paginationInfo.total = response.data.last_page;
-                const stringArt = JSON.stringify(this.articles[11])
-                console.log(stringArt)
             }
         },
     },

@@ -212,7 +212,6 @@ export default {
                 }else{
                     this.$toast.error('Proszę poprawić błędy');
                 }
-
             }
         },
     },
@@ -264,13 +263,6 @@ export default {
             !this.$v.user.repeatPassword.sameAs && errors.push('Hasła muszą być takie samo.');
             return errors;
         },
-    },
-    async created(){
-
-    },
-    watch: {
-
-
     },
 }
 </script>

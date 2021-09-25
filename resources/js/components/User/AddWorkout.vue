@@ -138,11 +138,9 @@ export default {
         }
         if(exercises.status === 200){
             this.exercises = exercises.data;
-            console.log(this.exercises)
         }else{
             this.$toast.error('Nie udało się pobrać ćwiczeń. Proszę odświeżyć stronę!',{timeout:5000});
         }
-
     }
 }
 </script>

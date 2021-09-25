@@ -71,7 +71,6 @@ export default{
                 this.$store.commit('setReportComponent',reportInfo);
             }else if(res.status === 401)
             {
-                console.log(res)
                 this.$toast.error(res.data.msg)
             }else{
                 this.$toast.warning('Oops! Coś poszło nie tak :(')

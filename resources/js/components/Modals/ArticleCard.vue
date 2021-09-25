@@ -26,7 +26,6 @@
                 >
                     {{cat.name}}
                 </v-chip>
-
             </v-chip-group>
         </v-card-text>
         <v-card-actions>
@@ -48,6 +47,3 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>

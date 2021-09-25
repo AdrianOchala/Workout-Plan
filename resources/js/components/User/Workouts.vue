@@ -42,15 +42,12 @@
                                           @input="getPublicWorkoutsForPagination"
                             ></v-pagination>
                         </div>
-
                     </v-col>
                 </v-row>
-
             </v-card-text>
         </v-card>
     </div>
 </template>
-
 <script>
 import WorkoutCard from "../Modals/WorkoutCard";
 export default {
@@ -95,21 +92,6 @@ export default {
     },
     async created() {
         this.getUserWorkoutsForPagination();
-        // const [userWorkouts,publicWorkouts] = await Promise.all([
-        //     this.callApi('get','/getUserWorkouts'),
-        //     this.callApi('get', '/getPublicWorkouts'),
-        // ]);
-        // if(userWorkouts.status === 200){
-        //     this.userWorkouts = userWorkouts.data;
-        //     console.log(this.userWorkouts)
-        // }else{
-        //     this.$toast.error('Nie udało się pobrać twoich planów treningowych.');
-        // }
-        // if(publicWorkouts.status === 200){
-        //     this.publicWorkouts = publicWorkouts.data;
-        // }else{
-        //     this.$toast.error('Nie udało się pobrać planów treningowych.');
-        // }
     },
     watch:{
         planType(type){
@@ -117,10 +99,8 @@ export default {
                 this.getUserWorkoutsForPagination();
             }else if(type === 'follow'){
                 this.getUserFollowedWorkoutsForPagination();
-                console.log('obserwowane')
             }else if(type === 'public'){
                 this.getPublicWorkoutsForPagination();
-                console.log('publiczne')
             }
         }
     },

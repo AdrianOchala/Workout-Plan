@@ -39,33 +39,14 @@
            showLogin(){
                this.$store.commit('setShowLoginComponent', true);
                this.$store.commit('setShowRegisterComponent', false);
-                // if(this.getShowRegisterComponent===true){
-                //     this.setShowRegisterComponent(false)
-                //     this.showRegisterModel = false
-                // }
-                // this.setShowLoginComponent(true)
-                // this.showLoginModel = true
             },
             showRegistration(){
-                this.$store.commit('setShowLoginComponent', false);
+               this.$store.commit('setShowLoginComponent', false);
                this.$store.commit('setShowRegisterComponent', true);
-                // if(this.getShowLoginComponent===true) {
-                //     this.setShowLoginComponent(false)
-                //     this.showLoginModel = false
-                // }
-                // this.showRegisterModel=true
-                // this.setShowRegisterComponent(true)
             },
         },
         computed:{
             ...mapGetters(['getShowLoginComponent','getShowRegisterComponent']),
-
-        },
-        async created(){
-
-        },
-        watch:{
-
         },
     }
 </script>
