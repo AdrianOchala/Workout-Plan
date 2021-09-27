@@ -23,6 +23,11 @@
                     </v-list-item-content>
                 </v-list-item>
                 <v-divider></v-divider>
+                <v-list-item :to="{path: '/UserSettings'}">
+                    <v-list-item-content>
+                        <v-list-item-title>Ustawienia</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
                 <v-list-item href="/logout">
                     <v-list-item-content>
                         <v-list-item-title>Wyloguj</v-list-item-title>

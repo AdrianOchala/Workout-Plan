@@ -12,6 +12,7 @@ import Article from "./components/User/SingleArticle";
 import Workouts from "./components/User/Workouts";
 import AddWorkout from "./components/User/AddWorkout";
 import Workout from "./components/User/Workout";
+import UserSettings from "./components/User/UserSettings";
 
 export default new VueRouter({
     routes:[
@@ -26,7 +27,8 @@ export default new VueRouter({
         {path:'/AddWorkout',component:AddWorkout,name:'AddWorkout'},
         {path:'/EditWorkout/:id',component:AddWorkout,name:'EditWorkout'},
         {path:'/Workout/:id',component:Workout,name:'Workout'},
-        // {path:'/RepairDetails/:id',component:RepairDetails,name:RepairDetails},//Wyszukiwanie warsztatów ( User , Owner)
+        {path:'/UserSettings',component:UserSettings,name:'UserSettings'},
+
 
         {path:'*',component:PageNotFound,name:'pagenotfound'},
 

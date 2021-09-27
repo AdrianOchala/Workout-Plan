@@ -63,7 +63,20 @@ class AuthController extends Controller
                         'showUserName'=>$request->showUserName
                     ]);
 
-        }
+    }
+    public function userEdit(Request $request){
+        return User::where('id',3)->update([
+                'name'=>$request->name,
+                'surname'=>$request->surname,
+                'nick'=>$request->nick,
+                'email'=>$request->email,
+                'phone'=>$request->phone,
+                'age'=>$request->age,
+                'height'=>$request->height,
+                'sex'=>$request->sex,
+                'showUserName'=>$request->showUserName
+        ]);
+    }
     public function unauthorised(){
         return view('pagenotfound');
     }

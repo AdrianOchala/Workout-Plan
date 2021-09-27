@@ -18,6 +18,8 @@ Route::get('/unauthorised','AuthController@unauthorised');
 Route::post('/login','AuthController@login');
 Route::get('/logout','AuthController@logout');
 Route::post('/register','AuthController@register');
+Route::post('userEdit','AuthController@userEdit');
+
 
 Route::get('getArticleCategories','ArticleController@getArticleCategories');
 Route::post('addArticle','ArticleController@addArticle');
