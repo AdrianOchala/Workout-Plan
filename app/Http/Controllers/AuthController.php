@@ -77,6 +77,20 @@ class AuthController extends Controller
                 'showUserName'=>$request->showUserName
         ]);
     }
+    public function changeUserPassword(Request $request){
+        $userId = Auth::user()->id;
+                if((Hash::check($request->userPassword, Auth::user()->password))) {
+                    $hashPassword = bcrypt($request->userNewPassword);
+                    User::where('id',$userId)->update(['password'=>$hashPassword]);
+                    return response()->json([
+                                    'msg' => 'Poprawnie zmieniłeś hasło',
+                                ],200);
+                }else{
+                    return response()->json([
+                                    'msg' => 'Wprowadzone dane nie są poprawne',
+                                ],401);
+                }
+    }
     public function unauthorised(){
         return view('pagenotfound');
     }

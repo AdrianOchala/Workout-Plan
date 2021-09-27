@@ -129,6 +129,46 @@
                     </v-card-actions>
                 </v-card>
             </v-col>
+            <v-col cols="3">
+                <v-card>
+                    <v-card-title style="background: rgba(0, 0, 0, 0.7); color: white; ">Hasło użytkownika
+                        <v-spacer></v-spacer>
+                        <v-btn outlined color="white" @click="showEditingPassword">Edytuj</v-btn>
+                    </v-card-title>
+                    <v-card-text v-if="user && changeUserPassword">
+                        <v-row>
+                            <v-col cols="12">
+                                <v-text-field v-model="userPassword" label="Stare hasło" :type="typ1"
+                                              :append-outer-icon="'mdi-eye'"
+                                              @click:append-outer="showOldPassword"
+                                              :error-messages="userPasswordErrors"
+                                              @input="$v.userPassword.$touch()"
+                                              @blur="$v.userPassword.$touch()"
+                                ></v-text-field>
+                                <v-text-field v-model="userNewPassword" label="Nowe hasło" :type="typ2"
+                                              :append-outer-icon="'mdi-eye'"
+                                              @click:append-outer="showNewPassword"
+                                              :error-messages="userNewPasswordErrors"
+                                              @input="$v.userNewPassword.$touch()"
+                                              @blur="$v.userNewPassword.$touch()"
+                                ></v-text-field>
+                                <v-text-field v-model="userNewRepeatPassword" label="Powtórz nowe hasło" :type="typ3"
+                                              :append-outer-icon="'mdi-eye'"
+                                              @click:append-outer="showRepeatPassword"
+                                              :error-messages="userRepeatPasswordErrors"
+                                              @input="$v.userNewRepeatPassword.$touch()"
+                                              @blur="$v.userNewRepeatPassword.$touch()"
+                                ></v-text-field>
+                            </v-col>
+                        </v-row>
+                    </v-card-text>
+                    <v-card-actions v-if="changeUserPassword">
+                        <v-btn outlined @click="cancelEditingPassword">Anuluj</v-btn>
+                        <v-spacer></v-spacer>
+                        <v-btn outlined @click="editPassword">Zmień</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-col>
         </v-row>
     </div>
 </template>
@@ -143,6 +183,15 @@ export default {
             userEdit:null,
             user:null,
             changeUserData:true,
+
+            changeUserPassword:false,
+            fieldType:'password',
+            userNewPassword:'',
+            userNewRepeatPassword:'',
+            userPassword:'',
+            typ1:'password',
+            typ2:'password',
+            typ3:'password',
         }
     },
     validations: {
@@ -166,6 +215,16 @@ export default {
             phone: {
                 numeric,
             },
+        },
+        userPassword:{
+            required
+        },
+        userNewPassword:{
+            required,
+            minLength:minLength(7)
+        },
+        userNewRepeatPassword:{
+            sameAs:sameAs("userNewPassword")
         },
     },
     methods:{
@@ -202,6 +261,50 @@ export default {
                 this.$toast.error('Problem z edycją danych. Proszę spróbować później.')
             }
         },
+
+        async editPassword(){
+            const response = await this.callApi('post','/changeUserPassword',{userPassword:this.userPassword,
+                                                                            userNewPassword:this.userNewPassword});
+            if(response.status === 200){
+                this.$toast.success('Pomyślnie zmieniono hasło');
+                this.changeUserPassword = false;
+                this.userNewPassword='';
+                this.userNewRepeatPassword='';
+                this.userPassword='';
+            }else{
+                this.$toast.error('Problem z edycją hasła. Proszę spróbować później.')
+            }
+        },
+        showEditingPassword(){
+            this.changeUserPassword = true;
+        },
+        cancelEditingPassword(){
+            this.changeUserPassword = false;
+            this.userNewPassword='';
+            this.userNewRepeatPassword='';
+            this.userPassword='';
+        },
+        showOldPassword(){
+            if(this.typ1 === 'password'){
+                this.typ1 = 'text';
+            }else{
+                this.typ1 = 'password';
+            }
+        },
+        showNewPassword(){
+            if(this.typ2 === 'password'){
+                this.typ2 = 'text';
+            }else{
+                this.typ2 = 'password';
+            }
+        },
+        showRepeatPassword(){
+            if(this.typ3 === 'password'){
+                this.typ3 = 'text';
+            }else{
+                this.typ3 = 'password';
+            }
+        },
     },
     created(){
         this.user = this.getUser;
@@ -236,24 +339,24 @@ export default {
             !this.$v.user.phone.numeric && errors.push('Wpisz tylko cyfry.');
             return errors;
         },
-        // userPasswordErrors(){
-        //     const errors = [];
-        //     if (!this.$v.userPassword.$dirty) return errors;
-        //     !this.$v.userPassword.required && errors.push('Hasło jest wymagane.');
-        //     return errors;
-        // },
-        // userNewPasswordErrors(){
-        //     const errors = [];
-        //     if (!this.$v.userNewPassword.$dirty) return errors;
-        //     !this.$v.userNewPassword.required && errors.push('Hasło jest wymagane.');
-        //     return errors;
-        // },
-        // userRepeatPasswordErrors(){
-        //     const errors = [];
-        //     if (!this.$v.userNewRepeatPassword.$dirty) return errors;
-        //     !this.$v.userNewRepeatPassword.sameAs && errors.push('Hasła muszą być takie same.');
-        //     return errors;
-        // },
+        userPasswordErrors(){
+            const errors = [];
+            if (!this.$v.userPassword.$dirty) return errors;
+            !this.$v.userPassword.required && errors.push('Hasło jest wymagane.');
+            return errors;
+        },
+        userNewPasswordErrors(){
+            const errors = [];
+            if (!this.$v.userNewPassword.$dirty) return errors;
+            !this.$v.userNewPassword.required && errors.push('Hasło jest wymagane.');
+            return errors;
+        },
+        userRepeatPasswordErrors(){
+            const errors = [];
+            if (!this.$v.userNewRepeatPassword.$dirty) return errors;
+            !this.$v.userNewRepeatPassword.sameAs && errors.push('Hasła muszą być takie same.');
+            return errors;
+        },
     },
 }
 </script>
