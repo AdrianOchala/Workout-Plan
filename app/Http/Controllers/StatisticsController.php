@@ -23,4 +23,7 @@ class StatisticsController extends Controller
         $userId = Auth::user()->id;
         return UserWorkoutSession::with(['workout'])->where('user_id',$userId)->get();
     }
+    public function deleteStats(Request $request){
+        return UserWorkoutSession::where('id',$request->id)->delete();
+    }
 }

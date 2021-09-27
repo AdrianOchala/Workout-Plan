@@ -70,6 +70,7 @@ Route::post('deleteMeasurment','MeasurmentsController@deleteMeasurment');
 
 Route::post('addStatistics','StatisticsController@addStatistics');
 Route::get('getUserStats','StatisticsController@getUserStats');
+Route::post('deleteStats','StatisticsController@deleteStats');
 
 Route::get('getExercises','ExerciseController@getExercises');
 Route::post('addNewExercise','ExerciseController@addNewExercise');

@@ -33,7 +33,7 @@
                                     </v-row>
                                 </v-card-text>
                                 <v-card-actions>
-                                    <v-btn color="red" outlined class="mx-auto" @click="">Usuń</v-btn>
+                                    <v-btn color="red" outlined class="mx-auto" @click="deleteStat(s)">Usuń</v-btn>
                                 </v-card-actions>
                             </v-expansion-panel-content>
                         </v-expansion-panel>
@@ -73,7 +73,7 @@
                 </v-card-text>
                 <v-card-actions class="justify-center">
                     <v-btn text color="primary" @click="showAddModal = false">Anuluj</v-btn>
-                    <v-btn text color="primary" @click="addStatistics">Dodaj pomiary</v-btn>
+                    <v-btn text color="primary" @click="addStatistics">Dodaj</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -96,6 +96,15 @@ export default {
         }
     },
     methods:{
+        async deleteStat(stat){
+            const res = await this.callApi('post','deleteStats',stat);
+            if(res.status === 200){
+                this.$toast.success('Pomyślnie usunąłeś statystykę',{timeout:2000});
+                setTimeout(()=>{ this.$router.go() }, 2000);
+            }else{
+                this.$toast.error('Nie udało się usunąć statystyk...')
+            }
+        },
         async addStatistics(){
             console.log(this.stats.workout.id);
             console.log(this.stats.plan);
