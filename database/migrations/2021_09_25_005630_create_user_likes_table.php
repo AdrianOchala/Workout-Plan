@@ -16,9 +16,9 @@ class CreateUserLikesTable extends Migration
         Schema::create('user_likes', function (Blueprint $table) {
            $table->id();
            $table->unsignedBigInteger('user_id');
-           $table->foreign('user_id')->references('id')->on('users');
+           $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
            $table->unsignedBigInteger('workout_id');
-           $table->foreign('workout_id')->references('id')->on('workouts');
+           $table->foreign('workout_id')->references('id')->on('workouts')->onDelete('cascade');
         });
     }
 

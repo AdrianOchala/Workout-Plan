@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Opinion;
 use App\Workout;
 use App\UserLike;
 use App\UserFollow;
@@ -49,7 +50,9 @@ class WorkoutController extends Controller
                 'type_id'=>$request->type
             ]);
         }
-
+    public function deleteWorkout(Request $request){
+        return Workout::where('id',$request->id)->delete();
+    }
     public function getPublicWorkoutsForPagination(Request $request){
         return Workout::with(['author'])->where('public',true)->orderBy('id','desc')->paginate($request->total);
     }

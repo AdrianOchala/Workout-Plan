@@ -18,7 +18,7 @@ class CreateReportOpinionsTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->unsignedBigInteger('opinion_id')->nullable();
-            $table->foreign('opinion_id')->references('id')->on('opinions');
+            $table->foreign('opinion_id')->references('id')->on('opinions')->onDelete('cascade');
             $table->string('reason');
             $table->timestamps();
         });

@@ -15,14 +15,14 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('author_id');
-            $table->foreign('author_id')->references('id')->on('users');
+            $table->unsignedBigInteger('author_id')->nullable();
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
             $table->string('title');
             $table->mediumText('content');
             $table->string('description')->nullable();
             $table->dateTime('date');
             $table->unsignedBigInteger('workout_id')->nullable();
-            $table->foreign('workout_id')->references('id')->on('workouts');
+            $table->foreign('workout_id')->references('id')->on('workouts')->onDelete('set null');
             $table->bigInteger('views')->default(0);
         });
     }

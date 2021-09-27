@@ -18,7 +18,7 @@ class CreateUserWorkoutSessionsTable extends Migration
              $table->unsignedBigInteger('user_id');
              $table->foreign('user_id')->references('id')->on('users');
              $table->unsignedBigInteger('workout_id');
-             $table->foreign('workout_id')->references('id')->on('workouts');
+             $table->foreign('workout_id')->references('id')->on('workouts')->onDelete('cascade');
              $table->string('content');
              $table->date('date');
         });

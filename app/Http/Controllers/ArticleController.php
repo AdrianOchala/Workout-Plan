@@ -77,23 +77,7 @@ class ArticleController extends Controller
                 }
     }
     public function deleteArticle(Request $request){
-         DB::beginTransaction();
-                        try{
-                            Comment::where('article_id',$request->id)->delete();
-                            ArticleCategory::where('article_id',$request->id)->delete();
-                            Article::where('id',$request->id)->delete();
-
-
-                            DB::commit();
-                            return response()->json([
-                                                   'msg' => 'Pomyślnie usunięto artykuł oraz jego powiązania!',
-                                               ],200);
-                        }catch(\Throwable $th){
-                            DB::rollback();
-                            return response()->json([
-                                                   'msg' => 'Nie udało się usunąć artykułu, spróbuj później.',
-                                               ],401);
-                        }
+       return Article::where('id',$request->id)->delete();
     }
     public function getLatestArticles(){
        return Article::with(['author','categories'])->orderBy('date','desc')->take(4)->get();

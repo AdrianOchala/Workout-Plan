@@ -16,7 +16,7 @@ class CreateWorkoutsTable extends Migration
         Schema::create('workouts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('author_id');
-            $table->foreign('author_id')->references('id')->on('users');
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('title')->unique();
             $table->text('description')->nullable();
             $table->mediumText('plan');

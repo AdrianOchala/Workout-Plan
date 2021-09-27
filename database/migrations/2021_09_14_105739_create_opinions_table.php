@@ -15,10 +15,10 @@ class CreateOpinionsTable extends Migration
     {
         Schema::create('opinions', function (Blueprint $table) {
              $table->id();
-             $table->unsignedBigInteger('author_id');
-             $table->foreign('author_id')->references('id')->on('users');
+             $table->unsignedBigInteger('author_id')->nullable();
+             $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
              $table->unsignedBigInteger('workout_id');
-             $table->foreign('workout_id')->references('id')->on('workouts');
+             $table->foreign('workout_id')->references('id')->on('workouts')->onDelete('cascade');
              $table->string('content');
              $table->bigInteger('mark');
              $table->dateTime('date');

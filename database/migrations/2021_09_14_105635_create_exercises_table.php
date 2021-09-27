@@ -19,7 +19,7 @@ class CreateExercisesTable extends Migration
             $table->text('description');
             $table->integer('difficulty');
             $table->unsignedBigInteger('author_id')->nullable();
-            $table->foreign('author_id')->references('id')->on('users');
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
