@@ -37,22 +37,54 @@
                    @click="$router.push(`/EditArticle/${article.id}`)">
                 Edytuj
             </v-btn>
+            <v-spacer></v-spacer>
+            <v-btn v-if="article.author.id === getUser.id" color="red" text class="mx-auto"
+                   @click="deleteArticle(article)">
+                Usuń
+            </v-btn>
         </v-card-actions>
+
+        <v-dialog v-model="getDeleteModalData.showDeleteModal" persistent width="700px">
+            <delete-modal>
+                <h4 slot="header">Czy na pewno chcesz usunąć ten artykuł?</h4>
+            </delete-modal>
+        </v-dialog>
     </v-card>
 </template>
 <script>
 import {mapGetters} from "vuex";
+import deleteModal from '../Modals/DeleteModalComponent';
 
 export default {
-    props: ['article'],
+    props: ['article','index'],
+    components:{deleteModal},
     name: "ArticleCard",
     data(){
         return{
 
         }
     },
+    methods:{
+        deleteArticle(article){
+            const deleteModalData = {
+                showDeleteModal: true,
+                deleteUrl: "/deleteArticle",
+                data: article,
+                deletingIndex: this.index,
+                isDeleted: false,
+            };
+            this.$store.commit('setDeletingModalData', deleteModalData);
+        },
+    },
     computed:{
-        ...mapGetters(['getUser']),
+        ...mapGetters(['getDeleteModalData','getUser']),
+    },
+    watch:{
+        getDeleteModalData(obj){
+            if(obj.isDeleted){
+                setTimeout(()=>{ this.$router.go(); }, 1500);
+            }
+        }
     },
 }
 </script>

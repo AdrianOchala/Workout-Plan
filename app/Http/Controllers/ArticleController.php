@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Article;
 use App\ArticleCategory;
+use App\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ArticleController extends Controller
 {
@@ -73,6 +75,25 @@ class ArticleController extends Controller
                                            'msg' => 'Nie udało się edytować artykułu, spróbuj później.',
                                        ],401);
                 }
+    }
+    public function deleteArticle(Request $request){
+         DB::beginTransaction();
+                        try{
+                            Comment::where('article_id',$request->id)->delete();
+                            ArticleCategory::where('article_id',$request->id)->delete();
+                            Article::where('id',$request->id)->delete();
+
+
+                            DB::commit();
+                            return response()->json([
+                                                   'msg' => 'Pomyślnie usunięto artykuł oraz jego powiązania!',
+                                               ],200);
+                        }catch(\Throwable $th){
+                            DB::rollback();
+                            return response()->json([
+                                                   'msg' => 'Nie udało się usunąć artykułu, spróbuj później.',
+                                               ],401);
+                        }
     }
     public function getLatestArticles(){
        return Article::with(['author','categories'])->orderBy('date','desc')->take(4)->get();

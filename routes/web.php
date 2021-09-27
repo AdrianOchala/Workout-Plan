@@ -22,6 +22,7 @@ Route::post('/register','AuthController@register');
 Route::get('getArticleCategories','ArticleController@getArticleCategories');
 Route::post('addArticle','ArticleController@addArticle');
 Route::post('editArticle','ArticleController@editArticle');
+Route::post('deleteArticle','ArticleController@deleteArticle');
 Route::get('getLatestArticles','ArticleController@getLatestArticles');
 Route::get('getArticle/{id}','ArticleController@getArticle');
 Route::get('getArticlesForPagination','ArticleController@getArticlesForPagination');

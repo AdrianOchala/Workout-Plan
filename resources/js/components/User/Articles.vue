@@ -15,8 +15,8 @@
                     <v-col cols="12" lg="12">
                         <v-divider></v-divider>
                         <v-row>
-                            <v-col lg="3" md="6" sm="12" xs="12" v-for="article in articles" :key="article.id">
-                                <ArticleCard :article="article"></ArticleCard>
+                            <v-col lg="3" md="6" sm="12" xs="12" v-for="(article, index) in articles" :key="article.id">
+                                <ArticleCard :article="article" :index="index"></ArticleCard>
                             </v-col>
                         </v-row>
                         <v-divider></v-divider>
@@ -39,6 +39,7 @@
                 </v-row>
             </v-card-text>
         </v-card>
+
     </div>
 </template>
 
