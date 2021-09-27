@@ -60,6 +60,9 @@ Route::get('unlikeWorkout/{id}','WorkoutController@unlikeWorkout'); // unLajkuje
 Route::get('followWorkout/{id}','WorkoutController@followWorkout'); // Followuje plan
 Route::get('unfollowWorkout/{id}','WorkoutController@unfollowWorkout'); // Unfollowuje plan
 
+Route::get('getPlanedWorkouts','WorkoutController@getPlanedWorkouts'); // Pobiera dane do rozpiski tygodniowej
+Route::post('editPlanner','WorkoutController@editPlanner'); // Pobiera dane do rozpiski tygodniowej
+
 
 Route::get('getExercises','ExerciseController@getExercises');
 Route::post('addNewExercise','ExerciseController@addNewExercise');

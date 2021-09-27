@@ -308,7 +308,6 @@ export default {
     },
     created(){
         this.user = this.getUser;
-        console.log(this.user);
     },
     computed:{
         ...mapGetters(['getUser']),

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Opinion;
+use App\Planner;
 use App\Workout;
 use App\UserLike;
 use App\UserFollow;
@@ -142,4 +143,20 @@ class WorkoutController extends Controller
         return Workout::with(['author','type'])->orderBy('rating','desc')->take(4)->get();
     }
 
+    public function getPlanedWorkouts(){
+    $userId = Auth::user()->id;
+        return Planner::with(['monday','tuesday','wednesday','thursday','friday','saturday','sunday'])->where('user_id',$userId)->get();
+    }
+    public function editPlanner(Request $request){
+    $userId = Auth::user()->id;
+        return Planner::where('user_id',$userId)->update([
+            'monday'=>$request->monday,
+            'tuesday'=>$request->tuesday,
+            'wednesday'=>$request->wednesday,
+            'thursday'=>$request->thursday,
+            'friday'=>$request->friday,
+            'saturday'=>$request->saturday,
+            'sunday'=>$request->sunday
+        ]);
+    }
 }

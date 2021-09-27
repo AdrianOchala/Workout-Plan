@@ -13,6 +13,7 @@ import Workouts from "./components/User/Workouts";
 import AddWorkout from "./components/User/AddWorkout";
 import Workout from "./components/User/Workout";
 import UserSettings from "./components/User/UserSettings";
+import Planner from "./components/User/Planner";
 
 export default new VueRouter({
     routes:[
@@ -28,6 +29,7 @@ export default new VueRouter({
         {path:'/EditWorkout/:id',component:AddWorkout,name:'EditWorkout'},
         {path:'/Workout/:id',component:Workout,name:'Workout'},
         {path:'/UserSettings',component:UserSettings,name:'UserSettings'},
+        {path:'/Planner',component:Planner,name:'Planner'},
 
 
         {path:'*',component:PageNotFound,name:'pagenotfound'},
