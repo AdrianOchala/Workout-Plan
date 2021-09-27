@@ -15,6 +15,7 @@ import Workout from "./components/User/Workout";
 import UserSettings from "./components/User/UserSettings";
 import Planner from "./components/User/Planner";
 import UserMeasurments from "./components/User/UserMeasurments";
+import UserStatistics from "./components/User/UserStatistics";
 
 export default new VueRouter({
     routes:[
@@ -32,6 +33,7 @@ export default new VueRouter({
         {path:'/UserSettings',component:UserSettings,name:'UserSettings'},
         {path:'/Planner',component:Planner,name:'Planner'},
         {path:'/Measurments',component:UserMeasurments,name:'UserMeasurments'},
+        {path:'/Statistics',component:UserStatistics,name:'UserStatistics'},
 
 
 

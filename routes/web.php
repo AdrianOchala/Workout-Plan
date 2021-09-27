@@ -68,6 +68,9 @@ Route::get('getMeasurments','MeasurmentsController@getMeasurments');
 Route::post('addNewMeasurment','MeasurmentsController@addNewMeasurment');
 Route::post('deleteMeasurment','MeasurmentsController@deleteMeasurment');
 
+Route::post('addStatistics','StatisticsController@addStatistics');
+Route::get('getUserStats','StatisticsController@getUserStats');
+
 Route::get('getExercises','ExerciseController@getExercises');
 Route::post('addNewExercise','ExerciseController@addNewExercise');
 
