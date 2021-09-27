@@ -17,7 +17,7 @@ class CreateUserMeasurmentsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->dateTime('date');
+            $table->date('date');
             $table->integer('weight');
             $table->integer('neck');
             $table->integer('bicepsL');

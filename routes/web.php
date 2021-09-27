@@ -64,6 +64,10 @@ Route::get('getPlanedWorkouts','WorkoutController@getPlanedWorkouts'); // Pobier
 Route::post('editPlanner','WorkoutController@editPlanner'); // Pobiera dane do rozpiski tygodniowej
 Route::get('getTodaysWorkout','WorkoutController@getTodaysWorkout');
 
+Route::get('getMeasurments','MeasurmentsController@getMeasurments');
+Route::post('addNewMeasurment','MeasurmentsController@addNewMeasurment');
+Route::post('deleteMeasurment','MeasurmentsController@deleteMeasurment');
+
 Route::get('getExercises','ExerciseController@getExercises');
 Route::post('addNewExercise','ExerciseController@addNewExercise');
 

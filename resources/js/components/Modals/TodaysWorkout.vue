@@ -10,7 +10,7 @@
             <h6> Dziś masz wolne, daj odpocząć mięśniom, sprawdź swoje statystyki.</h6>
         </v-card-text>
         <v-card-actions>
-            <h5 v-if="workout"><a @click="$router.push(`/Workout/${workout.id}`)">Statystyki<v-icon >mdi-open-in-new</v-icon></a></h5>
+            <h5><a @click="$router.push(`/Workout/${workout.id}`)">Statystyki<v-icon >mdi-open-in-new</v-icon></a></h5>
         </v-card-actions>
     </v-card>
 </template>

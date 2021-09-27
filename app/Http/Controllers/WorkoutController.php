@@ -150,8 +150,8 @@ class WorkoutController extends Controller
     }
     public function editPlanner(Request $request){
     $userId = Auth::user()->id;
-    $count = Planner::where('user_id',$userId)->exists();
-        if($count){
+    $isWorkout = Planner::where('user_id',$userId)->exists();
+        if($isWorkout){
             return Planner::where('user_id',$userId)->update([
                         'monday'=>$request->monday,
                         'tuesday'=>$request->tuesday,

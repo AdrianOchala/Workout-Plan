@@ -27,6 +27,16 @@
                         <v-list-item-title>Ustal trening</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
+                <v-list-item :to="{path: '/Measurments'}">
+                    <v-list-item-content>
+                        <v-list-item-title>Pomiary</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+                <v-list-item :to="{path: '/Statistics'}">
+                    <v-list-item-content>
+                        <v-list-item-title>Statystyki</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
                 <v-divider></v-divider>
                 <v-list-item :to="{path: '/UserSettings'}">
                     <v-list-item-content>
