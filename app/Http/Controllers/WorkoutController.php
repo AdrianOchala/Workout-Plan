@@ -11,6 +11,7 @@ use App\UserFollow;
 use App\WorkoutType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class WorkoutController extends Controller
 {
@@ -158,5 +159,17 @@ class WorkoutController extends Controller
             'saturday'=>$request->saturday,
             'sunday'=>$request->sunday
         ]);
+    }
+    public function getTodaysWorkout(){
+        $userId = Auth::user()->id;
+        $today = date('l');
+        $workoutId = Planner::where('user_id',$userId)->value($today);
+        if($workoutId){
+            return Workout::where('id',$workoutId)->get();
+        }else{
+            return response()->json([
+                                   'msg' => 'Brak ćwiczeń',
+                            ],202);
+        }
     }
 }

@@ -62,7 +62,7 @@ Route::get('unfollowWorkout/{id}','WorkoutController@unfollowWorkout'); // Unfol
 
 Route::get('getPlanedWorkouts','WorkoutController@getPlanedWorkouts'); // Pobiera dane do rozpiski tygodniowej
 Route::post('editPlanner','WorkoutController@editPlanner'); // Pobiera dane do rozpiski tygodniowej
-
+Route::get('getTodaysWorkout','WorkoutController@getTodaysWorkout');
 
 Route::get('getExercises','ExerciseController@getExercises');
 Route::post('addNewExercise','ExerciseController@addNewExercise');

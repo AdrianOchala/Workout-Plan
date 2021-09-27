@@ -1,5 +1,11 @@
 <template>
     <div class="container-fluid">
+        <v-row>
+            <v-col cols="12" lg="4" md="6" sm="12">
+                <TodaysWorkout></TodaysWorkout>
+            </v-col>
+        </v-row>
+
         Jesteś zalogowany a to jest twoja strona główna :)
 <!--        Ostatnio dodane artykuły   -->
         <v-row>
@@ -35,8 +41,9 @@
 <script>
 import ArticleCard from "../Modals/ArticleCard";
 import WorkoutCard from "../Modals/WorkoutCard";
+import TodaysWorkout from "../Modals/TodaysWorkout";
 export default {
-    components:{WorkoutCard, ArticleCard},
+    components:{TodaysWorkout, WorkoutCard, ArticleCard},
     name: "UserHomePage",
     data(){
         return{
