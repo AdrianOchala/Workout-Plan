@@ -46,7 +46,8 @@
                 </v-row>
                 <ckeditor :editor="editor" v-model="article.content" :config="editorConfig"></ckeditor>
                 <v-row justify="space-around">
-                        <v-btn outlined @click="addArticle" class="mt-4">Dodaj artykuł</v-btn>
+                        <v-btn v-if="editing" outlined @click="editArticle" class="mt-4">Edytuj artykuł</v-btn>
+                        <v-btn v-else outlined @click="addArticle" class="mt-4">Dodaj artykuł</v-btn>
                 </v-row>
             </v-card-text>
         </v-card>
@@ -64,6 +65,7 @@ export default {
     data(){
         return{
             article:{
+                id:null,
                 title:'',
                 category:'',
                 workout:null,
@@ -72,6 +74,7 @@ export default {
             },
             articleCategories:null,
             userWorkouts:null,
+            editing:false,
             editor: Editor,
             editorConfig: {
                 // The configuration of the editor.
@@ -146,7 +149,16 @@ export default {
             }else{
                 this.$toast.error('Coś poszło nie tak :(');
             }
-        }
+        },
+        async editArticle(){
+            const res = await this.callApi('post','/editArticle',this.article);
+            if(res.status === 200){
+                this.$toast.success('Pomyślnie edytowano artykuł',{timeout:3000});
+                setTimeout(()=>{ this.$router.push({name:'Articles'}) }, 3000);
+            }else{
+                this.$toast.error('Coś poszło nie tak :(');
+            }
+        },
     },
     async created(){
         const [categories,workouts] = await Promise.all([
@@ -159,12 +171,25 @@ export default {
             this.$toast.error('Nie udało się pobrać kategorii artykułu. Proszę odświeżyć stronę!',{timeout:5000});
         }
         if(workouts.status === 200){
-            console.log(workouts)
             if(workouts.data[0]){
                 this.userWorkouts = workouts.data;
             }
         }else{
             this.$toast.error('Nie udało się pobrać planów treningowych użytkownika. Proszę odświeżyć stronę!',{timeout:5000});
+        }
+       this.article.id = parseInt(this.$route.params.id);
+        if(this.article.id){
+            this.editing = true;
+            const response = await this.callApi('get',`/getArticle/${this.article.id}`);
+            if(response.status === 200){
+                this.article.title = response.data[0].title;
+                this.article.category = response.data[0].categories;
+                this.article.workout = response.data[0].workout.id;
+                this.article.content = response.data[0].content;
+                this.article.description = response.data[0].description;
+            }else{
+                this.$toast.error('Problem z pobraniem artykułów!');
+            }
         }
     },
 }

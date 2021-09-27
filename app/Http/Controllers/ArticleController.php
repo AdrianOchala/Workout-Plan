@@ -46,6 +46,34 @@ class ArticleController extends Controller
                                ],401);
         }
     }
+    public function editArticle(Request $request){
+        DB::beginTransaction();
+                try{
+                    Article::where('id',$request->id)->update([
+                                    'title'=>$request->title,
+                                    'content'=>$request->content,
+                                    'description'=>$request->description,
+                                    'workout_id'=>$request->workout,
+                            ]);
+
+                    ArticleCategory::where('article_id',$request->id)->delete();
+                    $categories = $request->category;
+                    $articleCategories = [];
+                    foreach($categories as $c){
+                        array_push($articleCategories, ['category_id'=>$c, 'article_id'=>$request->id]);
+                    }
+                    ArticleCategory::insert($articleCategories);
+                    DB::commit();
+                    return response()->json([
+                                           'msg' => 'Udało się edytować artykuł!',
+                                       ],200);
+                }catch(\Throwable $th){
+                    DB::rollback();
+                    return response()->json([
+                                           'msg' => 'Nie udało się edytować artykułu, spróbuj później.',
+                                       ],401);
+                }
+    }
     public function getLatestArticles(){
        return Article::with(['author','categories'])->orderBy('date','desc')->take(4)->get();
     }

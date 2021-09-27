@@ -32,10 +32,17 @@
             <v-btn color="deep-purple lighten-2" text class="mx-auto" @click="$router.push(`/SingleArticle/${article.id}`)">
                 Przejdź
             </v-btn>
+            <v-spacer></v-spacer>
+            <v-btn v-if="article.author.id === getUser.id" color="deep-purple lighten-2" text class="mx-auto"
+                   @click="$router.push(`/EditArticle/${article.id}`)">
+                Edytuj
+            </v-btn>
         </v-card-actions>
     </v-card>
 </template>
 <script>
+import {mapGetters} from "vuex";
+
 export default {
     props: ['article'],
     name: "ArticleCard",
@@ -43,6 +50,9 @@ export default {
         return{
 
         }
+    },
+    computed:{
+        ...mapGetters(['getUser']),
     },
 }
 </script>
