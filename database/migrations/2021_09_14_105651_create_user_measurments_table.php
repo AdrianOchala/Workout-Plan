@@ -17,8 +17,23 @@ class CreateUserMeasurmentsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('content');
-            $table->date('date');
+            $table->dateTime('date');
+            $table->integer('weight');
+            $table->integer('neck');
+            $table->integer('bicepsL');
+            $table->integer('bicepsR');
+            $table->integer('wristL');
+            $table->integer('wristR');
+            $table->integer('chest');
+            $table->integer('waist');
+            $table->integer('stomach');
+            $table->integer('crimson');
+            $table->integer('hips');
+            $table->integer('thighL');
+            $table->integer('thighR');
+            $table->integer('calfL');
+            $table->integer('calfR');
+
         });
     }
 

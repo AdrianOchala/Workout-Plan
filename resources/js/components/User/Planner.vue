@@ -247,7 +247,15 @@ export default {
     name: "Planner",
     data(){
         return{
-            plannedWorkouts:null,
+            plannedWorkouts: {
+                monday:null,
+                tuesday:null,
+                wednesday:null,
+                thursday:null,
+                friday:null,
+                saturday:null,
+                sunday:null
+            },
             isEditting:false,
             userWorkouts:null,
             editedPlan:{
@@ -298,7 +306,10 @@ export default {
         },
         async saveEditedPlanner(){
               const res = await this.callApi('post','/editPlanner',this.editedPlan);
-              if(res.status === 200){
+              if(res.status === 201){
+                  this.$toast.success('Pomyślnie edytowano',{timeout:2000});
+                  setTimeout(()=>{ this.$router.go() }, 2000);
+              }else if(res.status === 200){
                   this.$toast.success('Pomyślnie edytowano',{timeout:2000});
                   setTimeout(()=>{ this.$router.go() }, 2000);
               }
@@ -309,12 +320,13 @@ export default {
     },
     async created(){
         const [plan,workouts] = await Promise.all ([
-            this.callApi('get','getPlanedWorkouts'),
+            this.callApi('get','/getPlanedWorkouts'),
             this.callApi('get','/getUserWorkouts')
         ]);
         if(plan.status === 200){
-            this.plannedWorkouts = plan.data[0];
-            console.log(this.plannedWorkouts)
+            if(plan.data[0]){
+                this.plannedWorkouts = plan.data[0];
+            }
         }else{
             this.$toast.error('Nie udało się pobrać rozpiski tygodniowej...')
         }

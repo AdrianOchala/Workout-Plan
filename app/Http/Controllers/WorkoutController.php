@@ -150,15 +150,30 @@ class WorkoutController extends Controller
     }
     public function editPlanner(Request $request){
     $userId = Auth::user()->id;
-        return Planner::where('user_id',$userId)->update([
-            'monday'=>$request->monday,
-            'tuesday'=>$request->tuesday,
-            'wednesday'=>$request->wednesday,
-            'thursday'=>$request->thursday,
-            'friday'=>$request->friday,
-            'saturday'=>$request->saturday,
-            'sunday'=>$request->sunday
-        ]);
+    $count = Planner::where('user_id',$userId)->exists();
+        if($count){
+            return Planner::where('user_id',$userId)->update([
+                        'monday'=>$request->monday,
+                        'tuesday'=>$request->tuesday,
+                        'wednesday'=>$request->wednesday,
+                        'thursday'=>$request->thursday,
+                        'friday'=>$request->friday,
+                        'saturday'=>$request->saturday,
+                        'sunday'=>$request->sunday
+                    ]);
+        }else{
+            return Planner::create([
+                                    'user_id'=>$userId,
+                                    'monday'=>$request->monday,
+                                    'tuesday'=>$request->tuesday,
+                                    'wednesday'=>$request->wednesday,
+                                    'thursday'=>$request->thursday,
+                                    'friday'=>$request->friday,
+                                    'saturday'=>$request->saturday,
+                                    'sunday'=>$request->sunday
+                                ]);
+        }
+
     }
     public function getTodaysWorkout(){
         $userId = Auth::user()->id;

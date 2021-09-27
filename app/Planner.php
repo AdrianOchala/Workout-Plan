@@ -8,7 +8,7 @@ class Planner extends Model
 {
             public $timestamps=false;
             protected $fillable = [
-                        'monday','tuesday','wednesday','thursday','friday','saturday','sunday',
+                        'user_id','monday','tuesday','wednesday','thursday','friday','saturday','sunday',
                     ];
             public function monday(){
                  return $this->belongsTo('App\Workout','monday');
