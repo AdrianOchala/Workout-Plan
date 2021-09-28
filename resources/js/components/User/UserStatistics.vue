@@ -39,8 +39,6 @@
                         </v-expansion-panel>
                     </template>
                 </v-expansion-panels>
-
-
             </v-card-text>
         </v-card>
 
@@ -109,6 +107,7 @@ export default {
             console.log(this.stats.workout.id);
             console.log(this.stats.plan);
             const stringPlan = JSON.stringify(this.stats.plan)
+            console.log(stringPlan)
             const res = await this.callApi('post','addStatistics',{index:this.stats.workout.id,
                                                                                         plan:stringPlan});
             if(res.status === 201){

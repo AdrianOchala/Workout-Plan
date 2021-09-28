@@ -4,6 +4,9 @@
             <v-col cols="12" lg="4" md="6" sm="12">
                 <TodaysWorkout></TodaysWorkout>
             </v-col>
+            <v-col cols="12" lg="4" md="6" sm="12">
+                <BestStats></BestStats>
+            </v-col>
         </v-row>
 
         Jesteś zalogowany a to jest twoja strona główna :)
@@ -42,8 +45,9 @@
 import ArticleCard from "../Modals/ArticleCard";
 import WorkoutCard from "../Modals/WorkoutCard";
 import TodaysWorkout from "../Modals/TodaysWorkout";
+import BestStats from "../Modals/BestStats";
 export default {
-    components:{TodaysWorkout, WorkoutCard, ArticleCard},
+    components:{BestStats, TodaysWorkout, WorkoutCard, ArticleCard},
     name: "UserHomePage",
     data(){
         return{
