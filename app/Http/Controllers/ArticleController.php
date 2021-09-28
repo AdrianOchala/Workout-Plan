@@ -61,21 +61,10 @@ class ArticleController extends Controller
                     $categories = $request->category;
                     $articleCategories = [];
                     foreach($categories as $c){
-                        Log::info('Pojedyncze kategorie');
-                        Log::info($c);
-//                        Log::info($id);
                         array_push($articleCategories, ['category_id'=>$c, 'article_id'=>$request->id]);
                     }
-                    Log::info('Przed forem');
-                    Log::info($articleCategories);
-//                    for($i = 0; $i < $articleCategories.length; $i++){
-//                        ArticleCategory::create([
-//                            'article_id'=>$articleCategories[$i]->article_id,
-//                            'category_id'=>$articleCategories[$i]->category_id,
-//                        ]);
-//                    }
                     ArticleCategory::insert($articleCategories);
-                    Log::info('tu działa');
+
                     DB::commit();
                     return response()->json([
                                            'msg' => 'Udało się edytować artykuł!',
