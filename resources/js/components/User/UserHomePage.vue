@@ -7,9 +7,10 @@
             <v-col cols="12" lg="4" md="6" sm="12">
                 <BestStats></BestStats>
             </v-col>
+            <v-col cols="12" lg="4" md="6" sm="12">
+                <WeightChart></WeightChart>
+            </v-col>
         </v-row>
-
-        Jesteś zalogowany a to jest twoja strona główna :)
 <!--        Ostatnio dodane artykuły   -->
         <v-row>
             <v-col cols="12" lg="12">
@@ -46,8 +47,9 @@ import ArticleCard from "../Modals/ArticleCard";
 import WorkoutCard from "../Modals/WorkoutCard";
 import TodaysWorkout from "../Modals/TodaysWorkout";
 import BestStats from "../Modals/BestStats";
+import WeightChart from "../Modals/WeightChart";
 export default {
-    components:{BestStats, TodaysWorkout, WorkoutCard, ArticleCard},
+    components:{WeightChart, BestStats, TodaysWorkout, WorkoutCard, ArticleCard},
     name: "UserHomePage",
     data(){
         return{

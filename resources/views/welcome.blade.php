@@ -8,6 +8,8 @@
     <script>window.Laravel = { csrfToken: '{{ csrf_token() }}'}</script>
     <title>Workout Plan</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+
 
 
 </head>

@@ -39,4 +39,8 @@ class MeasurmentsController extends Controller
     public function deleteMeasurment(Request $request){
         return UserMeasurment::where('id',$request->index)->delete();
     }
+    public function getUserWeight(){
+        $userId = Auth::user()->id;
+        return UserMeasurment::where('user_id',$userId)->orderBy('date','asc')->select('weight','date')->get();
+    }
 }

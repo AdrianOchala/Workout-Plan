@@ -12,6 +12,11 @@ import Vuelidate from 'vuelidate';
 Vue.use(Vuelidate);
 Vue.mixin(common);
 Vue.use(Toast);
+import Chartkick from 'vue-chartkick'
+import {Chart, registerables } from 'chart.js'
+Chart.register(...registerables);
+
+Vue.use(Chartkick.use(Chart))
 
 Vue.component('index', require('./pages/MainComponent.vue').default);
 Vue.component('welcome', require('./pages/welcome.vue').default);
