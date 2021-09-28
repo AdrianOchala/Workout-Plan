@@ -104,10 +104,7 @@ export default {
             }
         },
         async addStatistics(){
-            console.log(this.stats.workout.id);
-            console.log(this.stats.plan);
             const stringPlan = JSON.stringify(this.stats.plan)
-            console.log(stringPlan)
             const res = await this.callApi('post','addStatistics',{index:this.stats.workout.id,
                                                                                         plan:stringPlan});
             if(res.status === 201){
@@ -121,10 +118,8 @@ export default {
             this.stats.plan = JSON.parse(this.stats.workout.plan);
             for( let a=0;a<this.stats.plan.length;a++){
                 this.stats.plan[a].weights = [];
-                console.log("ćwiczenie")
                 for(let j = 0; j<this.stats.plan[a].reps.length;j++){
                     this.stats.plan[a].weights[j] = 0;
-                    console.log("powtorzenian")
                 }
             }
         },
@@ -158,8 +153,6 @@ export default {
             for(let i = 0; i<this.statistics.length;i++){
                 this.statistics[i].content = JSON.parse(this.statistics[i].content);
             }
-
-            console.log(this.statistics)
         }else{
             this.$toast.error('Nie udało się pobrać statystyk...')
         }

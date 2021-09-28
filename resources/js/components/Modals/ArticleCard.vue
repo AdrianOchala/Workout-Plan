@@ -3,11 +3,9 @@
         <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
         <v-card-title>{{ article.title }}</v-card-title>
         <v-card-text>
-
                 <div class="grey--text">
                     {{ article.date }}
                 </div>
-
             <div class="my-4 text-subtitle-1" v-if="article.author.showUserName">
                 {{article.author.name}} {{article.author.surname}}
             </div>

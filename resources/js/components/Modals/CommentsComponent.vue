@@ -266,8 +266,6 @@ export default {
                 this.paginationInfo.current_page = response.data.current_page;
                 this.paginationInfo.total = response.data.last_page;
                 this.getWorkoutRating();
-                console.log("opinie:")
-                console.log(this.comments)
             }
         },
         async getWorkoutRating(){

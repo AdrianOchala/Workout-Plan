@@ -167,7 +167,6 @@ export default {
     },
     methods:{
         async editWorkout(){
-            console.log('edyytuje')
             const plan = JSON.stringify(this.workout.plan);
             const res = await this.callApi('post','/editWorkout', {plan:plan,
                 title: this.workout.title,
@@ -206,7 +205,6 @@ export default {
                 this.newExercise.difficulty = 0;
                 this.getExercises();
             }else{
-                console.log(res)
                 this.$toast.error('Nie udało się dodać ćwiczenia, proszę spróbować później...')
             }
         },
@@ -246,13 +244,6 @@ export default {
                 this.workout.description = response.data[0].[0].description;
                 this.workout.public = response.data[0].[0].public;
                 this.workout.plan = JSON.parse(response.data[0].[0].plan);
-
-                // this.userLike = response.data[1];
-                // this.userFollow = response.data[2];
-                //
-                // console.log("moj plan:")
-                // console.log(this.workout)
-
             }else{
                 this.$toast.error('Problem z pobraniem planu treningowego!');
             }

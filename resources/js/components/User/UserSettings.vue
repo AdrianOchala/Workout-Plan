@@ -248,7 +248,6 @@ export default {
             this.changeUserData = true;
         },
         async editUserData(){
-            console.log(this.userEdit);
             const response = await this.callApi('post','userEdit',this.userEdit);
             if(response.status === 200){
                 this.user.name = this.userEdit.name;

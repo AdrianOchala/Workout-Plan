@@ -189,7 +189,6 @@ export default {
                 this.$toast.error('Problem z pobraniem artykułów!');
             }
         }
-        console.log(this.article)
     },
 }
 </script>

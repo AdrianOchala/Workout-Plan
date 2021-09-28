@@ -157,16 +157,10 @@ export default {
         const id = parseInt(this.$route.params.id);
         const response = await this.callApi('get',`/getWorkout/${id}`);
         if(response.status === 200){
-            console.log("tutaj")
-            console.log(response.data[0].[0])
             this.workout = response.data[0].[0];
             this.workout.plan = JSON.parse(response.data[0].[0].plan);
             this.userLike = response.data[1];
             this.userFollow = response.data[2];
-
-            console.log("moj plan:")
-            console.log(this.workout)
-
         }else{
             this.$toast.error('Problem z pobraniem planu treningowego!');
         }

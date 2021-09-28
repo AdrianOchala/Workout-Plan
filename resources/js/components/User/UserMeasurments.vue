@@ -170,7 +170,6 @@ export default {
             }
         },
         async deleteMeasurment(index){
-            console.log(index)
             const res = await this.callApi('post','deleteMeasurment', {index:index});
             if(res.status === 200){
                 this.$toast.success('Pomyślnie usunięto pomiar z systemu.',{timeout:2000});

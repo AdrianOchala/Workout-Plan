@@ -2,7 +2,6 @@
     <v-card>
         <v-card-title style="background: rgba(0, 0, 0, 0.7); color: white;" >Maxy</v-card-title>
         <v-card-text class="pt-3" >
-<!--            <h5>Plan: <a @click="$router.push(`/Workout/${workout.id}`)">{{workout.title}} <v-icon >mdi-open-in-new</v-icon></a></h5>-->
             <h6>Pamiętaj o uzupełnieniu swoich statystyk dla lepszego śledzenia postępów.</h6>
 
             <p v-if="maxes" v-for="(m,index) in maxes" :key="index">
@@ -10,7 +9,6 @@
             </p>
         </v-card-text>
         <v-card-actions>
-<!--            <h5><a @click="$router.push(`/Workout/${workout.id}`)">Statystyki<v-icon >mdi-open-in-new</v-icon></a></h5>-->
         </v-card-actions>
     </v-card>
 </template>
@@ -56,7 +54,6 @@ export default {
                         }
                 }
             }
-            console.log(this.maxes)
         },
     },
     async created() {

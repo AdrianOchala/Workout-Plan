@@ -31,7 +31,7 @@ Route::get('getArticle/{id}','ArticleController@getArticle');
 Route::get('getArticlesForPagination','ArticleController@getArticlesForPagination');
 Route::get('getUserArticlesForPagination','ArticleController@getUserArticlesForPagination');
 
-//Route::get('getArticleComments/{id}','CommentsController@getArticleComments');
+
 Route::post('addComment','CommentsController@addComment');
 Route::post('addOpinion','CommentsController@addOpinion');
 Route::post('reportComment','CommentsController@reportComment');
