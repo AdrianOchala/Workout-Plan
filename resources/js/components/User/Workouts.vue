@@ -71,6 +71,7 @@ export default {
                 this.workouts = response.data.data;
                 this.paginationInfo.current_page = response.data.current_page;
                 this.paginationInfo.total = response.data.last_page;
+                console.log(this.workouts)
             }
         },
         async getUserFollowedWorkoutsForPagination(page = 1){
