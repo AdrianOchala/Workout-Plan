@@ -241,7 +241,18 @@ Exercise::create([
                      'difficulty'=>3,
                      'description'=>'Przy wyprostowanych plecach pochylamy się do przodu i opieramy jedną ręką o ławkę. W drugiej trzymamy sztangielkę i unosimy ramię nieco ponad linię pleców(nie niżej)-przedramię prostopadle do podłogi. Z tej pozycji pracując tylko tricepsem prostujemy ramię w łokciu unosząc ciężar aż do pełnego wyprostu. W pozycji końcowej zatrzymujemy na moment ruch dla lepszego napięcia mięśni. Musimy zwracać szczególną uwagę na to, by w trakcie ćwiczenia w ruchu było jedynie przedramię(praca w stawie łokciowym).Nie wolno dopuszczać do bujania ramieniem. Ruch opuszczania wolniejszy od unoszenia, z pełną kontrolą ciężaru. '
                  ]);
-
+Exercise::create([
+                     'name'=>'Bieżnia' ,
+                     'author_id'=>1,
+                     'difficulty'=>1,
+                     'description'=>'Opis zbędny, no bieżnia...'
+                 ]);
+Exercise::create([
+                     'name'=>'Rowerek' ,
+                     'author_id'=>1,
+                     'difficulty'=>1,
+                     'description'=>'Opis zbędny, no bieżnia...'
+                 ]);
 
 
 
