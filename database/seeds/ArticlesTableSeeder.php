@@ -15,10 +15,10 @@ class ArticlesTableSeeder extends Seeder
         for($i=0; $i<15; $i++){
 
         Article::create([
-            'author_id'=>4, 'title'=>'Testowy tytuł artykułu',
+            'author_id'=>4, 'title'=>'Lorem ipsum',
             'content'=>"<p>Tu wpisz treść artykułu.</p>",
-            'description'=>'opis dla artykułu',
-            'date'=>'2021-09-20'
+            'description'=>'Curabitur et eleifend libero. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer at viverra enim. Fusce pretium orci sit amet sagittis sodales. Integer auctor urna ullamcorper, venenatis purus mattis, pulvinar metus.',
+            'date'=>`2021-09+$i`
         ]);
         }
     }

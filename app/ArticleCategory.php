@@ -9,4 +9,5 @@ class ArticleCategory extends Pivot
 {
         public $incrementing = true;
             public $timestamps = false;
+
 }

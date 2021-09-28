@@ -2,14 +2,13 @@
     <div class="container-fluid">
         <v-card>
             <v-card-title style="background: rgba(0, 0, 0, 0.7); color: white; ">
-                <h3>Tworzenie nowego artykułu</h3>
+                <h3 v-if="editing">Edycja artykułu</h3>
+                <h3 v-else>Tworzenie nowego artykułu</h3>
             </v-card-title>
             <v-card-text>
                 <v-row>
                     <v-col cols="12" lg="7" sm="12">
-                        <v-text-field v-model="article.title" label="Podaj tytuł artykułu*"
-
-                        ></v-text-field>
+                        <v-text-field v-model="article.title" label="Podaj tytuł artykułu*"></v-text-field>
                     </v-col>
                     <v-col cols="12" lg="7" sm="12">
                         <v-select v-model="article.category"
@@ -37,7 +36,6 @@
                             label="Krótki opis wyświetlany w miniaturze..."
                             v-model="article.description"
                             hint="Max 250 znaków"
-                            :rules="rules"
                             filled
                             auto-grow
                             rows="2"
@@ -136,7 +134,7 @@ export default {
                     // Headers sent along with the XMLHttpRequest to the upload server.
                 }
             },
-            rules: [v => v.length <= 250 || 'Max 250 znaków'],
+            // rules: [v => v.length <= 250 || 'Max 250 znaków'],
 
         }},
 
@@ -191,6 +189,7 @@ export default {
                 this.$toast.error('Problem z pobraniem artykułów!');
             }
         }
+        console.log(this.article)
     },
 }
 </script>

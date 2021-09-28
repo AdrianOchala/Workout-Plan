@@ -2,7 +2,7 @@
     <v-card>
         <v-card-title style="background: rgba(0, 0, 0, 0.7); color: white;" >Waga</v-card-title>
         <v-card-text class="pt-3" >
-            <line-chart :data="charData"></line-chart>
+            <line-chart :data="charData" ></line-chart>
 
         </v-card-text>
         <v-card-actions>

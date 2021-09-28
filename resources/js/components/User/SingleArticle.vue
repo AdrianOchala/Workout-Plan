@@ -2,9 +2,9 @@
     <div class="container-fluid" v-if="article != null">
         <v-row>
             <v-col cols="12" >
-                <h2>
+                <h1>
                     {{article.title }}
-                </h2>
+                </h1>
                 <h6><span v-for="(a,id) in article.categories"> | {{a.name}} </span>|</h6>
                 <v-divider></v-divider>
                 <h5 v-if="article.workout">Plan treningowy, o którym mowa w artykule: <a @click="$router.push(`/Workout/${article.workout.id}`)" > {{article.workout.title}}</a></h5>
