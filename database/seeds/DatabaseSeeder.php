@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PlannersTableSeeder::class);
         $this->call(UserMeasurmentsTableSeeder::class);
         $this->call(UserWorkoutSessionsTableSeeder::class);
+        $this->call(OpinionsTableSeeder::class);
 
 
     }
