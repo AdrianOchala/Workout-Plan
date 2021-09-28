@@ -44,6 +44,6 @@ Po sklonowaniu lub pobraniu repozytorium:
 ```
 npm install
 php artisan migrate:fresh --seed
-npm run watch
+npm run watch / npm run dev
 php artisan serve
 ```
