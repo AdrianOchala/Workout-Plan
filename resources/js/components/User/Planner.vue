@@ -337,11 +337,9 @@ export default {
             this.$toast.error('Nie udało się pobrać planów treningowych...')
         }
         if(followed.status === 200){
-
             for(let i = 0; i<followed.data.length;i++){
                 this.userWorkouts.push(followed.data[i]);
             }
-            console.log(this.userWorkouts)
         }else{
             this.$toast.error('Nie udało się pobrać planów treningowych...')
         }

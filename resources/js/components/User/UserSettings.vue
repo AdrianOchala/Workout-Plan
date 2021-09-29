@@ -117,7 +117,7 @@
                             </v-col>
                             <v-col cols="12" sm="6" md="6">
                                 <v-text-field v-model="changeUserData ? user.height : userEdit.height" label="Wzrost" :disabled="changeUserData"
-                                              suffix="cm"
+                                              suffix="m"
                                 ></v-text-field>
                             </v-col>
                         </v-row>
