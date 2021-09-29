@@ -30,7 +30,9 @@ class WorkoutController extends Controller
         return Workout::with(['author'])->whereIn('id',$workouts)->orderBy('id','desc')->paginate($request->total);
     }
     public function getUserFollowedWorkouts(){
-        $userId = Auth::user()->id;
+         $userId = Auth::user()->id;
+         $workouts = UserFollow::where('user_id',$userId)->select('workout_id')->get();
+         return Workout::with(['author','type'])->whereIn('id',$workouts)->orderBy('id','desc')->get();
     }
     public function getWorkoutTypes(){
         return WorkoutType::get();

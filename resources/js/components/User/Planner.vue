@@ -319,7 +319,7 @@ export default {
 
     },
     async created(){
-        const [plan,workouts] = await Promise.all ([
+        const [plan,workouts,followed] = await Promise.all ([
             this.callApi('get','/getPlanedWorkouts'),
             this.callApi('get','/getUserWorkouts'),
             this.callApi('get','/getUserFollowedWorkouts'),
@@ -333,6 +333,15 @@ export default {
         }
         if(workouts.status === 200){
             this.userWorkouts = workouts.data;
+        }else{
+            this.$toast.error('Nie udało się pobrać planów treningowych...')
+        }
+        if(followed.status === 200){
+
+            for(let i = 0; i<followed.data.length;i++){
+                this.userWorkouts.push(followed.data[i]);
+            }
+            console.log(this.userWorkouts)
         }else{
             this.$toast.error('Nie udało się pobrać planów treningowych...')
         }
