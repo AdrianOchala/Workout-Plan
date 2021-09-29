@@ -98,7 +98,7 @@
                                         </v-col>
                                         <v-col cols="12" sm="4" md="4">
                                             <v-text-field v-model="user.height" label="Wzrost"
-                                                          suffix="cm"
+                                                          suffix="m"
                                             ></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="6">

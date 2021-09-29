@@ -48,6 +48,7 @@ import WorkoutCard from "../Modals/WorkoutCard";
 import TodaysWorkout from "../Modals/TodaysWorkout";
 import BestStats from "../Modals/BestStats";
 import WeightChart from "../Modals/WeightChart";
+import {mapGetters} from "vuex";
 export default {
     components:{WeightChart, BestStats, TodaysWorkout, WorkoutCard, ArticleCard},
     name: "UserHomePage",
@@ -73,6 +74,7 @@ export default {
             this.$toast.error('Problem z pobraniem planów treningowych!');
         }
     },
+
 }
 </script>
 

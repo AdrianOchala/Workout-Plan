@@ -12,7 +12,7 @@ class ArticleCategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        for($j=1;$j<15;$j++){
+        for($j=1;$j<17;$j++){
             for($i=1;$i<3;$i++){
                 ArticleCategory::create([
                     'category_id'=>rand(1,9) ,

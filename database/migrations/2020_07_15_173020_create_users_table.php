@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
                         $table->string('password');
                         $table->string('phone',20)->nullable();
                         $table->integer('age')->nullable();
-                        $table->integer('height')->nullable();
+                        $table->float('height',3,2)->nullable();
                         $table->string('sex');
                         $table->boolean('showUserName')->default(true);
                         $table->string('role')->default('User');

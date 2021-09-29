@@ -15,10 +15,11 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
         $this->call(WorkoutTypesTableSeeder::class);
-        $this->call(ArticlesTableSeeder::class);
-        $this->call(ArticleCategoriesTableSeeder::class);
         $this->call(ExercisesTableSeeder::class);
         $this->call(WorkoutsTableSeeder::class);
+        $this->call(ArticlesTableSeeder::class);
+        $this->call(ArticleCategoriesTableSeeder::class);
+
         $this->call(PlannersTableSeeder::class);
         $this->call(UserMeasurmentsTableSeeder::class);
         $this->call(UserWorkoutSessionsTableSeeder::class);

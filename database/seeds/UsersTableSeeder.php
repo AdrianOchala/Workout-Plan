@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
                                           'password'=>bcrypt('haslo123'),
                                           'phone'=>'123456789',
                                           'age'=>24,
-                                          'height'=>175,
+                                          'height'=>1.75,
                                           'sex'=>'male',
                                           'role'=>'Admin']);
         User::create(['name'=>'User',
@@ -28,7 +28,7 @@ class UsersTableSeeder extends Seeder
                               'password'=>bcrypt('haslo123'),
                               'phone'=>'500200100',
                               'age'=>20,
-                              'height'=>190,
+                              'height'=>1.90,
                               'sex'=>'male']);
 
         User::create(['name'=>'Adrian',
@@ -38,7 +38,7 @@ class UsersTableSeeder extends Seeder
                                       'password'=>bcrypt('haslo123'),
                                       'phone'=>'123456789',
                                       'age'=>24,
-                                      'height'=>175,
+                                      'height'=>1.75,
                                       'sex'=>'male',
                                       ]);
     User::create(['name'=>'Agata',
@@ -48,7 +48,7 @@ class UsersTableSeeder extends Seeder
                                           'password'=>bcrypt('haslo123'),
                                           'phone'=>'123456789',
                                           'age'=>24,
-                                          'height'=>165,
+                                          'height'=>1.65,
                                           'sex'=>'female',
                                           ]);
 

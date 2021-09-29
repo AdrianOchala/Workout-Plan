@@ -86,8 +86,13 @@
         computed: {
 
         },
-        created(){
+        async created(){
             this.$store.commit('updateUser', this.user);
+            const res = await this.callApi('get','getLatestUserWeight');
+            if(res.status === 200) {
+                console.log(res)
+                this.$store.commit('updateUserBMI',res.data.weight);
+            }
         },
         methods: {
 

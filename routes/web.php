@@ -65,6 +65,7 @@ Route::post('editPlanner','WorkoutController@editPlanner'); // Pobiera dane do r
 Route::get('getTodaysWorkout','WorkoutController@getTodaysWorkout');
 
 Route::get('getMeasurments','MeasurmentsController@getMeasurments');
+Route::get('getLatestUserWeight','MeasurmentsController@getLatestUserWeight');
 Route::get('getUserWeight','MeasurmentsController@getUserWeight');
 Route::post('addNewMeasurment','MeasurmentsController@addNewMeasurment');
 Route::post('deleteMeasurment','MeasurmentsController@deleteMeasurment');

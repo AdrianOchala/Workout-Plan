@@ -43,4 +43,8 @@ class MeasurmentsController extends Controller
         $userId = Auth::user()->id;
         return UserMeasurment::where('user_id',$userId)->orderBy('date','asc')->select('weight','date')->get();
     }
+    public function getLatestUserWeight(){
+        $userId = Auth::user()->id;
+        return UserMeasurment::where('user_id', $userId)->orderBy('date','asc')->select('weight')->first();
+    }
 }

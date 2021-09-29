@@ -5,6 +5,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
    state:{
         user:false,
+        userBMI:false,
         showLoginComponent:false,
         showRegisterComponent:false,
 
@@ -26,6 +27,9 @@ export default new Vuex.Store({
         getUser(state){
           return state.user;
         },
+        getUserBMI(state){
+            return state.userBMI;
+        },
         getShowLoginComponent(state){
            return state.showLoginComponent;
         },
@@ -43,6 +47,11 @@ export default new Vuex.Store({
        updateUser(state, data){
            state.user = data;
        },
+        updateUserBMI(state, data){
+           let BMI = data / Math.pow(state.user.height,2);
+           let rightBMI = Math.round(BMI * 100) / 100;
+           state.userBMI = rightBMI;
+        },
         setShowLoginComponent(state,data){
           state.showLoginComponent = data;
         },
