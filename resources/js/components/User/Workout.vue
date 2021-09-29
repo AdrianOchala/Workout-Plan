@@ -2,7 +2,13 @@
     <div class="container-fluid" v-if="workout != null">
         <v-card v-if="workout != null">
             <v-card-title style="background: rgba(0, 0, 0, 0.7); color: white; ">
-                {{ workout.title }} ({{ workout }})
+                {{ workout.title }} (<v-rating :value="workout.rating"
+                                               color="yellow darken-3"
+                                               background-color="grey darken-1"
+                                               empty-icon="$ratingFull"
+                                               small
+                                               half-increments
+            ></v-rating>)
                 <v-spacer></v-spacer>
 
                 <v-btn v-if="workout.author.id === getUser.id" @click="$router.push(`/EditWorkout/${workout.id}`)">Edytuj plan treningowy</v-btn>

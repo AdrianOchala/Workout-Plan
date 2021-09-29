@@ -20,7 +20,7 @@ class CreateOpinionsTable extends Migration
              $table->unsignedBigInteger('workout_id');
              $table->foreign('workout_id')->references('id')->on('workouts')->onDelete('cascade');
              $table->string('content');
-             $table->bigInteger('mark');
+             $table->float('mark',3,2);
              $table->dateTime('date');
 
         });

@@ -22,6 +22,11 @@
                         <v-list-item-title>Plany treningowe</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
+                <v-list-item :to="{path: '/Exercises'}">
+                    <v-list-item-content>
+                        <v-list-item-title>Ćwiczenia</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
                 <v-list-item :to="{path: '/Planner'}">
                     <v-list-item-content>
                         <v-list-item-title>Ustal trening</v-list-item-title>

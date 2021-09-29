@@ -12,6 +12,13 @@ class ExerciseController extends Controller
     $userId = Auth::user()->id;
         return Exercise::whereIn('author_id',[$userId, 1])->get();
     }
+    public function getSystemExercises(){
+        return Exercise::where('author_id',1)->get();
+    }
+    public function getUserExercises(){
+     $userId = Auth::user()->id;
+            return Exercise::where('author_id',$userId)->get();
+    }
     public function addNewExercise(Request $request){
     $userId = Auth::user()->id;
         $exist = Exercise::where('name',$request->name)->exists();
@@ -27,5 +34,8 @@ class ExerciseController extends Controller
                 'author_id'=>$userId,
             ]);
         }
+    }
+    public function deleteExercise(Request $request){
+        return Exercise::where('id',$request->id)->delete();
     }
 }

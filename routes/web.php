@@ -75,7 +75,10 @@ Route::get('getUserStats','StatisticsController@getUserStats');
 Route::post('deleteStats','StatisticsController@deleteStats');
 
 Route::get('getExercises','ExerciseController@getExercises');
+Route::get('getSystemExercises','ExerciseController@getSystemExercises');
+Route::get('getUserExercises','ExerciseController@getUserExercises');
 Route::post('addNewExercise','ExerciseController@addNewExercise');
+Route::post('deleteExercise','ExerciseController@deleteExercise');
 
 Route::any('{something}', function () {
     return view('welcome');
