@@ -25,9 +25,12 @@ class WorkoutController extends Controller
     }
     public function getUserFollowedWorkoutsForPagination(Request $request){
         $userId = Auth::user()->id;
-        $workouts = UserFollow::where('user_id',$userId)->value('workout_id');
-
-        return Workout::with(['author'])->where('id',$workouts)->orderBy('id','desc')->paginate($request->total);
+        $workouts = UserFollow::where('user_id',$userId)->select('workout_id')->get();
+        Log::info($workouts);
+        return Workout::with(['author'])->whereIn('id',$workouts)->orderBy('id','desc')->paginate($request->total);
+    }
+    public function getUserFollowedWorkouts(){
+        $userId = Auth::user()->id;
     }
     public function getWorkoutTypes(){
         return WorkoutType::get();

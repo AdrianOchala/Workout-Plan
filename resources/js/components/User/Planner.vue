@@ -321,7 +321,8 @@ export default {
     async created(){
         const [plan,workouts] = await Promise.all ([
             this.callApi('get','/getPlanedWorkouts'),
-            this.callApi('get','/getUserWorkouts')
+            this.callApi('get','/getUserWorkouts'),
+            this.callApi('get','/getUserFollowedWorkouts'),
         ]);
         if(plan.status === 200){
             if(plan.data[0]){
