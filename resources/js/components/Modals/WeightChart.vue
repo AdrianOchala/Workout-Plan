@@ -3,13 +3,17 @@
         <v-card-title style="background: rgba(0, 0, 0, 0.7); color: white;" >
             Waga
         <v-spacer></v-spacer>
-            BMI: {{getUserBMI}}
+            <span v-if="getUserBMI !== 'brak'">BMI: {{getUserBMI}}</span>
+            <span v-else>BMI: Uzupełnij wzrost!</span>
         </v-card-title>
         <v-card-text class="pt-3" >
-            <p v-if="getUserBMI < 18.5">Twoje BMI wskazuje na niedowagę.</p>
-            <p v-if="18.6 < getUserBMI & getUserBMI < 24.9">Twoje BMI wskazuje na prawidłową wagę ciała.</p>
-            <p v-if="25 < getUserBMI & getUserBMI < 29.9">Twoje BMI wskazuje na nadwagę.</p>
-            <p v-if="getUserBMI > 29.9">Twoje BMI wskazuje na otyłość.</p>
+            <div v-if="getUserBMI !== 'brak'">
+                <p v-if="getUserBMI < 18.5">Twoje BMI wskazuje na niedowagę.</p>
+                <p v-if="18.6 < getUserBMI & getUserBMI < 24.9">Twoje BMI wskazuje na prawidłową wagę ciała.</p>
+                <p v-if="25 < getUserBMI & getUserBMI < 29.9">Twoje BMI wskazuje na nadwagę.</p>
+                <p v-if="getUserBMI > 29.9">Twoje BMI wskazuje na otyłość.</p>
+            </div>
+
             <p>Pamiętaj jednak, że BMI jest jedynie prostym wzorem matematycznym, stosunkiem wagi do wzrostu.
              Dla osób z dużą masą mięśniową wynik BMI przekłamuje.</p>
 

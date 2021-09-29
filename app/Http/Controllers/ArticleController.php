@@ -64,7 +64,6 @@ class ArticleController extends Controller
                         array_push($articleCategories, ['category_id'=>$c, 'article_id'=>$request->id]);
                     }
                     ArticleCategory::insert($articleCategories);
-
                     DB::commit();
                     return response()->json([
                                            'msg' => 'Udało się edytować artykuł!',

@@ -8,7 +8,11 @@
             <v-card-text>
                 <v-row>
                     <v-col cols="12" lg="7" sm="12">
-                        <v-text-field v-model="article.title" label="Podaj tytuł artykułu*"></v-text-field>
+                        <v-text-field v-model="article.title" label="Podaj tytuł artykułu*"
+                                      :error-messages="articleTitleErrors"
+                                      @input="$v.article.title.$touch()"
+                                      @blur="$v.article.title.$touch()"
+                        ></v-text-field>
                     </v-col>
                     <v-col cols="12" lg="7" sm="12">
                         <v-select v-model="article.category"
@@ -17,6 +21,9 @@
                                   item-value="id"
                                   label="Wybierz kategorię dla artykułu*"
                                   multiple
+                                  :error-messages="articleCategoryErrors"
+                                  @input="$v.article.category.$touch()"
+                                  @blur="$v.article.category.$touch()"
                         ></v-select>
                     </v-col>
                     <v-col cols="12" lg="7" sm="12">
@@ -39,13 +46,18 @@
                             filled
                             auto-grow
                             rows="2"
+                            :error-messages="articleDescriptionErrors"
+                            @input="$v.article.description.$touch()"
+                            @blur="$v.article.description.$touch()"
                         ></v-textarea>
                     </v-col>
                 </v-row>
-                <ckeditor :editor="editor" v-model="article.content" :config="editorConfig"></ckeditor>
+                <ckeditor :editor="editor" v-model="article.content" :config="editorConfig" :error-messages="articleContentErrors"
+                          @input="$v.article.content.$touch()"
+                          @blur="$v.article.content.$touch()"></ckeditor>
                 <v-row justify="space-around">
-                        <v-btn v-if="editing" outlined @click="editArticle" class="mt-4">Edytuj artykuł</v-btn>
-                        <v-btn v-else outlined @click="addArticle" class="mt-4">Dodaj artykuł</v-btn>
+                        <v-btn v-if="editing" outlined @click="editArticle" class="mt-4":disabled="$v.article.$invalid" >Edytuj artykuł</v-btn>
+                        <v-btn v-else outlined @click="addArticle" class="mt-4" :disabled="$v.article.$invalid">Dodaj artykuł</v-btn>
                 </v-row>
             </v-card-text>
         </v-card>
@@ -55,6 +67,8 @@
 <script>
 import CKEditor from '@ckeditor/ckeditor5-vue2';
 import Editor from '@heaglock/custom-classic-ckeditor5';
+import {required, minLength, sameAs,email,numeric} from 'vuelidate/lib/validators';
+
 export default {
     name: "AddArticle",
     components:{
@@ -65,7 +79,7 @@ export default {
             article:{
                 id:null,
                 title:'',
-                category:'',
+                category:[],
                 workout:null,
                 content:'<p>Tu wpisz treść artykułu.</p>',
                 description:null,
@@ -137,7 +151,14 @@ export default {
             // rules: [v => v.length <= 250 || 'Max 250 znaków'],
 
         }},
-
+    validations:{
+        article:{
+            title:{required,minLength:minLength(3),},
+            category:{required},
+            content:{required,minLength:minLength(3),},
+            description:{required,minLength:minLength(3),},
+        }
+    },
     methods: {
         async addArticle(){
             const res = await this.callApi('post','addArticle',this.article);
@@ -181,14 +202,48 @@ export default {
             const response = await this.callApi('get',`/getArticle/${this.article.id}`);
             if(response.status === 200){
                 this.article.title = response.data[0].title;
-                this.article.category = response.data[0].categories;
-                this.article.workout = response.data[0].workout.id;
+                for(let i = 0; i<response.data[0].categories.length; i++){
+                    this.article.category[i] = response.data[0].categories[i].id;
+                }
+                if(response.data[0].workout){
+                    this.article.workout = response.data[0].workout.id;
+
+                }
                 this.article.content = response.data[0].content;
                 this.article.description = response.data[0].description;
             }else{
                 this.$toast.error('Problem z pobraniem artykułów!');
             }
         }
+    },
+    computed:{
+        articleTitleErrors(){
+            const errors = [];
+            if (!this.$v.article.title.$dirty) return errors;
+            !this.$v.article.title.minLength && errors.push('Podaj przynajmniej 3 znaki.');
+            !this.$v.article.title.required && errors.push('Tytuł jest wymagany.');
+            return errors;
+        },
+        articleDescriptionErrors(){
+            const errors = [];
+            if (!this.$v.article.description.$dirty) return errors;
+            !this.$v.article.description.minLength && errors.push('Podaj przynajmniej 3 znaki.');
+            !this.$v.article.description.required && errors.push('Opis jest wymagany.');
+            return errors;
+        },
+        articleCategoryErrors(){
+            const errors = [];
+            if (!this.$v.article.category.$dirty) return errors;
+            !this.$v.article.category.required && errors.push('Przynajmniej jedna kategoria jest wymagana.');
+            return errors;
+        },
+        articleContentErrors(){
+            const errors = [];
+            if (!this.$v.article.content.$dirty) return errors;
+            !this.$v.article.content.minLength && errors.push('Podaj przynajmniej 3 znaki.');
+            !this.$v.article.content.required && errors.push('Treść artykułu jest wymagana.');
+            return errors;
+        },
     },
 }
 </script>

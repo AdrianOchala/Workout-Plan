@@ -10,6 +10,9 @@
                     <v-row>
                         <v-col cols="12" lg="6" sm="12">
                             <v-text-field v-model="workout.title" label="Podaj tytuł planu treningowego*"
+                                          :error-messages="workoutTitleErrors"
+                                          @input="$v.workout.title.$touch()"
+                                          @blur="$v.workout.title.$touch()"
                             ></v-text-field>
                         </v-col>
                         <v-col cols="12" lg="6" sm="12">
@@ -17,6 +20,9 @@
                                       :items="workoutTypes"
                                       item-text="name"
                                       item-value="id"
+                                      :error-messages="workoutTypeErrors"
+                                      @input="$v.workout.type.$touch()"
+                                      @blur="$v.workout.type.$touch()"
                             ></v-select>
                         </v-col>
                         <v-col cols="12" lg="7" sm="12">
@@ -31,11 +37,17 @@
                                 filled
                                 auto-grow
                                 rows="2"
+                                :error-messages="workoutDescriptionErrors"
+                                @input="$v.workout.description.$touch()"
+                                @blur="$v.workout.description.$touch()"
                             ></v-textarea>
                         </v-col>
                         <v-col cols="12" lg="5" sm="12">
                             Czy chcesz, aby ten plan był publiczny?
-                            <v-radio-group v-model="workout.public" row>
+                            <v-radio-group v-model="workout.public" row
+                                           :error-messages="workoutPublicErrors"
+                                           @input="$v.workout.public.$touch()"
+                                           @blur="$v.workout.public.$touch()">
                                 <v-radio
                                     label="Tak"
                                     :value=true
@@ -83,7 +95,7 @@
                     <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn v-if="editing" outlined @click="editWorkout">Edytuj plan treningowy</v-btn>
-                        <v-btn v-else outlined @click="addWorkout">Dodaj plan treningowy</v-btn>
+                        <v-btn v-else outlined @click="addWorkout" :disabled="$v.workout.$invalid">Dodaj plan treningowy</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-col>
@@ -98,6 +110,9 @@
                     <v-row>
                         <v-col cols="12" lg="9" sm="12">
                             <v-text-field v-model="newExercise.name" label="Podaj tytuł ćwiczenia"
+                                          :error-messages="newExNameErrors"
+                                          @input="$v.newExercise.name.$touch()"
+                                          @blur="$v.newExercise.name.$touch()"
                             ></v-text-field>
                         </v-col>
                         <v-col cols="12" lg="3" sm="12">
@@ -123,13 +138,16 @@
                                 auto-grow
                                 background-color="#CFD8DC"
                                 rows="1"
+                                :error-messages="newExDescriptionErrors"
+                                @input="$v.newExercise.description.$touch()"
+                                @blur="$v.newExercise.description.$touch()"
                             ></v-textarea>
                         </v-col>
                     </v-row>
                 </v-card-text>
                 <v-card-actions class="justify-center">
                     <v-btn text color="primary" @click="addingNewExercise = false">Anuluj</v-btn>
-                    <v-btn text color="primary" @click="addNewExercise">Dodaj</v-btn>
+                    <v-btn text color="primary" @click="addNewExercise" :disabled="$v.newExercise.$invalid">Dodaj</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -139,6 +157,8 @@
 </template>
 
 <script>
+import {required, minLength} from 'vuelidate/lib/validators';
+
 export default {
     name: "AddWorkout",
     data(){
@@ -163,6 +183,18 @@ export default {
             addingNewExercise:false,
             editing:false,
             rules: [v => v.length <= 250 || 'Max 250 znaków'],
+        }
+    },
+    validations:{
+        workout:{
+            title:{required,minLength:minLength(3)},
+            type:{required},
+            description:{required,minLength:minLength(3)},
+            public:{required}
+        },
+        newExercise:{
+            name:{required,minLength:minLength(3)},
+            description:{required,minLength:minLength(3)}
         }
     },
     methods:{
@@ -249,7 +281,49 @@ export default {
             }
         }
 
-    }
+    },
+    computed:{
+        workoutTitleErrors(){
+            const errors = [];
+            if (!this.$v.workout.title.$dirty) return errors;
+            !this.$v.workout.title.minLength && errors.push('Podaj przynajmniej 3 znaki.');
+            !this.$v.workout.title.required && errors.push('Tytuł jest wymagany.');
+            return errors;
+        },
+        workoutTypeErrors(){
+            const errors = [];
+            if (!this.$v.workout.type.$dirty) return errors;
+            !this.$v.workout.type.required && errors.push('Typ jest wymagany.');
+            return errors;
+        },
+        workoutPublicErrors(){
+            const errors = [];
+            if (!this.$v.workout.public.$dirty) return errors;
+            !this.$v.workout.public.required && errors.push('Zaznacz czy plan ma być publiczny lub nie');
+            return errors;
+        },
+        workoutDescriptionErrors(){
+            const errors = [];
+            if (!this.$v.workout.description.$dirty) return errors;
+            !this.$v.workout.description.minLength && errors.push('Podaj przynajmniej 3 znaki.');
+            !this.$v.workout.description.required && errors.push('Opis planu jest wymagany.');
+            return errors;
+        },
+        newExNameErrors(){
+            const errors = [];
+            if (!this.$v.newExercise.name.$dirty) return errors;
+            !this.$v.newExercise.name.minLength && errors.push('Podaj przynajmniej 3 znaki.');
+            !this.$v.newExercise.name.required && errors.push('Nazwa ćwiczenia jest wymagana.');
+            return errors;
+        },
+        newExDescriptionErrors(){
+            const errors = [];
+            if (!this.$v.newExercise.description.$dirty) return errors;
+            !this.$v.newExercise.description.minLength && errors.push('Podaj przynajmniej 3 znaki.');
+            !this.$v.newExercise.description.required && errors.push('Opis ćwiczenia jest wymagany.');
+            return errors;
+        },
+    },
 }
 </script>
 

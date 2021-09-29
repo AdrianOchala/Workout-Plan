@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <v-card>
             <v-card-title style="background: rgba(0, 0, 0, 0.7); color: white;" >
-                cwiczenia:
+                Ćwiczenia:
                 <v-btn-toggle dark v-model="exType">
                     <v-btn outlined value="all">Wszystkie</v-btn>
                     <v-btn outlined value="own">Własne</v-btn>
@@ -83,6 +83,9 @@
                     <v-row>
                         <v-col cols="12" lg="9" sm="12">
                             <v-text-field v-model="newExercise.name" label="Podaj tytuł ćwiczenia"
+                                          :error-messages="newExNameErrors"
+                                          @input="$v.newExercise.name.$touch()"
+                                          @blur="$v.newExercise.name.$touch()"
                             ></v-text-field>
                         </v-col>
                         <v-col cols="12" lg="3" sm="12">
@@ -108,13 +111,16 @@
                                 auto-grow
                                 background-color="#CFD8DC"
                                 rows="1"
+                                :error-messages="newExDescriptionErrors"
+                                @input="$v.newExercise.description.$touch()"
+                                @blur="$v.newExercise.description.$touch()"
                             ></v-textarea>
                         </v-col>
                     </v-row>
                 </v-card-text>
                 <v-card-actions class="justify-center">
                     <v-btn text color="primary" @click="addingNewExercise = false">Anuluj</v-btn>
-                    <v-btn text color="primary" @click="addNewExercise">Dodaj</v-btn>
+                    <v-btn text color="primary" @click="addNewExercise" :disabled="$v.newExercise.$invalid">Dodaj</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -129,6 +135,7 @@
 <script>
 import {mapGetters} from "vuex";
 import deleteModal from '../Modals/DeleteModalComponent';
+import {minLength, required} from "vuelidate/lib/validators";
 
 export default {
     name: "Exercises",
@@ -147,6 +154,12 @@ export default {
                 description:'',
                 difficulty:0,
             },
+        }
+    },
+    validations:{
+        newExercise:{
+            name:{required,minLength:minLength(3)},
+            description:{required,minLength:minLength(3)}
         }
     },
     methods:{
@@ -188,6 +201,20 @@ export default {
     },
     computed: {
         ...mapGetters(['getDeleteModalData']),
+        newExNameErrors(){
+            const errors = [];
+            if (!this.$v.newExercise.name.$dirty) return errors;
+            !this.$v.newExercise.name.minLength && errors.push('Podaj przynajmniej 3 znaki.');
+            !this.$v.newExercise.name.required && errors.push('Nazwa ćwiczenia jest wymagana.');
+            return errors;
+        },
+        newExDescriptionErrors(){
+            const errors = [];
+            if (!this.$v.newExercise.description.$dirty) return errors;
+            !this.$v.newExercise.description.minLength && errors.push('Podaj przynajmniej 3 znaki.');
+            !this.$v.newExercise.description.required && errors.push('Opis ćwiczenia jest wymagany.');
+            return errors;
+        },
     },
     watch:{
         getDeleteModalData(obj){
@@ -196,6 +223,7 @@ export default {
             }
         }
     },
+
 }
 </script>
 

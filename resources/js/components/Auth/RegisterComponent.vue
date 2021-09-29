@@ -80,7 +80,10 @@
                                             </v-card>
                                         </v-col>
                                         <v-col cols="12" sm="4" md="4">
-                                            <v-radio-group v-model="user.sex" row >
+                                            <v-radio-group v-model="user.sex" row
+                                                           :error-messages="userSexErrors"
+                                                           @input="$v.user.sex.$touch()"
+                                                           @blur="$v.user.sex.$touch()">
                                                 <v-radio
                                                     label="Mężczyzna"
                                                     value="male"
@@ -182,6 +185,9 @@ export default {
                 required,
                 minLength:minLength(3),
             },
+            sex:{
+                required
+            },
             email:{
                 required,
                 email:email,
@@ -235,6 +241,12 @@ export default {
             if (!this.$v.user.nick.$dirty) return errors;
             !this.$v.user.nick.minLength && errors.push('Podaj przynajmniej 3 znaki.');
             !this.$v.user.nick.required && errors.push('Nick jest wymagany.');
+            return errors;
+        },
+        userSexErrors(){
+            const errors = [];
+            if (!this.$v.user.sex.$dirty) return errors;
+            !this.$v.user.sex.required && errors.push('Płeć jest wymagana.');
             return errors;
         },
         userEmailErrors(){

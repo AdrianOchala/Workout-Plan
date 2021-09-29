@@ -48,9 +48,14 @@ export default new Vuex.Store({
            state.user = data;
        },
         updateUserBMI(state, data){
-           let BMI = data / Math.pow(state.user.height,2);
-           let rightBMI = Math.round(BMI * 100) / 100;
-           state.userBMI = rightBMI;
+           if(state.user.height){
+               let BMI = data / Math.pow(state.user.height,2);
+               let rightBMI = Math.round(BMI * 100) / 100;
+               state.userBMI = rightBMI;
+           }else{
+               state.userBMI = 'brak';
+           }
+
         },
         setShowLoginComponent(state,data){
           state.showLoginComponent = data;
