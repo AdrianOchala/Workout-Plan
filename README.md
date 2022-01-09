@@ -1,4 +1,8 @@
 # Aplikacja do zarządzania treningami i wglądem w osiągi
+# Live: http://workout-plan.ct8.pl/
+e-mail: user@gmail.com
+
+hasło: haslo123
 
 # Technologie:
 
